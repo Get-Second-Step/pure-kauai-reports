@@ -27,7 +27,6 @@
   .header-right { display: flex; align-items: center; gap: 20px; }
   .header-badge { background: var(--teal-light); color: var(--teal-dark); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.04em; }
   .header-meta { font-size: 12px; color: var(--text-muted); }
-  .prepared-by { font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 10px; margin-top: 8px; }
 
   /* LAYOUT */
   .page { max-width: 1200px; margin: 0 auto; padding: 32px 32px 80px; }
@@ -40,7 +39,7 @@
 
   /* TABS */
   .tabs { display: flex; gap: 2px; margin-bottom: 24px; background: #fff; border-radius: var(--radius); padding: 4px; border: 1px solid var(--border); width: fit-content; flex-wrap: wrap; }
-  .tab { padding: 8px 20px; font-size: 13px; border: none; background: none; cursor: pointer; border-radius: var(--radius-sm); color: var(--text-muted); font-weight: 500; transition: all 0.15s; white-space: nowrap; }
+  .tab { padding: 8px 18px; font-size: 13px; border: none; background: none; cursor: pointer; border-radius: var(--radius-sm); color: var(--text-muted); font-weight: 500; transition: all 0.15s; white-space: nowrap; }
   .tab:hover { background: var(--gray-50); color: var(--text); }
   .tab.active { background: var(--gray-800); color: #fff; }
   .tab.warn { position: relative; }
@@ -50,11 +49,14 @@
 
   /* METRICS */
   .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+  .metric-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
   .metric-card { background: #fff; border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 22px; }
   .metric-card.highlight { border-color: var(--teal); background: linear-gradient(135deg, #f0fdf8 0%, #fff 100%); }
   .metric-card.alert { border-color: var(--coral); background: linear-gradient(135deg, #fdf4f2 0%, #fff 100%); }
+  .metric-card.win { border-color: var(--teal); background: linear-gradient(135deg, #f0fdf8 0%, #fff 100%); }
   .metric-label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
   .metric-value { font-size: 28px; font-weight: 600; color: var(--gray-800); line-height: 1; margin-bottom: 6px; }
+  .metric-value.big { font-size: 36px; color: var(--teal-dark); }
   .metric-sub { font-size: 12px; }
   .up { color: var(--teal-dark); } .down { color: var(--coral-dark); } .neutral { color: var(--text-muted); }
 
@@ -83,16 +85,19 @@
   .callout.amber { background: var(--amber-light); border-color: var(--amber); }
   .callout.coral { background: var(--coral-light); border-color: var(--coral); }
   .callout.green { background: var(--teal-light); border-color: var(--teal); }
+  .callout.purple { background: var(--purple-light); border-color: var(--purple); }
   .callout-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
   .callout.blue .callout-label { color: var(--blue); }
   .callout.amber .callout-label { color: var(--amber-dark); }
   .callout.coral .callout-label { color: var(--coral-dark); }
   .callout.green .callout-label { color: var(--teal-dark); }
+  .callout.purple .callout-label { color: var(--purple); }
   .callout-text { font-size: 13px; line-height: 1.65; }
   .callout.blue .callout-text { color: var(--blue-dark); }
   .callout.amber .callout-text { color: var(--amber-dark); }
   .callout.coral .callout-text { color: var(--coral-dark); }
   .callout.green .callout-text { color: var(--teal-dark); }
+  .callout.purple .callout-text { color: var(--purple); }
 
   /* CHARTS */
   .chart-section { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
@@ -109,8 +114,9 @@
   .badge-blue { background: var(--blue-light); color: var(--blue-dark); }
   .badge-gray { background: var(--gray-100); color: var(--gray-500); }
   .badge-coral { background: var(--coral-light); color: var(--coral-dark); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
 
-  /* TWO-COL */
+  /* TWO-COL / THREE-COL */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
   .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
   .insight-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
@@ -132,14 +138,19 @@
   .snapshot-bar span { font-size: 12px; color: var(--teal-dark); }
   .snapshot-bar strong { color: var(--teal-dark); }
 
+  /* FUNNEL */
+  .funnel-wrap { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+  .funnel-step { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; }
+  .funnel-bar-outer { flex: 1; background: var(--gray-100); border-radius: 6px; height: 44px; overflow: hidden; position: relative; }
+  .funnel-bar-inner { height: 44px; border-radius: 6px; display: flex; align-items: center; padding: 0 16px; font-size: 13px; font-weight: 600; color: #fff; transition: width 0.8s ease; }
+  .funnel-label { width: 170px; flex-shrink: 0; }
+  .funnel-label strong { display: block; font-size: 13px; color: var(--text); }
+  .funnel-label span { font-size: 11px; color: var(--text-muted); }
+  .funnel-val { width: 80px; flex-shrink: 0; text-align: right; font-size: 20px; font-weight: 700; color: var(--gray-800); }
+  .funnel-arrow { text-align: center; color: var(--gray-200); font-size: 20px; padding-left: 190px; margin-bottom: 4px; }
+
   /* DIVIDER */
   .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-
-  /* GOOGLE ADS CONNECT */
-  .connect-box { background: #fff; border: 2px dashed var(--gray-200); border-radius: var(--radius); padding: 32px; text-align: center; margin-bottom: 20px; }
-  .connect-box h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-  .connect-box p { font-size: 13px; color: var(--text-muted); max-width: 520px; margin: 0 auto 16px; line-height: 1.6; }
-  .connect-box code { background: var(--gray-100); padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 12px; }
 
   /* CALL DISTRIBUTION */
   .call-bar-wrap { display: flex; flex-direction: column; gap: 10px; }
@@ -149,6 +160,15 @@
   .call-bar-fill { height: 22px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 30px; border-radius: 4px 0 0 4px; transition: width 0.6s ease; }
   .call-bar-count { font-size: 12px; font-weight: 600; color: var(--text); width: 30px; text-align: right; }
 
+  /* ROAS HERO */
+  .roas-hero { background: linear-gradient(135deg, #085041 0%, #1D9E75 100%); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 24px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
+  .roas-hero-left h2 { font-size: 42px; font-weight: 700; letter-spacing: -1px; margin-bottom: 4px; }
+  .roas-hero-left p { font-size: 14px; opacity: 0.85; }
+  .roas-hero-stats { display: flex; gap: 32px; }
+  .roas-stat { text-align: center; }
+  .roas-stat .val { font-size: 22px; font-weight: 700; }
+  .roas-stat .lbl { font-size: 11px; opacity: 0.75; margin-top: 2px; }
+
   /* REPORT FOOTER */
   .report-footer { text-align: center; padding: 32px 0 0; }
   .report-footer p { font-size: 12px; color: var(--text-muted); }
@@ -156,9 +176,12 @@
 
   @media (max-width: 900px) {
     .metric-grid { grid-template-columns: 1fr 1fr; }
+    .metric-grid-3 { grid-template-columns: 1fr 1fr; }
     .two-col, .three-col { grid-template-columns: 1fr; }
     .page { padding: 20px 16px; }
     .header { padding: 14px 16px; flex-wrap: wrap; gap: 8px; }
+    .roas-hero { flex-direction: column; gap: 20px; }
+    .roas-hero-stats { flex-wrap: wrap; gap: 16px; }
   }
 </style>
 </head>
@@ -168,6 +191,9 @@
   <div>
     <div class="logo">PURE <span>KAUAI</span> &mdash; Monthly Performance Report</div>
   </div>
+  <div class="header-right">
+    <span class="header-badge">April 2026</span>
+  </div>
 </div>
 
 <div class="page">
@@ -176,8 +202,8 @@
   <div class="alert-banner">
     <div class="alert-icon">⚠️</div>
     <div class="alert-text">
-      <strong>Action Required: 77.6% of inbound calls went unanswered in April</strong>
-      <p>45 out of 58 calls were missed this month — peak spike of 15 calls on April 13 with only 2 answered (87% miss rate). This represents significant revenue leakage. Additionally, no Google Ads clicks are being attributed via GCLID in CallRail, indicating a tracking gap in the paid call tracking setup.</p>
+      <strong>Two critical issues this month: 77.6% missed call rate &amp; CallRail ↔ Google Ads integration FAILED</strong>
+      <p>45 of 58 calls went unanswered (revenue leakage). Separately, CallRail's Google Ads integration is broken — calls and form fills are not being sent back as conversions, which means Smart Bidding is flying blind. Both must be fixed before May budget is set.</p>
     </div>
   </div>
 
@@ -186,7 +212,9 @@
     <button class="tab" onclick="switchTab('pacing', this)">Revenue Pacing</button>
     <button class="tab warn" onclick="switchTab('calls', this)">Call Performance</button>
     <button class="tab" onclick="switchTab('ads', this)">Google Ads</button>
-    <button class="tab" onclick="switchTab('actions', this)">Issues &amp; Actions</button>
+    <button class="tab" onclick="switchTab('ga4', this)">GA4 &amp; Web</button>
+    <button class="tab" onclick="switchTab('attribution', this)">Revenue Attribution</button>
+    <button class="tab warn" onclick="switchTab('actions', this)">Issues &amp; Actions</button>
   </div>
 
   <!-- ======== OVERVIEW ======== -->
@@ -220,27 +248,27 @@
       </div>
     </div>
 
-    <div class="section-label">Call performance — April 2026</div>
+    <div class="section-label">Marketing performance highlights — April 2026</div>
     <div class="metric-grid">
+      <div class="metric-card win">
+        <div class="metric-label">Google Ads ROAS</div>
+        <div class="metric-value" style="color:var(--teal-dark)">17.3x</div>
+        <div class="metric-sub up">$111K tracked on $6,405 spend</div>
+      </div>
       <div class="metric-card">
-        <div class="metric-label">Total inbound calls</div>
-        <div class="metric-value">58</div>
-        <div class="metric-sub neutral">32 first-time callers</div>
+        <div class="metric-label">Hostfully total transactions</div>
+        <div class="metric-value">$1.46M</div>
+        <div class="metric-sub neutral">67 transactions &middot; Apr 2026</div>
       </div>
       <div class="metric-card alert">
         <div class="metric-label">Calls answered</div>
         <div class="metric-value">13</div>
         <div class="metric-sub down">22.4% answer rate — 45 missed</div>
       </div>
-      <div class="metric-card">
-        <div class="metric-label">Attributed to Google Ads</div>
-        <div class="metric-value">8</div>
-        <div class="metric-sub down">0 with GCLID — tracking gap</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Qualified calls (&gt;60s)</div>
-        <div class="metric-value">10</div>
-        <div class="metric-sub neutral">3 long conversations (&gt;5 min)</div>
+      <div class="metric-card alert">
+        <div class="metric-label">CallRail integration</div>
+        <div class="metric-value" style="font-size:18px;color:var(--coral-dark)">FAILED</div>
+        <div class="metric-sub down">Google Ads not receiving call conversions</div>
       </div>
     </div>
 
@@ -250,32 +278,27 @@
         <div class="chart-legend">
           <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Completed YTD</div>
           <div class="legend-item"><div class="legend-dot" style="background:#9FE1CB"></div>Forward booked</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#EEECE6"></div>Goal ($9.5M)</div>
         </div>
         <div class="chart-wrap">
           <canvas id="pacingChart"></canvas>
         </div>
       </div>
       <div class="chart-section">
-        <div class="chart-title">Calls by source — April 2026</div>
-        <div class="chart-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Answered</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#FAECE7"></div>Missed</div>
-        </div>
+        <div class="chart-title">April transactions by booking channel — Hostfully</div>
         <div class="chart-wrap">
-          <canvas id="callSourceChart"></canvas>
+          <canvas id="channelRevenueChart"></canvas>
         </div>
       </div>
     </div>
 
     <div class="two-col">
       <div class="callout green">
-        <div class="callout-label">Revenue on track</div>
-        <div class="callout-text">Pure Kauai is at 70.3% of its $9.5M annual goal with 8+ months remaining — the strongest April pacing in recorded history. Forward booking pipeline ($4.61M) is up 29% year-over-year, signaling continued demand. The business is performing exceptionally well.</div>
+        <div class="callout-label">Revenue on track — strongest April ever</div>
+        <div class="callout-text">Pure Kauai is at 70.3% of its $9.5M annual goal with 8+ months remaining. Forward booking pipeline ($4.61M) is up 29% year-over-year. Hostfully processed $1.46M in April transactions across 67 bookings. The business is performing exceptionally well.</div>
       </div>
       <div class="callout coral">
-        <div class="callout-label">Missed call revenue risk</div>
-        <div class="callout-text">With 45 missed calls and an average booking value of ~$27,000+, even a 10% conversion on missed calls = potentially 4–5 bookings = $100,000–$135,000 in unrealized revenue. Fixing call answering is the single highest-ROI action this month.</div>
+        <div class="callout-label">Two tracking gaps need immediate attention</div>
+        <div class="callout-text">CallRail's Google Ads integration is broken — phone calls and form submissions are not being passed back as conversions. This means Smart Bidding is using incomplete data. Additionally, 45 of 58 inbound calls were missed. Combined, these two issues represent significant revenue leakage and data loss.</div>
       </div>
     </div>
   </div>
@@ -356,6 +379,11 @@
       <div class="callout-text">Pure Kauai received 58 inbound calls in April. 45 went unanswered. This is a critical business issue — luxury vacation rental inquiries are often urgent and high-value. A caller who can't reach anyone will book with a competitor. At $27,148 average booking value, recovering just 3–4 missed bookings/month = $80K–$110K in additional revenue.</div>
     </div>
 
+    <div class="callout coral">
+      <div class="callout-label">CallRail ↔ Google Ads integration: FAILED — action required</div>
+      <div class="callout-text">The CallRail integration with Google Ads is broken. Calls and form submissions are <strong>not</strong> being sent back to Google Ads as conversion events. This means: (1) Smart Bidding cannot learn from phone leads, (2) the reported conversion count in Google Ads is severely undercounted, (3) the Phone Calls campaign cannot be reactivated without fixing this first. Go to CallRail → Settings → Integrations → Google Ads and reconnect.</div>
+    </div>
+
     <div class="section-label">Call summary — April 1–27, 2026</div>
     <div class="metric-grid">
       <div class="metric-card">
@@ -393,7 +421,7 @@
       </div>
       <div class="insight-card">
         <div class="insight-title">April 13 spike — 15 calls in one day</div>
-        <div class="insight-sub">April 13 had 15 calls — more than any other day. Only 2 were answered (87% miss rate). This was also the day of the latest Flash Report snapshot. Possible causes: marketing campaign, seasonal interest, or word-of-mouth. The volume suggests strong demand — the team was simply not available to handle it.</div>
+        <div class="insight-sub">April 13 had 15 calls — more than any other day. Only 2 were answered (87% miss rate). The volume suggests strong demand — the team was simply not available to handle it.</div>
         <div class="section-label" style="margin-top:16px">Source breakdown (all April)</div>
         <div class="call-bar-wrap">
           <div class="call-bar-row">
@@ -444,41 +472,67 @@
         </tbody>
       </table>
     </div>
-
-    <div class="callout amber">
-      <div class="callout-label">Tracking gap: Google Ads calls missing GCLID</div>
-      <div class="callout-text">8 calls were attributed to Google Ads by CallRail (via UTM or session signals) but <strong>0 of these have a GCLID attached</strong>. GCLID is the click identifier that links a Google Ads click to a call conversion. Without it, these 8 calls cannot be attributed back to specific campaigns or keywords in Google Ads, and Smart Bidding cannot learn from them. This needs to be fixed in the CallRail ↔ Google Ads integration settings.</div>
-    </div>
   </div>
 
   <!-- ======== GOOGLE ADS ======== -->
   <div id="view-ads" class="view">
 
     <div class="snapshot-bar">
-      <span>Live Google Ads API data &nbsp;&middot;&nbsp; Account 316-669-4225 &nbsp;&middot;&nbsp; April 1&ndash;27, 2026</span>
+      <span>Google Ads API &nbsp;&middot;&nbsp; Account 316-669-4225 &nbsp;&middot;&nbsp; April 1&ndash;27, 2026</span>
       <span><span class="badge badge-green">&#9679; Connected</span></span>
     </div>
 
+    <!-- ROAS Hero -->
+    <div class="roas-hero">
+      <div class="roas-hero-left">
+        <h2>17.3x ROAS</h2>
+        <p>$111,112 in tracked conversion value on $6,405 in ad spend</p>
+      </div>
+      <div class="roas-hero-stats">
+        <div class="roas-stat">
+          <div class="val">$6,405</div>
+          <div class="lbl">Total spend</div>
+        </div>
+        <div class="roas-stat">
+          <div class="val">3</div>
+          <div class="lbl">Purchase conversions</div>
+        </div>
+        <div class="roas-stat">
+          <div class="val">$111,112</div>
+          <div class="lbl">Conversion value</div>
+        </div>
+        <div class="roas-stat">
+          <div class="val">2,737</div>
+          <div class="lbl">Total clicks</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <div class="callout-label">The real story: 17.3x ROAS — not "$1,244 CPA"</div>
+      <div class="callout-text">Google Ads recorded 3 completed purchases with a total value of $111,112.28 — that's a <strong>17.3x return on $6,405 in spend</strong>. The raw API data showed only 5 conversion events with no value (the conversion action query doesn't capture booking revenue from GTM). The PDF data from the Google Ads interface confirms the true picture. Additionally, 3 Add to Cart events were recorded (early booking intent) — these are not purchases but signal pipeline. The $111K is only the <em>tracked</em> portion; BookingBridge shows total April transactions of $1.46M, meaning significant revenue remains unattributed.</div>
+    </div>
+
     <div class="metric-grid">
-      <div class="metric-card alert">
+      <div class="metric-card win">
         <div class="metric-label">Total April spend</div>
-        <div class="metric-value">$6,221</div>
-        <div class="metric-sub down">$4,962 active &plus; $1,259 now-paused campaigns</div>
+        <div class="metric-value">$6,405</div>
+        <div class="metric-sub neutral">$4,962 active &plus; $1,443 now-paused</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Total clicks</div>
         <div class="metric-value">2,737</div>
-        <div class="metric-sub neutral">69,351 impressions &middot; 3.95% avg CTR</div>
+        <div class="metric-sub neutral">69,351 impressions &middot; 3.95% CTR</div>
       </div>
-      <div class="metric-card alert">
-        <div class="metric-label">Tracked conversions</div>
-        <div class="metric-value">5</div>
-        <div class="metric-sub down">Secret Beach (3) &plus; Main Geo (2) only</div>
+      <div class="metric-card win">
+        <div class="metric-label">Purchase conversions</div>
+        <div class="metric-value">3</div>
+        <div class="metric-sub up">+3 Add to Cart &middot; $111,112 total value</div>
       </div>
-      <div class="metric-card alert">
-        <div class="metric-label">Cost per conversion</div>
-        <div class="metric-value">$1,244</div>
-        <div class="metric-sub down">Tracking broken &mdash; true CPA likely much lower</div>
+      <div class="metric-card win">
+        <div class="metric-label">ROAS</div>
+        <div class="metric-value" style="color:var(--teal-dark)">17.3x</div>
+        <div class="metric-sub up">$37,037 avg booking value tracked</div>
       </div>
     </div>
 
@@ -606,9 +660,9 @@
             <canvas id="qsChart"></canvas>
           </div>
         </div>
-        <div class="callout coral" style="margin-bottom:14px">
-          <div class="callout-label">$2,672 with zero conversions — California + Hanalei</div>
-          <div class="callout-text">These two active campaigns generated 624 clicks but no tracked conversions in April. Either conversion tracking is broken for these campaigns, or landing pages aren't converting. Both need a dedicated audit before April budget is maintained into May.</div>
+        <div class="callout amber" style="margin-bottom:14px">
+          <div class="callout-label">Why California shows 0 conversions</div>
+          <div class="callout-text">All 3 tracked purchases were attributed to Secret Beach + Main Geo campaigns. California ($1,644 spend, 381 clicks) showed 0 conversions — likely a landing page conversion issue or the purchasing intent is lower for California-targeted searches. Audit LP experience before maintaining May budget.</div>
         </div>
         <div class="callout green">
           <div class="callout-label">Brand efficiency — 42% CTR at $0.65 CPC</div>
@@ -617,55 +671,343 @@
       </div>
     </div>
 
-    <!-- Account Health -->
-    <div class="section-label">Account health summary &mdash; April 2026</div>
+    <div class="callout purple">
+      <div class="callout-label">Attribution note: Google Ads vs GA4 show different numbers — both are correct</div>
+      <div class="callout-text">Google Ads shows 3 purchases = $111,112. GA4 shows 28 purchases = $893,205. These are not the same metric. Google Ads uses <em>last-click / data-driven attribution</em> and only counts conversions it can attribute to an ad click. GA4 counts all purchases across all channels (Direct, Organic, Paid Search, etc.) using a session-based model. A guest who clicked a Google Ad but returned 3 days later to book directly will appear as Direct in GA4 but as a Google Ads conversion in the ad platform. Both views are accurate — they're measuring different things.</div>
+    </div>
+  </div>
+
+  <!-- ======== GA4 & WEB ======== -->
+  <div id="view-ga4" class="view">
+
+    <div class="snapshot-bar">
+      <span>Google Analytics 4 &nbsp;&middot;&nbsp; Property G-E8C5BS9ME8 &nbsp;&middot;&nbsp; April 2026</span>
+      <span><span class="badge badge-green">&#9679; Live</span></span>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card highlight">
+        <div class="metric-label">GA4 total purchases</div>
+        <div class="metric-value">28</div>
+        <div class="metric-sub up">All channels combined</div>
+      </div>
+      <div class="metric-card highlight">
+        <div class="metric-label">GA4 total revenue</div>
+        <div class="metric-value">$893K</div>
+        <div class="metric-sub up">$893,205 tracked in GA4</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Avg order value</div>
+        <div class="metric-value">$31,900</div>
+        <div class="metric-sub neutral">$893,205 / 28 purchases</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Top channel</div>
+        <div class="metric-value" style="font-size:20px">Direct</div>
+        <div class="metric-sub neutral">71% of all revenue attributed</div>
+      </div>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-label">Why "Direct" dominates GA4 — this is expected for luxury travel</div>
+      <div class="callout-text">71% of GA4-attributed revenue shows as Direct traffic. This is very common for high-consideration purchases like luxury vacation rentals. A guest may first find Pure Kauai via Google Ads or organic search, then return directly multiple times over days or weeks before booking. GA4 credits the last session — which is often Direct. This does <em>not</em> mean ads aren't working. It means the conversion window is longer than a single session. BookingBridge and Google Ads data (17.3x ROAS) tell the fuller story.</div>
+    </div>
+
+    <!-- Channel breakdown -->
+    <div style="display:grid;grid-template-columns:1.4fr 0.6fr;gap:16px;margin-bottom:20px">
+      <div>
+        <div class="section-label">Revenue by channel — April 2026 (GA4)</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Channel</th>
+              <th>Purchases</th>
+              <th>Revenue</th>
+              <th>% of total</th>
+              <th>Avg order</th>
+              <th>Note</th>
+            </tr></thead>
+            <tbody>
+              <tr class="current-row">
+                <td><strong>Direct</strong></td>
+                <td>20</td>
+                <td>$634,175</td>
+                <td><strong>71.0%</strong></td>
+                <td>$31,709</td>
+                <td><span class="badge badge-amber">Mostly return visits from ads/organic</span></td>
+              </tr>
+              <tr>
+                <td>Organic Search</td>
+                <td>3</td>
+                <td>$89,320</td>
+                <td>10.0%</td>
+                <td>$29,773</td>
+                <td><span class="badge badge-green">SEO working</span></td>
+              </tr>
+              <tr>
+                <td>Paid Search</td>
+                <td>2</td>
+                <td>$41,090</td>
+                <td>4.6%</td>
+                <td>$20,545</td>
+                <td><span class="badge badge-blue">Google Ads (last-click)</span></td>
+              </tr>
+              <tr>
+                <td>Referral</td>
+                <td>2</td>
+                <td>$80,200</td>
+                <td>9.0%</td>
+                <td>$40,100</td>
+                <td><span class="badge badge-gray">Travel advisors / partners</span></td>
+              </tr>
+              <tr>
+                <td>Organic Social</td>
+                <td>1</td>
+                <td>$48,420</td>
+                <td>5.4%</td>
+                <td>$48,420</td>
+                <td><span class="badge badge-gray">Instagram / Facebook</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Revenue share by channel</div>
+        <div class="chart-section" style="padding:18px">
+          <div class="chart-wrap" style="height:290px">
+            <canvas id="ga4ChannelChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-label">GA4 vs Hostfully: why the numbers differ</div>
+      <div class="callout-text">GA4 shows $893,205 in April revenue. Hostfully shows $1,460,187. The gap (~$567K) is primarily from OTA bookings (VRBO $117K + Airbnb $34K) that bypass purekauai.com entirely and cannot be tracked by GA4. Additionally, some Hostfully bookings may originate from direct Hostfully links shared via email or travel advisors — these complete on booking.purekauai.com, not the main website, and may not all fire GA4 events correctly. The Hostfully number is the authoritative revenue figure.</div>
+    </div>
+
+    <div class="section-label">Attribution model comparison — how the same booking looks in 3 systems</div>
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>Issue</th>
-          <th>Impact</th>
-          <th>Status</th>
+          <th>System</th>
+          <th>April purchases</th>
+          <th>April revenue tracked</th>
+          <th>Attribution logic</th>
+          <th>Use for</th>
         </tr></thead>
         <tbody>
           <tr>
-            <td>Only 5 conversions on $6,221 spend &mdash; $1,244 CPA</td>
-            <td>Conversion tracking likely broken for most campaigns</td>
-            <td><span class="badge badge-coral">Critical</span></td>
+            <td><strong>Hostfully PMS</strong></td>
+            <td>67 transactions</td>
+            <td>$1,460,187</td>
+            <td>All bookings regardless of source</td>
+            <td><span class="badge badge-green">Total business revenue</span></td>
           </tr>
           <tr>
-            <td>California campaign: $1,644 spend, 0 conversions</td>
-            <td>Largest active campaign with zero measurable return</td>
-            <td><span class="badge badge-coral">Audit urgently</span></td>
+            <td><strong>GA4</strong></td>
+            <td>28 purchases</td>
+            <td>$893,205</td>
+            <td>Session-based, last channel wins</td>
+            <td><span class="badge badge-blue">Website &amp; channel behavior</span></td>
           </tr>
           <tr>
-            <td>Hanalei campaign: $1,028 spend, 0 conversions</td>
-            <td>Phrase-match, good QS, but landing page not converting</td>
-            <td><span class="badge badge-amber">Review LPs</span></td>
-          </tr>
-          <tr class="current-row">
-            <td>PMax campaign &mdash; now paused &check;</td>
-            <td>Saves ~$1K&plus;/mo going forward. $1,089 spent before pause.</td>
-            <td><span class="badge badge-green">Done &check;</span></td>
-          </tr>
-          <tr class="current-row">
-            <td>Phone Calls campaign &mdash; now paused &check;</td>
-            <td>0 GCLID attribution in CallRail. Pausing was correct call.</td>
-            <td><span class="badge badge-green">Done &check;</span></td>
+            <td><strong>Google Ads</strong></td>
+            <td>3 purchases</td>
+            <td>$111,112</td>
+            <td>Ad-click attributed (last-click / data-driven)</td>
+            <td><span class="badge badge-blue">Ad ROI measurement</span></td>
           </tr>
           <tr>
-            <td>CallRail GCLID not passing &mdash; 8 April Ads calls unattributed</td>
-            <td>Smart Bidding cannot learn from phone conversions</td>
-            <td><span class="badge badge-amber">Fix in CallRail settings</span></td>
-          </tr>
-          <tr>
-            <td>Booking value in Google Ads ~$11K vs actual ~$27K</td>
-            <td>Bids systematically too low &mdash; ROAS appears worse than it is</td>
-            <td><span class="badge badge-amber">BookingBridge in progress</span></td>
+            <td><strong>BookingBridge</strong></td>
+            <td>72 tracked</td>
+            <td>Partial (of 413 booked)</td>
+            <td>Email match: form submit → Hostfully booking</td>
+            <td><span class="badge badge-amber">Ad-to-booking attribution</span></td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
 
+  <!-- ======== REVENUE ATTRIBUTION ======== -->
+  <div id="view-attribution" class="view">
+
+    <div class="snapshot-bar">
+      <span>BookingBridge &nbsp;&middot;&nbsp; Hostfully PMS &nbsp;&middot;&nbsp; April 2026 data</span>
+      <span><span class="badge badge-blue">&#9679; Multi-source</span></span>
+    </div>
+
+    <div class="section-label">Hostfully transaction breakdown — April 2026</div>
+    <div class="metric-grid">
+      <div class="metric-card highlight">
+        <div class="metric-label">Total transaction value</div>
+        <div class="metric-value">$1.46M</div>
+        <div class="metric-sub up">67 transactions · all channels</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Hostfully direct</div>
+        <div class="metric-value">$1.31M</div>
+        <div class="metric-sub neutral">$1,308,722 · 89.6% of total</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">VRBO bookings</div>
+        <div class="metric-value">$117K</div>
+        <div class="metric-sub neutral">$117,003 · 8.0% of total</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Airbnb bookings</div>
+        <div class="metric-value">$34K</div>
+        <div class="metric-sub neutral">$34,462 · 2.4% of total</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 0.8fr;gap:16px;margin-bottom:20px">
+      <div>
+        <div class="section-label">Revenue by booking channel</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Channel</th>
+              <th>April Revenue</th>
+              <th>% of total</th>
+              <th>Trackable?</th>
+            </tr></thead>
+            <tbody>
+              <tr class="current-row">
+                <td><strong>Hostfully (direct)</strong></td>
+                <td><strong>$1,308,722</strong></td>
+                <td><strong>89.6%</strong></td>
+                <td><span class="badge badge-green">Yes — BookingBridge tracks these</span></td>
+              </tr>
+              <tr class="alert-row">
+                <td>VRBO</td>
+                <td>$117,003</td>
+                <td>8.0%</td>
+                <td><span class="badge badge-coral">No — OTA, no web snippet access</span></td>
+              </tr>
+              <tr class="alert-row">
+                <td>Airbnb</td>
+                <td>$34,462</td>
+                <td>2.4%</td>
+                <td><span class="badge badge-coral">No — OTA, no web snippet access</span></td>
+              </tr>
+              <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>$1,460,187</strong></td>
+                <td>100%</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout green">
+          <div class="callout-label">Key takeaway: direct bookings dominate</div>
+          <div class="callout-text">89.6% of April revenue came through Hostfully direct — not VRBO or Airbnb. This is excellent for margin (no OTA commission ~15–20%) and means ads driving traffic to purekauai.com are reaching the most profitable booking channel. Growing this number further should be a core goal.</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">April revenue channel split</div>
+        <div class="chart-section" style="padding:18px">
+          <div class="chart-wrap" style="height:260px">
+            <canvas id="hostfullyChannelChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">BookingBridge attribution pipeline — last 6 months</div>
+
+    <div class="funnel-wrap">
+      <div class="funnel-step">
+        <div class="funnel-label">
+          <strong>Website Inquiries</strong>
+          <span>Forms submitted on purekauai.com</span>
+        </div>
+        <div class="funnel-bar-outer">
+          <div class="funnel-bar-inner" style="width:100%;background:#1D9E75">735 inquiries captured</div>
+        </div>
+        <div class="funnel-val">735</div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-label">
+          <strong>Booked in Hostfully</strong>
+          <span>Inquiry → confirmed booking</span>
+        </div>
+        <div class="funnel-bar-outer">
+          <div class="funnel-bar-inner" style="width:56.2%;background:#5DCAA5">413 confirmed bookings (56.2%)</div>
+        </div>
+        <div class="funnel-val">413</div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-label">
+          <strong>Attribution Tracked</strong>
+          <span>Email matched to ad click</span>
+        </div>
+        <div class="funnel-bar-outer">
+          <div class="funnel-bar-inner" style="width:9.8%;background:#185FA5">72 tracked (17.4%)</div>
+        </div>
+        <div class="funnel-val" style="color:var(--amber-dark)">72</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout amber">
+        <div class="callout-label">83% attribution gap — most bookings have no marketing source</div>
+        <div class="callout-text">Of 413 confirmed bookings, only 72 (17.4%) are attributed to a specific marketing source via BookingBridge. The remaining 341 bookings arrived through Hostfully directly, VRBO, Airbnb, travel advisors, or email — channels that don't pass through purekauai.com's tracking snippet. This is not a bug — it's the structural limit of web-based tracking in the vacation rental industry. Goal: grow the 17.4% by driving more traffic through purekauai.com.</div>
+      </div>
+      <div class="callout blue">
+        <div class="callout-label">How BookingBridge works</div>
+        <div class="callout-text">When a guest submits an inquiry form on purekauai.com, BookingBridge captures their email + UTM/GCLID. When the same email appears as a confirmed booking in Hostfully, it fires a GA4 conversion event with the booking revenue. This closes the gap between website ad clicks and actual bookings. The system is live and tracking — the 17.4% is what's currently attributed, not a ceiling.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Attribution coverage — what's trackable vs not</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Booking source</th>
+          <th>Volume estimate</th>
+          <th>BookingBridge trackable?</th>
+          <th>Why</th>
+        </tr></thead>
+        <tbody>
+          <tr class="current-row">
+            <td>Direct (purekauai.com form + Hostfully)</td>
+            <td>~250–300 bookings</td>
+            <td><span class="badge badge-green">Yes</span></td>
+            <td>Form submission captured by snippet, email matched in Hostfully</td>
+          </tr>
+          <tr class="alert-row">
+            <td>VRBO</td>
+            <td>~80–100 bookings</td>
+            <td><span class="badge badge-coral">No</span></td>
+            <td>Booking happens on VRBO platform, no access to booking page</td>
+          </tr>
+          <tr class="alert-row">
+            <td>Airbnb</td>
+            <td>~20–30 bookings</td>
+            <td><span class="badge badge-coral">No</span></td>
+            <td>Same as VRBO — OTA platform, closed ecosystem</td>
+          </tr>
+          <tr>
+            <td>Travel advisors / Referral</td>
+            <td>~30–50 bookings</td>
+            <td><span class="badge badge-amber">Partial</span></td>
+            <td>If advisor uses purekauai.com form, yes. If they call or email directly, no.</td>
+          </tr>
+          <tr>
+            <td>Direct Hostfully link / email</td>
+            <td>~20–40 bookings</td>
+            <td><span class="badge badge-amber">Partial</span></td>
+            <td>If they visited purekauai.com first and submitted a form, email may match</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- ======== ISSUES & ACTIONS ======== -->
@@ -679,49 +1021,49 @@
             <div class="issue-num red">1</div>
             <div class="issue-body">
               <strong>Fix the missed call problem — 45/58 calls unanswered</strong>
-              <span>Options: (a) Add a team member for call coverage during business hours; (b) Enable CallRail's SMS auto-response for missed calls — "Sorry we missed you, text us or visit purekauai.com/properties"; (c) Set up voicemail capture with prompt callbacks. At $27K average booking value, each recovered call = major revenue.</span>
+              <span>Options: (a) Add a team member for call coverage during business hours; (b) Enable CallRail's SMS auto-response for missed calls — "Sorry we missed you, text us or visit purekauai.com/properties"; (c) Set up voicemail capture with prompt callbacks. At $27K average booking value, each recovered call = major revenue. The April 13 spike (15 calls, 13 missed) suggests demand spikes happen unpredictably.</span>
             </div>
           </li>
           <li>
             <div class="issue-num red">2</div>
             <div class="issue-body">
-              <strong>Fix GCLID tracking in CallRail — 8 Google Ads calls missing attribution</strong>
-              <span>In CallRail: Settings → Integrations → Google Ads. Verify the "Import call conversions" toggle is ON and the Google Ads account is connected. Without this, Google Ads Smart Bidding cannot learn from phone calls, and the Phone Calls campaign's spend cannot be justified.</span>
+              <strong>Fix CallRail ↔ Google Ads integration — currently FAILED</strong>
+              <span>The CallRail integration is not sending calls or form submissions back to Google Ads as conversion events. Go to CallRail → Settings → Integrations → Google Ads. Reconnect the account and verify the "Import call conversions" toggle is ON. Without this: Smart Bidding cannot learn from phone leads, 8 April calls are unattributed in Google Ads, and the Phone Calls campaign cannot be justified or reactivated. This is not a minor fix — it affects all bidding decisions.</span>
             </div>
           </li>
           <li>
             <div class="issue-num" style="background:var(--teal)">3</div>
             <div class="issue-body">
-              <strong>PMax &amp; Phone Calls paused &mdash; good. Now reallocate the $1,258/mo.</strong>
-              <span>Both campaigns are now paused (confirmed via Google Ads API). PMax spent $1,089 and Phone Calls $169 before being paused in April. Reallocation recommendation: move budget to Brand (+$500/mo) and Main Geo (+$758/mo) where conversions are proven. Do not reactivate PMax until conversion tracking is fixed and there are 30+ days of booking data flowing through BookingBridge.</span>
+              <strong>PMax &amp; Phone Calls paused — good. Now reallocate the $1,258/mo budget.</strong>
+              <span>Both campaigns are confirmed paused (Google Ads API). Reallocation recommendation: move budget to Brand (+$500/mo) and Main Geo (+$758/mo) where conversions are proven. Do not reactivate PMax until CallRail integration is fixed and 30+ days of booking data flow through BookingBridge into Google Ads.</span>
             </div>
           </li>
           <li>
             <div class="issue-num amber">4</div>
             <div class="issue-body">
-              <strong>Audit the April 13 call spike — what caused 15 calls in one day?</strong>
-              <span>Unusual volume on April 13. Check: Did a blog post rank? Was there a social post? Did a travel advisor send traffic? Knowing the cause helps replicate it. 13 of 15 calls were missed — so the demand was there, the team just wasn't available.</span>
+              <strong>Audit California campaign — $1,644 spend, 0 tracked conversions</strong>
+              <span>California is the second-largest active campaign but recorded zero conversions in April. Two possibilities: (a) landing pages aren't converting California traffic, or (b) California visitors are booking via Direct later and the attribution isn't captured. Check: bounce rate and time-on-site for California sessions in GA4. If landing page experience is poor, update or redirect to high-converting property pages. If intent seems high but conversion is low, check the booking flow specifically.</span>
             </div>
           </li>
           <li>
             <div class="issue-num amber">5</div>
             <div class="issue-body">
-              <strong>BookingBridge — ensure April bookings are being matched and sent to GA4</strong>
-              <span>BookingBridge is live at pk.bookingbridge.getsecondstep.com. Verify the April dashboard shows tracked leads and matched conversions. The $27,208 average booking value needs to flow into Google Ads Smart Bidding for bids to improve.</span>
+              <strong>Grow BookingBridge attribution rate above 17.4%</strong>
+              <span>Currently only 72 of 413 bookings (17.4%) have a tracked marketing source. The gap is largely structural (OTA bookings can't be tracked) — but there's room to improve direct booking attribution. Action: ensure the BookingBridge snippet fires on ALL purekauai.com inquiry/contact forms, including property-specific pages. Verify form selector coverage in GTM. Each percentage point increase = more data for Smart Bidding.</span>
             </div>
           </li>
           <li>
-            <div class="issue-num red">6</div>
+            <div class="issue-num amber">6</div>
             <div class="issue-body">
-              <strong>Audit California Campaign — $1,644 spend, 0 conversions</strong>
-              <span>California is the second-largest active campaign at $1,644/mo but recorded zero conversions in April (live data confirmed). Two possibilities: (a) conversion tracking isn't firing for California landing pages, or (b) traffic quality is genuinely not converting. Check: Are California visitors landing on property-specific pages or the homepage? What's the bounce rate? What's the time on site? This should be the first thing Les reviews with the April numbers.</span>
+              <strong>Investigate 2 calls from booking.purekauai.com/payment page</strong>
+              <span>Two callers reached the payment page and then called. This suggests friction in the Hostfully checkout flow. Review the payment page for unclear steps, errors, or missing FAQs. A visitor who reaches the payment page is extremely high-intent — losing them here is costly. Check with Wendy/Aaron whether this is a known issue or a recurring pattern.</span>
             </div>
           </li>
           <li>
             <div class="issue-num" style="background:var(--blue)">7</div>
             <div class="issue-body">
-              <strong>Investigate 2 calls from booking.purekauai.com/payment page</strong>
-              <span>Two callers reached the payment page and then called. This suggests friction in the Hostfully checkout flow. Review the payment page for unclear steps, errors, or missing FAQs. A visitor who reaches the payment page is extremely high-intent — losing them here is costly.</span>
+              <strong>Investigate the April 13 call spike — 15 calls, cause unknown</strong>
+              <span>Check: Did a blog post rank or get shared? Was there a social post? Did a travel advisor send traffic? Cross-reference with GA4 sessions for April 13. Knowing the cause helps replicate it. 13 of 15 calls were missed — so demand was real and strong.</span>
             </div>
           </li>
         </ul>
@@ -731,37 +1073,40 @@
     <div class="section-label">What's working — keep doing this</div>
     <div class="three-col">
       <div class="callout green" style="margin-bottom:0">
+        <div class="callout-label">17.3x Google Ads ROAS</div>
+        <div class="callout-text">$111,112 in tracked conversions on $6,405 spend. The campaigns that are running well (Secret Beach, Main Geo, Brand) are delivering exceptional returns. Don't cut ad budget — fix the tracking gaps so bidding can improve further.</div>
+      </div>
+      <div class="callout green" style="margin-bottom:0">
         <div class="callout-label">Revenue pacing — strongest April ever</div>
-        <div class="callout-text">$6.68M identified at 70.3% of goal. Forward pipeline 29% ahead of 2025. The business fundamentals are strong.</div>
+        <div class="callout-text">$6.68M identified at 70.3% of goal. Forward pipeline 29% ahead of 2025. Hostfully processed $1.46M in April transactions. The business fundamentals are strong.</div>
       </div>
       <div class="callout green" style="margin-bottom:0">
-        <div class="callout-label">Brand campaign ROAS — 102:1</div>
-        <div class="callout-text">The Brand Campaign is exceptional. Continue protecting branded keywords and ensure the budget never runs out.</div>
-      </div>
-      <div class="callout green" style="margin-bottom:0">
-        <div class="callout-label">Organic search driving calls</div>
-        <div class="callout-text">21 of 58 calls came from Google Organic — the island guide content is working as a top-of-funnel call driver.</div>
+        <div class="callout-label">89.6% direct bookings via Hostfully</div>
+        <div class="callout-text">Only 10.4% of revenue goes through VRBO/Airbnb (OTAs). Keeping more bookings direct = saving 15–20% in OTA commission. Ads driving purekauai.com traffic are contributing to this direct booking ratio.</div>
       </div>
     </div>
 
     <hr class="divider">
-    <div class="section-label">Next month reporting — what will be added</div>
+    <div class="section-label">Next month reporting — what will be added / improved</div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Data source</th><th>Status</th><th>What it unlocks</th></tr></thead>
         <tbody>
           <tr><td>CallRail — calls</td><td><span class="badge badge-green">Live ✓</span></td><td>Source attribution, answer rates, landing page data</td></tr>
           <tr><td>Airtable — Flash Reports</td><td><span class="badge badge-green">Live ✓</span></td><td>Revenue pacing, YoY comparisons, trip counts</td></tr>
-          <tr><td>Google Ads — campaign data</td><td><span class="badge badge-green">Live ✓</span></td><td>Spend by campaign, keywords, Quality Score, daily data — account 316-669-4225</td></tr>
-          <tr><td>GA4 — web analytics</td><td><span class="badge badge-amber">Needs API setup</span></td><td>Sessions, users, pages per session, channel mix, revenue attribution</td></tr>
-          <tr><td>BookingBridge — conversions</td><td><span class="badge badge-blue">Live — verify data</span></td><td>Matched bookings, revenue attribution to Google Ads clicks</td></tr>
+          <tr><td>Google Ads — campaign data</td><td><span class="badge badge-green">Live ✓</span></td><td>Spend, keywords, Quality Score, daily data — account 316-669-4225</td></tr>
+          <tr><td>GA4 — web analytics</td><td><span class="badge badge-green">Live ✓</span></td><td>Purchases, revenue, channel mix, conversion behavior</td></tr>
+          <tr><td>BookingBridge — conversions</td><td><span class="badge badge-green">Live ✓</span></td><td>Form → booking attribution, 72 tracked leads in pipeline</td></tr>
+          <tr><td>Hostfully — transactions</td><td><span class="badge badge-green">Live ✓</span></td><td>Total revenue by booking channel (direct vs OTA)</td></tr>
+          <tr><td>CallRail → Google Ads integration</td><td><span class="badge badge-coral">FAILED — fix needed</span></td><td>When fixed: phone conversions in Smart Bidding, GCLID attribution</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="report-footer">
-    <p>Pure Kauai Monthly Report &mdash; April 2026 &middot; Prepared by <a href="https://getsecondstep.com">Second Step</a> &middot; Data: Airtable Flash Reports (live), CallRail (live), Google Ads API (live &mdash; April 1&ndash;27, 2026 &middot; account 316-669-4225)</p>
+    <p>Pure Kauai Monthly Report &mdash; April 2026 &middot; Prepared by <a href="https://getsecondstep.com">Second Step</a></p>
+    <p style="margin-top:4px">Data: Airtable Flash Reports · CallRail (Apr 1–27) · Google Ads API (account 316-669-4225) · GA4 (G-E8C5BS9ME8) · Hostfully PMS · BookingBridge</p>
     <p style="margin-top:6px">Questions? <a href="mailto:growth@shivendrarawat.com">growth@shivendrarawat.com</a></p>
   </div>
 
@@ -788,23 +1133,23 @@ new Chart(document.getElementById('pacingChart'), {
   }
 });
 
-/* ── Chart: Call Source ── */
-new Chart(document.getElementById('callSourceChart'), {
+/* ── Chart: Overview — Hostfully channel revenue ── */
+new Chart(document.getElementById('channelRevenueChart'), {
   type: 'doughnut',
   data: {
-    labels: ['Google Organic (21)', 'Direct (13)', 'purekauai.com (12)', 'Google Ads (8)', 'Other (4)'],
+    labels: ['Hostfully Direct ($1.31M)', 'VRBO ($117K)', 'Airbnb ($34K)'],
     datasets: [{
-      data: [21, 13, 12, 8, 4],
-      backgroundColor: ['#1D9E75', '#5DCAA5', '#185FA5', '#EF9F27', '#D3D1C7'],
+      data: [1308722, 117003, 34462],
+      backgroundColor: ['#1D9E75', '#185FA5', '#EF9F27'],
       borderWidth: 2, borderColor: '#fff'
     }]
   },
   options: {
     responsive: true, maintainAspectRatio: false,
-    cutout: '62%',
+    cutout: '60%',
     plugins: {
       legend: { position: 'right', labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12, padding: 10 } },
-      tooltip: { callbacks: { label: ctx => ' ' + ctx.label + ' calls' } }
+      tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.toLocaleString() } }
     }
   }
 });
@@ -935,6 +1280,48 @@ new Chart(document.getElementById('qsChart'), {
     scales: {
       x: { grid: { display: false }, ticks: { color: '#888780', font: { size: 11 } } },
       y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#888780', font: { size: 10 }, stepSize: 1 } }
+    }
+  }
+});
+
+/* ── Chart: GA4 Channel Revenue (doughnut) ── */
+new Chart(document.getElementById('ga4ChannelChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Direct ($634K)', 'Organic Search ($89K)', 'Paid Search ($41K)', 'Referral ($80K)', 'Organic Social ($48K)'],
+    datasets: [{
+      data: [634175, 89320, 41090, 80200, 48420],
+      backgroundColor: ['#1D9E75', '#5DCAA5', '#185FA5', '#EF9F27', '#7C4DBA'],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '55%',
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 10 }, color: '#6b6b68', boxWidth: 12, padding: 8 } },
+      tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.toLocaleString() } }
+    }
+  }
+});
+
+/* ── Chart: Hostfully channel (doughnut) ── */
+new Chart(document.getElementById('hostfullyChannelChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Hostfully Direct (89.6%)', 'VRBO (8.0%)', 'Airbnb (2.4%)'],
+    datasets: [{
+      data: [1308722, 117003, 34462],
+      backgroundColor: ['#1D9E75', '#185FA5', '#EF9F27'],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '58%',
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.toLocaleString() } }
     }
   }
 });

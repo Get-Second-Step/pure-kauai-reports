@@ -1,1894 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pure Kauai · Q1 2026 Summary · For Cody</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg:        #1b1b1b;
-      --bg2:       #232323;
-      --bg3:       #2a2a2a;
-      --orange:    #E87811;
-      --orange2:   #FF8C1A;
-      --text:      #F5F5F5;
-      --text2:     #B8B8B8;
-      --text3:     #888888;
-      --border:    #333333;
-      --success:   #4ADE80;
-      --success-bg: rgba(74,222,128,0.12);
-      --warn:      #FBBF24;
-      --warn-bg:   rgba(251,191,36,0.12);
-      --danger:    #EF4444;
-      --danger-bg: rgba(239,68,68,0.12);
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pure Kauai — April 2026 Summary</title>
+<style>
+  :root {
+    --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #085041; --teal-mid: #5DCAA5;
+    --coral: #D85A30; --coral-light: #FAECE7; --coral-dark: #993C1D;
+    --amber: #EF9F27; --amber-light: #FAEEDA; --amber-dark: #854F0B;
+    --blue: #185FA5; --blue-light: #E6F1FB; --blue-dark: #0C447C;
+    --gray-50: #F8F7F4; --gray-100: #EEECE6; --gray-200: #D3D1C7;
+    --gray-500: #888780; --gray-800: #2C2C2A; --text-muted: #6b6b68;
+    --border: rgba(0,0,0,0.09);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; background: #F4F2EC; color: var(--gray-800); line-height: 1.5; }
 
-    .page {
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 48px 36px 64px;
-    }
+  /* HEADER */
+  .header { background: #fff; border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-size: 15px; font-weight: 700; letter-spacing: 0.08em; color: var(--gray-800); }
+  .logo span { color: var(--teal); }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .badge-coral { background: var(--coral-light); color: var(--coral-dark); }
+  .badge-amber { background: var(--amber-light); color: var(--amber-dark); }
+  .badge-gray { background: var(--gray-100); color: var(--gray-500); }
 
-    /* HEADER */
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 40px;
-    }
-    .logo {
-      width: 44px; height: 44px;
-      background: var(--orange);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800; font-size: 18px;
-      color: white;
-    }
-    .header-text h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 22px; font-weight: 700;
-      color: white;
-      margin-bottom: 4px;
-    }
-    .header-text p {
-      font-size: 13px;
-      color: var(--text3);
-    }
-    .header-badge {
-      margin-left: auto;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 100px;
-      background: rgba(232,120,17,0.12);
-      color: var(--orange);
-      border: 1px solid rgba(232,120,17,0.3);
-    }
+  /* LAYOUT */
+  .page { max-width: 900px; margin: 0 auto; padding: 32px 32px 60px; }
 
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, rgba(232,120,17,0.12), rgba(74,222,128,0.08));
-      border: 1px solid var(--orange);
-      border-radius: 14px;
-      padding: 40px 36px;
-      margin-bottom: 36px;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 30px;
-      align-items: center;
-    }
-    .hero-block { text-align: center; }
-    .hero-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 14px;
-    }
-    .hero-value {
-      font-family: 'Poppins', sans-serif;
-      font-size: 52px;
-      font-weight: 800;
-      line-height: 1;
-    }
-    .hero-value.spend { color: var(--orange); }
-    .hero-value.return { color: var(--success); }
-    .hero-sub {
-      font-size: 13px;
-      color: var(--text2);
-      margin-top: 12px;
-    }
-    .hero-arrow {
-      font-family: 'Poppins', sans-serif;
-      font-size: 56px;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1;
-    }
-    .hero-bottom {
-      text-align: center;
-      margin-top: 30px;
-      padding-top: 26px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      font-size: 15px;
-      color: var(--text2);
-    }
-    .hero-bottom b.big {
-      color: var(--success);
-      font-size: 22px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800;
-    }
-    .hero-bottom b.orange { color: var(--orange); }
+  /* INTRO CARD */
+  .intro { background: var(--gray-800); color: #fff; border-radius: 14px; padding: 28px 32px; margin-bottom: 24px; }
+  .intro-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
+  .intro h1 { font-size: 21px; font-weight: 700; margin-bottom: 5px; }
+  .intro .subtitle { font-size: 13px; opacity: 0.75; }
+  .intro-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+  .intro-stat .val { font-size: 26px; font-weight: 700; color: #fff; }
+  .intro-stat .lbl { font-size: 11px; opacity: 0.65; margin-top: 2px; }
 
-    /* SECTION */
-    .section { margin-bottom: 44px; }
-    .section-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 8px;
-    }
-    .section-sub {
-      font-size: 13px;
-      color: var(--text3);
-      margin-bottom: 24px;
-    }
+  /* SECTION CARD */
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 14px; margin-bottom: 16px; overflow: hidden; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+  .card-header.green { border-left: 4px solid var(--teal); }
+  .card-header.red { border-left: 4px solid var(--coral); }
+  .card-header.amber { border-left: 4px solid var(--amber); }
+  .card-header.blue { border-left: 4px solid var(--blue); }
+  .card-title { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+  .card-header.green .card-title { color: var(--teal-dark); }
+  .card-header.red .card-title { color: var(--coral-dark); }
+  .card-header.amber .card-title { color: var(--amber-dark); }
+  .card-header.blue .card-title { color: var(--blue-dark); }
+  .detail-link { font-size: 11px; color: var(--teal); text-decoration: none; font-weight: 600; white-space: nowrap; }
+  .detail-link:hover { text-decoration: underline; }
+  .card-body { padding: 20px 24px; }
 
-    /* STATS ROW */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-bottom: 28px;
-    }
-    .stat {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px 16px;
-      text-align: center;
-    }
-    .stat-value {
-      font-family: 'Poppins', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 6px;
-    }
-    .stat-label {
-      font-size: 11px;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
+  /* STAT ROW */
+  .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .stat { flex: 1; min-width: 110px; }
+  .stat-val { font-size: 30px; font-weight: 700; line-height: 1.1; }
+  .stat-val.teal { color: var(--teal-dark); }
+  .stat-val.coral { color: var(--coral-dark); }
+  .stat-val.amber { color: var(--amber-dark); }
+  .stat-val.blue { color: var(--blue-dark); }
+  .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
 
-    /* CHART CARD */
-    .chart-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 26px 28px;
-      margin-bottom: 24px;
-    }
-    .chart-card h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 4px;
-    }
-    .chart-card .sub {
-      font-size: 12px;
-      color: var(--text3);
-      margin-bottom: 18px;
-    }
-    .chart-wrap { height: 280px; position: relative; }
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 
-    /* TWO COL */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 24px;
-    }
-    .col-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 26px 28px;
-    }
-    .col-card.green { border-left: 4px solid var(--success); }
-    .col-card.red   { border-left: 4px solid var(--danger); }
-    .col-card h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-    .col-card.green h3 { color: var(--success); }
-    .col-card.red h3   { color: var(--danger); }
-    .col-card ul {
-      list-style: none;
-      font-size: 14px;
-      color: var(--text2);
-      line-height: 1.95;
-    }
-    .col-card ul li { padding-left: 18px; position: relative; }
-    .col-card ul li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--text3);
-    }
-    .col-card ul b { color: var(--text); }
+  /* BULLETS */
+  .bullets { list-style: none; }
+  .bullets li { font-size: 13px; line-height: 1.65; padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
+  .bullets li:last-child { border-bottom: none; padding-bottom: 0; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+  .dot-teal { background: var(--teal); }
+  .dot-coral { background: var(--coral); }
+  .dot-amber { background: var(--amber); }
+  .dot-blue { background: var(--blue); }
+  .dot-gray { background: var(--gray-200); }
 
-    /* WHAT'S NEXT */
-    .next-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px 32px;
-      margin-bottom: 24px;
-    }
-    .step {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .step:last-child { border-bottom: none; padding-bottom: 0; }
-    .step:first-child { padding-top: 0; }
-    .step-num {
-      width: 32px; height: 32px;
-      flex-shrink: 0;
-      background: var(--orange);
-      color: white;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-    }
-    .step-body { flex: 1; }
-    .step-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 4px;
-    }
-    .step-desc {
-      font-size: 13px;
-      color: var(--text2);
-      line-height: 1.6;
-    }
+  /* DATA TABLE */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+  .data-table th { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: left; padding: 8px 12px; background: var(--gray-50); border-bottom: 1px solid var(--border); letter-spacing: 0.03em; }
+  .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr.highlight td { background: #f0fdf8; font-weight: 500; }
+  .data-table tr.warn td { background: #fdf4f2; }
 
-    /* CALLOUT */
-    .callout {
-      background: var(--bg2);
-      border-left: 4px solid var(--orange);
-      border-radius: 8px;
-      padding: 22px 26px;
-      margin-bottom: 24px;
-    }
-    .callout.success { border-left-color: var(--success); }
-    .callout-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--orange);
-      margin-bottom: 8px;
-    }
-    .callout.success .callout-title { color: var(--success); }
-    .callout-body {
-      font-size: 14px;
-      color: var(--text2);
-      line-height: 1.65;
-    }
+  /* NOTE BOX */
+  .note { background: var(--gray-50); border-radius: 8px; padding: 13px 16px; margin-top: 16px; font-size: 13px; line-height: 1.65; color: var(--text-muted); }
+  .note strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-500); margin-bottom: 5px; font-weight: 700; }
 
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      padding-top: 32px;
-      margin-top: 8px;
-      border-top: 1px solid var(--border);
-      color: var(--text3);
-      font-size: 12px;
-      line-height: 1.8;
-    }
-    .footer b { color: var(--orange); }
+  /* ACTION BOX */
+  .action { background: var(--amber-light); border-radius: 8px; padding: 13px 16px; margin-top: 16px; font-size: 13px; line-height: 1.65; color: var(--amber-dark); }
+  .action strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; font-weight: 700; }
+  .action-red { background: var(--coral-light); color: var(--coral-dark); border-radius: 8px; padding: 13px 16px; margin-top: 16px; font-size: 13px; line-height: 1.65; }
+  .action-red strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; font-weight: 700; }
 
-    @media (max-width: 700px) {
-      .page { padding: 32px 20px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 16px; }
-      .hero-arrow { transform: rotate(90deg); }
-      .hero-value { font-size: 40px; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .two-col { grid-template-columns: 1fr; }
-    }
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 4px; }
 
-    /* TABS */
-    .tabs {
-      display: flex;
-      gap: 4px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 32px;
-      overflow-x: auto;
-    }
-    .tab {
-      padding: 12px 22px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text3);
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.15s;
-      white-space: nowrap;
-      user-select: none;
-      background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      font-family: 'Inter', sans-serif;
-    }
-    .tab:hover { color: var(--text); }
-    .tab.active { color: var(--orange); border-bottom-color: var(--orange); }
-    .tab-count {
-      display: inline-block;
-      margin-left: 8px;
-      padding: 2px 8px;
-      border-radius: 100px;
-      background: var(--bg3);
-      font-size: 10.5px;
-      font-weight: 700;
-    }
-    .tab.active .tab-count {
-      background: rgba(232,120,17,0.18);
-      color: var(--orange);
-    }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; animation: fade 0.2s ease; }
-    @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  /* PROGRESS BAR */
+  .prog-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .prog-label { font-size: 12px; color: var(--text-muted); width: 120px; flex-shrink: 0; }
+  .prog-track { flex: 1; background: var(--gray-100); border-radius: 4px; height: 20px; overflow: hidden; }
+  .prog-fill { height: 20px; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; }
+  .prog-count { width: 28px; text-align: right; font-size: 12px; font-weight: 600; color: var(--gray-800); }
 
-    /* BOOKINGS TABLE */
-    .bk-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-    .bk-callout {
-      background: var(--bg2);
-      border-left: 4px solid var(--orange);
-      border-radius: 8px;
-      padding: 18px 22px;
-      margin-bottom: 24px;
-      font-size: 13.5px;
-      color: var(--text2);
-      line-height: 1.65;
-    }
-    .bk-callout b { color: var(--text); }
-    .bk-callout .title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--orange);
-      margin-bottom: 6px;
-    }
-    .bk-table-wrap {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .bk-table-head {
-      padding: 16px 22px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .bk-table-head h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-    }
-    .bk-table-head .csv-btn {
-      font-size: 11px;
-      color: var(--orange);
-      text-decoration: none;
-      border: 1px solid var(--orange);
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-weight: 600;
-      background: rgba(232,120,17,0.08);
-    }
-    .bk-search {
-      padding: 8px 14px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 6px;
-      font-size: 12.5px;
-      font-family: 'Inter', sans-serif;
-      width: 240px;
-    }
-    .bk-search:focus { outline: none; border-color: var(--orange); }
-    .bk-table-scroll { max-height: 70vh; overflow-y: auto; }
-    .bk-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.5px;
-    }
-    .bk-table th {
-      text-align: left;
-      font-weight: 600;
-      color: var(--text3);
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
-      font-size: 10.5px;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      background: #1f1f1f;
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-    .bk-table td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text2);
-      vertical-align: top;
-    }
-    .bk-table tr:hover td { background: rgba(255,255,255,0.02); }
-    .bk-table td.num, .bk-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
-    .bk-table td.strong { color: var(--text); font-weight: 600; }
-    .bk-name { color: var(--text); font-weight: 600; }
-    .bk-email { font-size: 11px; color: var(--text3); margin-top: 2px; }
-    .mono { font-family: 'JetBrains Mono', 'Menlo', monospace; font-size: 10.5px; color: var(--text2); }
-    .muted { color: var(--text3); }
-    .pill { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 10.5px; font-weight: 700; }
-    .pill.good { background: rgba(74,222,128,0.12); color: var(--success); }
-    .pill.bad { background: rgba(239,68,68,0.12); color: var(--danger); }
-    .link-orange { color: var(--orange); text-decoration: none; }
+  /* STATUS TAG */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .tag-fail { background: var(--coral-light); color: var(--coral-dark); }
+  .tag-ok { background: var(--teal-light); color: var(--teal-dark); }
+  .tag-warn { background: var(--amber-light); color: var(--amber-dark); }
 
-    /* ── Before → After tab ── */
-    .ba-hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 36px;
-    }
-    .ba-hero-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px 20px;
-      text-align: center;
-    }
-    .ba-hero-card.good { border-color: rgba(74,222,128,0.35); background: rgba(74,222,128,0.05); }
-    .ba-hero-card.warn { border-color: rgba(232,120,17,0.35); background: rgba(232,120,17,0.05); }
-    .ba-hero-val {
-      font-family: 'Poppins', sans-serif;
-      font-size: 34px; font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 8px;
-    }
-    .ba-hero-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); }
-    .ba-hero-sub { font-size: 12px; color: var(--text3); margin-top: 6px; }
+  /* CTA */
+  .full-report-cta { background: var(--teal-light); border: 1px solid var(--teal); border-radius: 12px; padding: 20px 24px; text-align: center; margin-top: 24px; }
+  .full-report-cta p { font-size: 13px; color: var(--teal-dark); margin-bottom: 12px; line-height: 1.6; }
+  .full-report-cta a { display: inline-block; background: var(--teal); color: #fff; font-size: 13px; font-weight: 600; padding: 11px 28px; border-radius: 8px; text-decoration: none; }
 
-    .ba-section-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 18px; font-weight: 700; color: white;
-      margin-bottom: 6px;
-    }
-    .ba-section-sub { font-size: 13px; color: var(--text3); margin-bottom: 20px; }
+  /* FOOTER */
+  .footer { text-align: center; margin-top: 28px; }
+  .footer p { font-size: 12px; color: var(--text-muted); line-height: 1.9; }
+  .footer a { color: var(--teal); text-decoration: none; }
 
-    .ba-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 36px; }
-    .ba-table { width: 100%; border-collapse: collapse; }
-    .ba-table th {
-      background: var(--bg3);
-      padding: 11px 14px;
-      font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.06em;
-      color: var(--text3);
-      text-align: left;
-      white-space: nowrap;
-    }
-    .ba-table th.right, .ba-table td.right { text-align: right; }
-    .ba-table td {
-      padding: 14px 14px;
-      border-top: 1px solid var(--border);
-      vertical-align: middle;
-      font-size: 13.5px;
-      color: var(--text2);
-    }
-    .ba-table tr:hover td { background: rgba(255,255,255,0.02); }
-    .ba-campaign { font-weight: 700; color: var(--text); font-size: 14px; }
-    .ba-action-pill {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 11px; font-weight: 700;
-      white-space: nowrap;
-    }
-    .ba-action-pill.scale { background: rgba(74,222,128,0.15); color: #4ADE80; }
-    .ba-action-pill.optimize { background: rgba(251,191,36,0.15); color: #FBBF24; }
-    .ba-action-pill.pause { background: rgba(239,68,68,0.15); color: #EF4444; }
-    .ba-action-pill.kill { background: rgba(239,68,68,0.25); color: #EF4444; }
-    .ba-action-pill.restructure { background: rgba(139,92,246,0.15); color: #A78BFA; }
-
-    .ba-before { color: var(--text3); }
-    .ba-after-good { color: #4ADE80; font-weight: 700; }
-    .ba-after-save { color: #4ADE80; font-weight: 700; }
-    .ba-after-tbd { color: var(--text3); font-style: italic; }
-
-    .ba-tracker { margin-bottom: 36px; }
-    .ba-tracker-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .ba-tracker-row:last-child { border-bottom: none; }
-    .ba-status-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      margin-top: 5px;
-      flex-shrink: 0;
-    }
-    .ba-status-dot.done { background: #4ADE80; }
-    .ba-status-dot.inprog { background: #FBBF24; }
-    .ba-status-dot.pending { background: var(--text3); }
-    .ba-tracker-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-    .ba-tracker-sub { font-size: 12px; color: var(--text3); }
-    .ba-tracker-date { font-size: 11px; font-weight: 700; color: var(--text3); margin-left: auto; white-space: nowrap; }
-    .link-orange:hover { text-decoration: underline; }
-    .row-hidden { display: none; }
-  </style>
+  @media (max-width: 640px) {
+    .page { padding: 16px 16px 48px; }
+    .header { padding: 14px 16px; flex-wrap: wrap; gap: 8px; }
+    .intro { padding: 20px 18px; }
+    .card-body { padding: 16px 18px; }
+    .card-header { padding: 14px 18px 12px; }
+    .two-col { grid-template-columns: 1fr; }
+    .stat-val { font-size: 26px; }
+    .intro-stats { gap: 16px; }
+    .intro-stat .val { font-size: 22px; }
+  }
+</style>
 </head>
 <body>
 
+<div class="header">
+  <div class="logo">PURE <span>KAUAI</span></div>
+  <div class="header-right">
+    <span class="badge badge-teal">April 2026</span>
+    <span class="badge badge-gray">Executive Summary</span>
+  </div>
+</div>
+
 <div class="page">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo">SS</div>
-    <div class="header-text">
-      <h1>Pure Kauai · Q1 2026 Summary</h1>
-      <p>January 1 – March 31, 2026 · 90-day Google Ads performance</p>
-    </div>
-    <div class="header-badge">For Cody</div>
-  </div>
-
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab active" data-tab="summary">Q1 Summary</button>
-    <button class="tab" data-tab="bookings">Q1 Bookings <span class="tab-count">55</span></button>
-    <button class="tab" data-tab="changes">Before → After <span class="tab-count" style="background:rgba(74,222,128,0.18);color:#4ADE80;">Q2</span></button>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- TAB: SUMMARY (the existing report) -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div id="tab-summary" class="tab-panel active">
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-grid">
-      <div class="hero-block">
-        <div class="hero-label">Money Spent</div>
-        <div class="hero-value spend">$26,117</div>
-        <div class="hero-sub">Google Ads · 90 days</div>
-      </div>
-      <div class="hero-arrow">→</div>
-      <div class="hero-block">
-        <div class="hero-label">Money It Made</div>
-        <div class="hero-value return">$342,907</div>
-        <div class="hero-sub">19 bookings · avg $18,047</div>
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="intro-top">
+      <div>
+        <h1>April 2026 — Monthly Summary</h1>
+        <div class="subtitle">Prepared by Second Step &nbsp;·&nbsp; All figures verified from source systems</div>
       </div>
     </div>
-    <div class="hero-bottom">
-      For every <b class="orange">$1</b> spent on Google Ads in Q1, the account returned <b class="big">$13.13</b> in tracked booking revenue.
+    <div class="intro-stats">
+      <div class="intro-stat">
+        <div class="val">$6.68M</div>
+        <div class="lbl">Revenue identified YTD (Apr 13)</div>
+      </div>
+      <div class="intro-stat">
+        <div class="val">70.3%</div>
+        <div class="lbl">Of $9.5M annual goal</div>
+      </div>
+      <div class="intro-stat">
+        <div class="val">46</div>
+        <div class="lbl">Confirmed guest stays in April</div>
+      </div>
+      <div class="intro-stat">
+        <div class="val">$6,477</div>
+        <div class="lbl">Google Ads spend in April</div>
+      </div>
+      <div class="intro-stat">
+        <div class="val">17.2×</div>
+        <div class="lbl">Return on confirmed bookings</div>
+      </div>
     </div>
   </div>
 
   <!-- GOOGLE DOC LINK -->
-  <div style="text-align:center; margin-bottom:32px;">
-    <a href="https://docs.google.com/document/d/1WZoBrVEB_uCyHWQfjoKPeD9TkU7Zo8CcWKg6HG0K5pQ/edit?usp=gmail_thread&ts=69fa2340" target="_blank" style="display:inline-flex; align-items:center; gap:9px; background:rgba(232,120,17,0.1); border:1px solid rgba(232,120,17,0.4); border-radius:8px; padding:13px 22px; color:var(--orange); font-family:'Poppins',sans-serif; font-size:14px; font-weight:600; text-decoration:none; transition:background 0.2s;" onmouseover="this.style.background='rgba(232,120,17,0.18)'" onmouseout="this.style.background='rgba(232,120,17,0.1)'">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+  <div style="text-align:center; margin-bottom:20px;">
+    <a href="https://docs.google.com/document/d/1WZoBrVEB_uCyHWQfjoKPeD9TkU7Zo8CcWKg6HG0K5pQ/edit?usp=gmail_thread&ts=69fa2340" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #1D9E75;border-radius:8px;padding:11px 20px;color:#085041;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:600;text-decoration:none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       Click here for the summary Google Doc
     </a>
   </div>
 
-  <!-- THE NUMBERS -->
-  <div class="section">
-    <div class="section-title">The numbers at a glance</div>
-    <div class="section-sub">90 days · January through March 2026</div>
-
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-value">$26,117</div>
-        <div class="stat-label">Total Spend</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">19</div>
-        <div class="stat-label">Bookings</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">$342,907</div>
-        <div class="stat-label">Booking Revenue</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">13.13×</div>
-        <div class="stat-label">Return on Ad Spend</div>
-      </div>
+  <!-- SECTION 1: REVENUE -->
+  <div class="card">
+    <div class="card-header green">
+      <div class="card-title">1 &nbsp;·&nbsp; Business Revenue — Strongest April on Record</div>
+      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">Full report →</a>
     </div>
-  </div>
-
-  <!-- CHART -->
-  <div class="section">
-    <div class="section-title">Where the bookings came from</div>
-    <div class="section-sub">Brand searches drove half of all Q1 booking revenue</div>
-
-    <div class="chart-card">
-      <h3>Booking revenue by campaign · Q1 2026</h3>
-      <div class="sub">Two campaigns (Brand and California) generated 82% of all tracked Q1 revenue</div>
-      <div class="chart-wrap"><canvas id="chartValue"></canvas></div>
-      <div style="font-size:11.5px; color:var(--text3); margin-top:14px; padding-top:14px; border-top:1px solid var(--border); line-height:1.6;">
-        <b style="color:var(--text2);">Not shown:</b> <b style="color:var(--text);">PMax</b> ($3,107 spent · 0 tracked bookings — explained in the PMax &amp; phone calls section) and <b style="color:var(--text);">Phone Calls</b> ($476 spent · 0 bookings · format deprecated by Google). Both excluded from the chart since their bars would be empty.
-      </div>
-    </div>
-
-    <div class="chart-card">
-      <h3>Brand vs. everything else</h3>
-      <div class="sub">The Brand campaign alone generated 51% of Q1 booking revenue</div>
-      <div class="chart-wrap"><canvas id="chartSplit"></canvas></div>
-    </div>
-
-    <!-- Brand 51% — ad-driven or keyword searches? -->
-    <div class="callout">
-      <div class="callout-title">What "Brand 51%" actually means</div>
-      <div class="callout-body">
-        These are people <b>typing "pure kauai" directly into Google</b> — they already know the brand by name. The ad guarantees Pure Kauai shows up at the top instead of competitors, OTAs (Vrbo, Airbnb), or affiliate sites buying that term.
-        <br><br>
-        So the 51% reflects three things layered together: <b>(1) brand awareness</b> built by organic marketing, past stays, word-of-mouth, social, and PR; <b>(2) the ad capturing that demand</b> before competitors do; and <b>(3) high intent</b> — these searchers know what they want.
-        <br><br>
-        <b>Mental model:</b> Brand spend isn't <i>creating</i> demand — it's <i>defending</i> demand the rest of the marketing engine creates. That's why the ROAS looks so high. It's cheap insurance against losing a known buyer to a competitor's ad.
-      </div>
-    </div>
-  </div>
-
-  <!-- WORKING / NOT WORKING — restructured for easier scanning -->
-  <div class="section">
-    <div class="section-title">What's working · what's not</div>
-    <div class="section-sub">Read top to bottom — wins first, then the leaks</div>
-
-    <!-- WINS — green card stacked, with leading $ amount for instant scan -->
-    <div class="col-card green" style="margin-bottom:18px;">
-      <h3>✓ What's working — keep doing more of this</h3>
-      <table style="width:100%; font-size:13.5px; color:var(--text2); border-collapse:collapse;">
-        <tbody>
-          <tr><td style="padding:10px 0; border-bottom:1px solid var(--border); width:130px;"><b style="color:var(--success); font-family:'Poppins',sans-serif;">$174,773</b></td><td style="padding:10px 0 10px 14px; border-bottom:1px solid var(--border);"><b style="color:var(--text);">Brand searches</b> — 9 bookings from people typing "pure kauai" directly</td></tr>
-          <tr><td style="padding:10px 0; border-bottom:1px solid var(--border);"><b style="color:var(--success); font-family:'Poppins',sans-serif;">$106,602</b></td><td style="padding:10px 0 10px 14px; border-bottom:1px solid var(--border);"><b style="color:var(--text);">California campaign</b> — 5 bookings · the strongest non-brand engine</td></tr>
-          <tr><td style="padding:10px 0; border-bottom:1px solid var(--border);"><b style="color:var(--success); font-family:'Poppins',sans-serif;">100%</b></td><td style="padding:10px 0 10px 14px; border-bottom:1px solid var(--border);"><b style="color:var(--text);">Search ads</b> driving every tracked booking — channel mix is right</td></tr>
-          <tr><td style="padding:10px 0; border-bottom:1px solid var(--border);"><b style="color:var(--success); font-family:'Poppins',sans-serif;">$18,047</b></td><td style="padding:10px 0 10px 14px; border-bottom:1px solid var(--border);"><b style="color:var(--text);">Average booking value</b> — validates luxury positioning</td></tr>
-          <tr><td style="padding:10px 0;"><b style="color:var(--success); font-family:'Poppins',sans-serif;">78%</b></td><td style="padding:10px 0 10px 14px;"><b style="color:var(--text);">Top-spot rate</b> — when Pure Kauai shows up, it lands at the top</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- LEAKS — red card stacked, $ amount = the bleed -->
-    <div class="col-card red">
-      <h3>✗ What's not working — fix this in Q2</h3>
-      <table style="width:100%; font-size:13.5px; color:var(--text2); border-collapse:collapse;">
-        <tbody>
-          <tr><td style="padding:10px 0; border-bottom:1px solid var(--border); width:130px;"><b style="color:var(--danger); font-family:'Poppins',sans-serif;">$10/day</b></td><td style="padding:10px 0 10px 14px; border-bottom:1px solid var(--border);"><b style="color:var(--text);">Brand campaign capped</b> — leaving the highest-ROI traffic on the table</td></tr>
-          <tr><td style="padding:10px 0; border-bottom:1px solid var(--border);"><b style="color:var(--danger); font-family:'Poppins',sans-serif;">$3,107</b></td><td style="padding:10px 0 10px 14px; border-bottom:1px solid var(--border);"><b style="color:var(--text);">PMax spent → 0 tracked bookings</b> · explained in the next section</td></tr>
-          <tr><td style="padding:10px 0; border-bottom:1px solid var(--border);"><b style="color:var(--danger); font-family:'Poppins',sans-serif;">$100/day</b></td><td style="padding:10px 0 10px 14px; border-bottom:1px solid var(--border);">Largest non-brand campaign generated only <b style="color:var(--text);">1 booking</b> — wrong bidding strategy</td></tr>
-          <tr><td style="padding:10px 0; border-bottom:1px solid var(--border);"><b style="color:var(--danger); font-family:'Poppins',sans-serif;">$476</b></td><td style="padding:10px 0 10px 14px; border-bottom:1px solid var(--border);"><b style="color:var(--text);">Phone-call ads</b> · 0 bookings · Google deprecated this format</td></tr>
-          <tr><td style="padding:10px 0;"><b style="color:var(--danger); font-family:'Poppins',sans-serif;">attrib.</b></td><td style="padding:10px 0 10px 14px;"><b style="color:var(--text);">Hostfully ↔ Google Ads gap</b> — being closed by BookingBridge V2 (in build)</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- PMax + CallRail — connecting PMax ads to phone-call attribution -->
-  <div class="section">
-    <div class="section-title">PMax &amp; phone calls — why we can't connect them today</div>
-    <div class="section-sub">Can we prove which calls came from PMax? Here's what's blocking us and the fix.</div>
-
-    <div class="callout">
-      <div class="callout-title">Why PMax shows 0 bookings on $3,107 spent</div>
-      <div class="callout-body">
-        PMax <b>can</b> drive both web bookings and phone calls — but right now Google Ads can't see either of them properly:
-        <br><br>
-        <b>Web bookings</b> are missed because the bookings happen in Hostfully, not on the website. The fix is <b>BookingBridge V2</b> (in active build) — pushes confirmed Hostfully bookings back to Google Ads as offline conversions.
-        <br><br>
-        <b>Phone-call bookings</b> are missed because <b>CallRail isn't sending call data back to Google Ads</b>. CallRail tracks the call (caller number, duration, source), but unless the CallRail → Google Ads integration is wired up, Google never sees those calls.
-        <br><br>
-        Net effect: PMax looks broken on paper. It might actually be working — we just have no way to prove it. That changes in May once both pipes are live.
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-body">
-          <div class="step-title">Enable CallRail Dynamic Number Insertion (DNI) on purekauai.com</div>
-          <div class="step-desc">Different tracking number per traffic source — Google Ads, organic, direct, social. Same caller, different numbers. ~30 minutes.</div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val teal">$6.68M</div>
+          <div class="stat-lbl">Revenue identified year-to-date (Apr 13 flash report)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val teal">70.3%</div>
+          <div class="stat-lbl">Of the $9.5M annual goal — highest April % ever recorded</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">$4.61M</div>
+          <div class="stat-lbl">Forward-booked revenue (future confirmed stays)</div>
         </div>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <div class="step-title">Connect CallRail → Google Ads integration</div>
-          <div class="step-desc">CallRail account → Integrations → Google Ads. Pushes qualified calls (e.g., {'>'}60 sec) into Google Ads as conversions. Auto-syncs daily. ~30 minutes.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <div class="step-title">Add "Phone Call" as a PMax conversion goal</div>
-          <div class="step-desc">PMax now has permission to optimize toward calls, not just web events. Real PMax → call attribution within 7 days. ~30 minutes.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout success" style="margin-top: 4px;">
-      <div class="callout-title">What we'll see after 30 days</div>
-      <div class="callout-body">
-        PMax reports will show 2 conversion types: <b>"Web Booking" (BookingBridge)</b> and <b>"Phone Call" (CallRail)</b>. We'll be able to say with certainty: "PMax drove $X in web bookings and Y phone calls last month." Right now we're guessing.
-      </div>
-    </div>
-  </div>
-
-  <!-- THE BIG OPPORTUNITY — BookingBridge V2 in active build -->
-  <div class="callout success">
-    <div class="callout-title">The single biggest opportunity for Q2 — already in motion</div>
-    <div class="callout-body">
-      The most important fix in the account is <b>BookingBridge V2</b>: pushing confirmed Hostfully bookings back into Google Ads as offline conversions, so the bidding algorithm finally optimizes for real revenue instead of proxy on-site events.
-      <br><br>
-      <b>Status:</b> V1 is already live (capturing inquiries with click ID). V2 (the upload back to Google Ads) is in active build — <b>shipping by May 15</b>. Once it's live, every other Q2 optimization compounds — especially PMax, which today looks broken because it can't see what it's actually doing.
-    </div>
-  </div>
-
-  <!-- WHAT WE'RE DOING — Q2 plan in 3 monthly buckets with owners + dates -->
-  <div class="section">
-    <div class="section-title">What we're doing in Q2</div>
-    <div class="section-sub">Specifically what Second Step is shipping each month — no fluff, with dates and owners</div>
-
-    <!-- APRIL -->
-    <div style="margin-bottom: 22px;">
-      <div style="display:inline-block; padding:5px 14px; border-radius:100px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; background: var(--danger-bg); color: var(--danger); margin-bottom: 14px;">April · Stop the Bleed</div>
-      <div class="next-card">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <div class="step-title">Pause "Non-brand Phone Calls" campaign + reallocate budget</div>
-            <div class="step-desc">$476 Q1 · 0 tracked bookings. Call extensions move into Brand &amp; California campaigns. <b>Owner:</b> Second Step · <b>Done by:</b> Apr 25</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <div class="step-title">Cap Main Geo (US) at $10/day, pause broad-match ad groups</div>
-            <div class="step-desc">$100/day campaign generated only 1 booking in Q1. Kill "Kauai Vacation Rental Terms" &amp; "Property Names" ad groups (biggest leaks). Keep phrase/exact running. <b>Owner:</b> Second Step · <b>Done by:</b> Apr 28</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <div class="step-title">Brand budget $10 → $50/day, geo to US + Canada only</div>
-            <div class="step-desc">Currently global and impression-share-limited. Fix 4 disapproved sitelinks. Add branded variants: "luxury", "private estate", "oceanfront". <b>Owner:</b> Second Step · <b>Done by:</b> Apr 30</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MAY -->
-    <div style="margin-bottom: 22px;">
-      <div style="display:inline-block; padding:5px 14px; border-radius:100px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; background: var(--warn-bg); color: var(--warn); margin-bottom: 14px;">May · Wire the Tracking</div>
-      <div class="next-card">
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-body">
-            <div class="step-title">Ship BookingBridge V2 — offline conversion upload to Google Ads</div>
-            <div class="step-desc">Hostfully bookings → matched to click ID → uploaded daily to Google Ads as offline conversions (within the 90-day window). Phone + email bookings finally attributed. <b>Owner:</b> Second Step (build) + Cody (validation) · <b>Done by:</b> May 15</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">5</div>
-          <div class="step-body">
-            <div class="step-title">Wire CallRail → Google Ads (DNI + integration + PMax goal)</div>
-            <div class="step-desc">3 steps from the PMax section above. Once live, PMax reports phone-call conversions for the first time. Likely flips PMax ROAS upward. <b>Owner:</b> Second Step · <b>Done by:</b> May 10</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">6</div>
-          <div class="step-body">
-            <div class="step-title">Fix GA4 ↔ Google Ads conversion duplication (GTM)</div>
-            <div class="step-desc">February showed GA4 = 3, Ads = 6 — duplicate trigger firing. Must be fixed before switching to value-based bidding. <b>Owner:</b> Second Step · <b>Done by:</b> May 8</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- JUNE -->
-    <div style="margin-bottom: 4px;">
-      <div style="display:inline-block; padding:5px 14px; border-radius:100px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; background: var(--success-bg); color: var(--success); margin-bottom: 14px;">June · Creative Refresh + Scale</div>
-      <div class="next-card">
-        <div class="step">
-          <div class="step-num">7</div>
-          <div class="step-body">
-            <div class="step-title">Ship new Google Ads creative — 5 photos + 1 hero video for PMax</div>
-            <div class="step-desc">PMax currently has 15 images vs 20 cap, no video, ad strength = Average. Q2 creative deliverable: 5 new property photos (Hanalei + Secret Beach focus) + 1 hero video (15s + 30s). Loads into PMax + Brand RSA assets. <b>Owner:</b> Pure Kauai (creative) + Second Step (upload/test) · <b>Done by:</b> Jun 15</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">8</div>
-          <div class="step-body">
-            <div class="step-title">Switch California + Hanalei + PMax → Maximize Conversion Value</div>
-            <div class="step-desc">Only after BookingBridge is feeding verified $$. Booking values vary $2K → $20K+ — we want the algorithm hunting the high-value ones, not just any conversion. <b>Owner:</b> Second Step · <b>Done by:</b> Jun 5</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">9</div>
-          <div class="step-body">
-            <div class="step-title">Long-tail location keyword expansion (10 new ad groups)</div>
-            <div class="step-desc">Pattern is clear: "hanalei bay vacation rental" works, "kauai vacation rentals" doesn't. Dedicated phrase/exact ad groups for: anini beach, kilauea villa, princeville rentals, kalihiwai cottage, etc. <b>Owner:</b> Second Step · <b>Done by:</b> Jun 25</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">10</div>
-          <div class="step-body">
-            <div class="step-title">Set up Cody's monthly snapshot as a structured database</div>
-            <div class="step-desc">Take Cody's monthly framework report and build a structured Google Sheet / database off it. Auto-populate from Hostfully (then Salesforce post-migration). Screen-share with Cody to lock the schema. <b>Owner:</b> Pure Kauai + Cody + Second Step · <b>Done by:</b> Jun 30</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Q2 EXPECTATION — rewritten as 3 concrete outcomes Cody can hold us to -->
-  <div class="callout">
-    <div class="callout-title">What Cody will see by end of Q2 — three concrete outcomes</div>
-    <div class="callout-body">
-      Not "better performance." Specific, measurable, dated:
-      <br><br>
-      <b style="color:var(--orange);">1. By Apr 30</b> — Non-brand wasted spend reduced <b style="color:var(--text);">~$1,600/month</b>. Measured by: Main Geo + Phone Calls campaigns capped/paused. Spend report Apr vs Mar.
-      <br><br>
-      <b style="color:var(--orange);">2. By May 15</b> — Real Hostfully bookings flowing into Google Ads as conversions. Measured by: Google Ads conversion tab shows new <i>"BookingBridge — Confirmed Booking"</i> action with daily volume + revenue.
-      <br><br>
-      <b style="color:var(--orange);">3. By Jun 15</b> — PMax ROAS flips upward + creative refreshed. Measured by: PMax includes phone-call conversions from CallRail · new photo + video assets live · ad strength = Excellent.
-      <br><br>
-      If all three land, Q2 should come in at roughly <b>25–30 bookings</b> generating <b>$450K–$550K</b> on ~$30K spend (<b>15–18× ROAS</b>, up from 13×).
-    </div>
-  </div>
-
-  </div><!-- /tab-summary -->
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- TAB: BOOKINGS (55 Q1 bookings from Hostfully) -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div id="tab-bookings" class="tab-panel">
-
-    <!-- Honest framing: why we show all 55 -->
-    <div class="bk-callout">
-      <div class="title">All Q1 bookings — and a clear word on the 19 from Google Ads</div>
-      Google Ads' dashboard reports <b>19 bookings worth $342,907</b> for Q1. Hostfully shows <b>50 confirmed bookings worth $1,207,131</b> in the same window — the 19 from Google Ads are a subset of these.
-      <br><br>
-      <b>Why we don't show "the 19" alone — and why that's the right call:</b> tagging a specific booking as <i>"this one came from Google Ads"</i> requires the click ID (GCLID) captured at the moment the guest clicked the ad to be matched back to the Hostfully booking. That match infrastructure (BookingBridge) was being built from scratch during Q1 — we shipped first fixes in March, and a second round of improvements in April. Q1 attribution was therefore <b>partial</b>. Picking a specific 19 today would mean filtering by amount profile (an educated guess), not by actual click attribution. We'd rather show the full picture honestly than a 19-row list that <i>looks</i> precise but is really our best estimate.
-      <br><br>
-      <b>What you can do right now:</b> Cody can open Google Ads → Tools → Conversions → segment by date, then match the 19 GA conversion timestamps + amounts to specific rows below. That's the cleanest manual path until V2 lands.
-      <br><br>
-      <b>What changes next:</b> BookingBridge V2 (shipping May 15) closes the click → booking loop end-to-end. From then on, every confirmed Hostfully booking carries its source attribution baked in — Q2 reports won't need this caveat at all.
-    </div>
-
-    <!-- Stats -->
-    <div class="bk-stats">
-      <div class="stat" style="border-left:3px solid var(--orange)">
-        <div class="stat-label">Q1 Confirmed Bookings</div>
-        <div class="stat-value" style="color:var(--orange)">50</div>
-      </div>
-      <div class="stat" style="border-left:3px solid var(--orange)">
-        <div class="stat-label">Q1 Booking Revenue</div>
-        <div class="stat-value" style="color:var(--orange)">$1,207,131</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Avg Booking Value</div>
-        <div class="stat-value">$24,143</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Of these, GA claims</div>
-        <div class="stat-value">19</div>
-      </div>
-    </div>
-
-    <!-- Table -->
-    <div class="bk-table-wrap">
-      <div class="bk-table-head">
+      <hr class="divider">
+      <div class="two-col">
         <div>
-          <h3>All Q1 2026 Bookings · 55 rows · sorted by amount</h3>
-          <div style="font-size:11.5px;color:var(--text3);margin-top:3px">Click any Lead UID to open in Hostfully · cancelled bookings shown for completeness</div>
+          <table class="data-table">
+            <thead><tr><th>Year</th><th>By April</th><th>Goal %</th></tr></thead>
+            <tbody>
+              <tr><td>2023</td><td>$5.40M</td><td>56.9%</td></tr>
+              <tr><td>2024</td><td>$5.58M</td><td>55.8%</td></tr>
+              <tr><td>2025</td><td>$5.73M</td><td>63.6%</td></tr>
+              <tr class="highlight"><td><strong>2026</strong></td><td><strong>$6.68M</strong></td><td><strong>70.3%</strong></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div style="display:flex;gap:10px;align-items:center">
-          <input type="text" id="bk-search" class="bk-search" placeholder="Search guest, email, UID…" oninput="filterBookings()" />
-          <a class="csv-btn" href="purekauai-q1-2026-bookings.csv" download>CSV</a>
-        </div>
-      </div>
-      <div class="bk-table-scroll">
-        <table class="bk-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Guest</th>
-              <th>Property UID</th>
-              <th>Booked On</th>
-              <th class="num">Amount</th>
-              <th>Status</th>
-              <th>Lead UID</th>
-              <th>Transaction UID(s)</th>
-            </tr>
-          </thead>
-          <tbody id="bk-tbody">
-        <tr data-search="alex peterffy alexpeterffy3@gmail.com 1aace03c-297e-4d1c-b6d9-fdf09eaf77d4">
-          <td class="num">1</td>
-          <td><div class="bk-name">Alex Peterffy</div><div class="bk-email">alexpeterffy3@gmail.com</div></td>
-          <td><span class="mono">215bc638-4b8e-…</span></td>
-          <td>2026-03-13</td>
-          <td class="num strong">$99,654</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/1aace03c-297e-4d1c-b6d9-fdf09eaf77d4" target="_blank" rel="noopener">1aace03c-297…</a></td>
-          <td><span class="mono">7435dba7-24f…</span></td>
-        </tr>
-        <tr data-search="heather qualls hdqualls73@gmail.com 568e626b-21b1-4513-b23e-29cf82fd76c5">
-          <td class="num">2</td>
-          <td><div class="bk-name">Heather Qualls</div><div class="bk-email">hdqualls73@gmail.com</div></td>
-          <td><span class="mono">a1d04027-65ba-…</span></td>
-          <td>2026-03-13</td>
-          <td class="num strong">$93,396</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/568e626b-21b1-4513-b23e-29cf82fd76c5" target="_blank" rel="noopener">568e626b-21b…</a></td>
-          <td><span class="mono">4c609f61-96d…</span></td>
-        </tr>
-        <tr data-search="jordan riddle jordan.riddle@outlook.com d471da8a-7428-4792-8e36-21fb44c154ed">
-          <td class="num">3</td>
-          <td><div class="bk-name">Jordan Riddle</div><div class="bk-email">jordan.riddle@outlook.com</div></td>
-          <td><span class="mono">71f3745f-d46d-…</span></td>
-          <td>2026-02-04</td>
-          <td class="num strong">$80,571</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/d471da8a-7428-4792-8e36-21fb44c154ed" target="_blank" rel="noopener">d471da8a-742…</a></td>
-          <td><span class="mono">order-7b84ad…</span></td>
-        </tr>
-        <tr data-search="terri vajda terri.vajda@gmail.com 6f108b65-1f5a-4c4b-bb12-85a03e6f1827">
-          <td class="num">4</td>
-          <td><div class="bk-name">Terri Vajda</div><div class="bk-email">terri.vajda@gmail.com</div></td>
-          <td><span class="mono">4aae4861-8304-…</span></td>
-          <td>2026-01-28</td>
-          <td class="num strong">$56,221</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/6f108b65-1f5a-4c4b-bb12-85a03e6f1827" target="_blank" rel="noopener">6f108b65-1f5…</a></td>
-          <td><span class="mono">361cf9f5-d55…</span><br><span class="mono">8da3f76c-7dc…</span></td>
-        </tr>
-        <tr data-search="taylor tenney taylortenney@gmail.com 18f128d6-6f40-4fff-b549-1db8228975d1">
-          <td class="num">5</td>
-          <td><div class="bk-name">Taylor Tenney</div><div class="bk-email">taylortenney@gmail.com</div></td>
-          <td><span class="mono">ee4bd9b2-bc21-…</span></td>
-          <td>2026-03-01</td>
-          <td class="num strong">$52,289</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/18f128d6-6f40-4fff-b549-1db8228975d1" target="_blank" rel="noopener">18f128d6-6f4…</a></td>
-          <td><span class="mono">8e9642c3-9f3…</span></td>
-        </tr>
-        <tr data-search="ryan ashley debbie@thecoconuttraveler.com 1c6521eb-4a4e-4a44-9b8d-814dd99130b5">
-          <td class="num">6</td>
-          <td><div class="bk-name">Ryan Ashley</div><div class="bk-email">debbie@thecoconuttraveler.com</div></td>
-          <td><span class="mono">4aae4861-8304-…</span></td>
-          <td>2026-03-20</td>
-          <td class="num strong">$48,267</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/1c6521eb-4a4e-4a44-9b8d-814dd99130b5" target="_blank" rel="noopener">1c6521eb-4a4…</a></td>
-          <td><span class="mono">719c95f2-3d8…</span></td>
-        </tr>
-        <tr data-search="dean ornish dean.ornish@pmri.org 8efe47bb-7677-4080-b39f-65bcd38873de">
-          <td class="num">7</td>
-          <td><div class="bk-name">Dean Ornish</div><div class="bk-email">dean.ornish@pmri.org</div></td>
-          <td><span class="mono">3d76a1f6-b593-…</span></td>
-          <td>2026-03-16</td>
-          <td class="num strong">$39,794</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/8efe47bb-7677-4080-b39f-65bcd38873de" target="_blank" rel="noopener">8efe47bb-767…</a></td>
-          <td><span class="mono">39108fe9-376…</span></td>
-        </tr>
-        <tr data-search="debi gill debig03@earthlink.net e3f32ac7-656a-4ceb-ae48-28cc2eb6d13d">
-          <td class="num">8</td>
-          <td><div class="bk-name">Debi Gill</div><div class="bk-email">debig03@earthlink.net</div></td>
-          <td><span class="mono">c2704806-3136-…</span></td>
-          <td>2026-02-17</td>
-          <td class="num strong">$39,173</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/e3f32ac7-656a-4ceb-ae48-28cc2eb6d13d" target="_blank" rel="noopener">e3f32ac7-656…</a></td>
-          <td><span class="mono">87eb2ba5-c27…</span></td>
-        </tr>
-        <tr data-search="mueni guggemos mueni@zigrangstorehouses.com 44fca943-6eb2-4de6-973c-762b7f2e3861">
-          <td class="num">9</td>
-          <td><div class="bk-name">Mueni Guggemos</div><div class="bk-email">mueni@zigrangstorehouses.com</div></td>
-          <td><span class="mono">abdd6480-2002-…</span></td>
-          <td>2026-02-03</td>
-          <td class="num strong">$38,545</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/44fca943-6eb2-4de6-973c-762b7f2e3861" target="_blank" rel="noopener">44fca943-6eb…</a></td>
-          <td><span class="mono">ff1d9174-4b3…</span></td>
-        </tr>
-        <tr data-search="anders eisner eyes@gtctravel.com 0bcf4bd6-dcee-4755-a20b-bcc83ca897ea">
-          <td class="num">10</td>
-          <td><div class="bk-name">Anders Eisner</div><div class="bk-email">eyes@gtctravel.com</div></td>
-          <td><span class="mono">ee4bd9b2-bc21-…</span></td>
-          <td>2026-02-10</td>
-          <td class="num strong">$37,518</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/0bcf4bd6-dcee-4755-a20b-bcc83ca897ea" target="_blank" rel="noopener">0bcf4bd6-dce…</a></td>
-          <td><span class="mono">a20b0e1f-8bb…</span></td>
-        </tr>
-        <tr data-search="larry shapiro ljshapiro123@gmail.com de293193-ffb7-4bb3-a0f5-c78acf65f3bf">
-          <td class="num">11</td>
-          <td><div class="bk-name">Larry Shapiro</div><div class="bk-email">ljshapiro123@gmail.com</div></td>
-          <td><span class="mono">cff8f689-3ad8-…</span></td>
-          <td>2026-02-07</td>
-          <td class="num strong">$35,902</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/de293193-ffb7-4bb3-a0f5-c78acf65f3bf" target="_blank" rel="noopener">de293193-ffb…</a></td>
-          <td><span class="mono">4aa23d45-cf8…</span></td>
-        </tr>
-        <tr data-search="laura tindell lauratindell7@gmail.com c4b3b2b2-3dcc-47c6-ba64-411d3bb5aa09">
-          <td class="num">12</td>
-          <td><div class="bk-name">Laura Tindell</div><div class="bk-email">lauratindell7@gmail.com</div></td>
-          <td><span class="mono">a6b954db-2688-…</span></td>
-          <td>2026-02-12</td>
-          <td class="num strong">$32,678</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/c4b3b2b2-3dcc-47c6-ba64-411d3bb5aa09" target="_blank" rel="noopener">c4b3b2b2-3dc…</a></td>
-          <td><span class="mono">aca65691-a84…</span></td>
-        </tr>
-        <tr data-search="chandu chilakapati c.chilakapati.74@gmail.com 6c819c6a-152f-4f9c-8a1b-652a7178f0fd">
-          <td class="num">13</td>
-          <td><div class="bk-name">Chandu Chilakapati</div><div class="bk-email">c.chilakapati.74@gmail.com</div></td>
-          <td><span class="mono">cff8f689-3ad8-…</span></td>
-          <td>2026-02-03</td>
-          <td class="num strong">$31,486</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/6c819c6a-152f-4f9c-8a1b-652a7178f0fd" target="_blank" rel="noopener">6c819c6a-152…</a></td>
-          <td><span class="mono">0d8885f9-cc0…</span></td>
-        </tr>
-        <tr data-search="alison arenth mark@excursionist.com 126421c5-70dd-4b3b-85b1-4d98b471b755">
-          <td class="num">14</td>
-          <td><div class="bk-name">Alison Arenth</div><div class="bk-email">mark@excursionist.com</div></td>
-          <td><span class="mono">ae9c3bb9-221c-…</span></td>
-          <td>2026-02-06</td>
-          <td class="num strong">$29,733</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/126421c5-70dd-4b3b-85b1-4d98b471b755" target="_blank" rel="noopener">126421c5-70d…</a></td>
-          <td><span class="mono">87f41b37-1a7…</span></td>
-        </tr>
-        <tr data-search="galit laibow glaibow@gmail.com 601ac881-72a5-4737-be9e-0f0edf184bb3">
-          <td class="num">15</td>
-          <td><div class="bk-name">Galit Laibow</div><div class="bk-email">glaibow@gmail.com</div></td>
-          <td><span class="mono">3d76a1f6-b593-…</span></td>
-          <td>2026-01-11</td>
-          <td class="num strong">$28,771</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/601ac881-72a5-4737-be9e-0f0edf184bb3" target="_blank" rel="noopener">601ac881-72a…</a></td>
-          <td><span class="mono">f8c0cc11-7c3…</span></td>
-        </tr>
-        <tr data-search="bridget davidson bridget333@gmail.com bb78cec7-f7ef-42dc-aea6-2f62e0038488">
-          <td class="num">16</td>
-          <td><div class="bk-name">Bridget Davidson</div><div class="bk-email">bridget333@gmail.com</div></td>
-          <td><span class="mono">36960a8e-20ee-…</span></td>
-          <td>2026-02-12</td>
-          <td class="num strong">$28,630</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/bb78cec7-f7ef-42dc-aea6-2f62e0038488" target="_blank" rel="noopener">bb78cec7-f7e…</a></td>
-          <td><span class="mono">0f85563f-57a…</span></td>
-        </tr>
-        <tr data-search="rob adams robadams55@gmail.com c1b4c486-c954-4dae-bbf8-7df39c892231">
-          <td class="num">17</td>
-          <td><div class="bk-name">Rob Adams</div><div class="bk-email">robadams55@gmail.com</div></td>
-          <td><span class="mono">bc0ae56c-aac4-…</span></td>
-          <td>2026-01-21</td>
-          <td class="num strong">$26,186</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/c1b4c486-c954-4dae-bbf8-7df39c892231" target="_blank" rel="noopener">c1b4c486-c95…</a></td>
-          <td><span class="mono">742f50ab-c13…</span></td>
-        </tr>
-        <tr data-search="jennifer biege debbie@thecoconuttraveler.com b01b254e-5872-4c31-bbc7-f8225cb8389c">
-          <td class="num">18</td>
-          <td><div class="bk-name">Jennifer Biege</div><div class="bk-email">debbie@thecoconuttraveler.com</div></td>
-          <td><span class="mono">ae9c3bb9-221c-…</span></td>
-          <td>2026-01-20</td>
-          <td class="num strong">$25,755</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/b01b254e-5872-4c31-bbc7-f8225cb8389c" target="_blank" rel="noopener">b01b254e-587…</a></td>
-          <td><span class="mono">9509a8fd-083…</span></td>
-        </tr>
-        <tr data-search="marjorie janes marjoriejanes@gmail.com fd145675-a7d6-4c01-9a55-77554a4c1567">
-          <td class="num">19</td>
-          <td><div class="bk-name">Marjorie Janes</div><div class="bk-email">marjoriejanes@gmail.com</div></td>
-          <td><span class="mono">e99a2283-dcf1-…</span></td>
-          <td>2026-03-04</td>
-          <td class="num strong">$24,675</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/fd145675-a7d6-4c01-9a55-77554a4c1567" target="_blank" rel="noopener">fd145675-a7d…</a></td>
-          <td><span class="mono">792adfa1-d2b…</span></td>
-        </tr>
-        <tr data-search="christine eschenfelder christine.eschenfelder@gmail.com 1d406f11-31d9-4ea2-98ed-ae8b63a7ff3a">
-          <td class="num">20</td>
-          <td><div class="bk-name">Christine Eschenfelder</div><div class="bk-email">christine.eschenfelder@gmail.com</div></td>
-          <td><span class="mono">b98b2232-e44c-…</span></td>
-          <td>2026-01-09</td>
-          <td class="num strong">$21,996</td>
-          <td><span class="pill bad">Cancelled</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/1d406f11-31d9-4ea2-98ed-ae8b63a7ff3a" target="_blank" rel="noopener">1d406f11-31d…</a></td>
-          <td><span class="mono">c78abc3b-5f8…</span></td>
-        </tr>
-        <tr data-search="mike dougerty info@jeanandabbott.com f2cd6083-0902-425a-ac3b-d7324a8376c3">
-          <td class="num">21</td>
-          <td><div class="bk-name">Mike Dougerty</div><div class="bk-email">info@jeanandabbott.com</div></td>
-          <td><span class="mono">36960a8e-20ee-…</span></td>
-          <td>2026-02-06</td>
-          <td class="num strong">$21,892</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/f2cd6083-0902-425a-ac3b-d7324a8376c3" target="_blank" rel="noopener">f2cd6083-090…</a></td>
-          <td><span class="mono">6b904008-ff6…</span></td>
-        </tr>
-        <tr data-search="jennifer brown jennifer.brown@gmail.com ee8c4b54-fab3-49fb-94b1-e8ba55d8331a">
-          <td class="num">22</td>
-          <td><div class="bk-name">Jennifer Brown</div><div class="bk-email">jennifer.brown@gmail.com</div></td>
-          <td><span class="mono">e99a2283-dcf1-…</span></td>
-          <td>2026-01-29</td>
-          <td class="num strong">$21,707</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/ee8c4b54-fab3-49fb-94b1-e8ba55d8331a" target="_blank" rel="noopener">ee8c4b54-fab…</a></td>
-          <td><span class="mono">335cb824-f78…</span></td>
-        </tr>
-        <tr data-search="glenn bacheller gbachellersb@gmail.com 92137a1f-64fe-47b5-9205-cbc988c08e7a">
-          <td class="num">23</td>
-          <td><div class="bk-name">Glenn Bacheller</div><div class="bk-email">gbachellersb@gmail.com</div></td>
-          <td><span class="mono">b98b2232-e44c-…</span></td>
-          <td>2026-03-18</td>
-          <td class="num strong">$21,394</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/92137a1f-64fe-47b5-9205-cbc988c08e7a" target="_blank" rel="noopener">92137a1f-64f…</a></td>
-          <td><span class="mono">fe1ae686-45f…</span></td>
-        </tr>
-        <tr data-search="amy kreutzmann aimee.s.kreutzmann@gmail.com 0cdbadce-a051-4faa-b9de-ce83993c7404">
-          <td class="num">24</td>
-          <td><div class="bk-name">Amy Kreutzmann</div><div class="bk-email">aimee.s.kreutzmann@gmail.com</div></td>
-          <td><span class="mono">2dd8354c-2780-…</span></td>
-          <td>2026-02-26</td>
-          <td class="num strong">$21,305</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/0cdbadce-a051-4faa-b9de-ce83993c7404" target="_blank" rel="noopener">0cdbadce-a05…</a></td>
-          <td><span class="mono">6778e525-740…</span></td>
-        </tr>
-        <tr data-search="tom hardardt thardardt@tkopm.com c6fe3cc1-4205-4666-91ef-7ef887ef2904">
-          <td class="num">25</td>
-          <td><div class="bk-name">Tom Hardardt</div><div class="bk-email">thardardt@tkopm.com</div></td>
-          <td><span class="mono">21d9f0fa-e0c1-…</span></td>
-          <td>2026-03-12</td>
-          <td class="num strong">$18,854</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/c6fe3cc1-4205-4666-91ef-7ef887ef2904" target="_blank" rel="noopener">c6fe3cc1-420…</a></td>
-          <td><span class="mono">3b0bcb24-bbe…</span></td>
-        </tr>
-        <tr data-search="kelly liske kliske@outlook.com f050b364-7b67-48be-9a6f-ade266383b9b">
-          <td class="num">26</td>
-          <td><div class="bk-name">Kelly Liske</div><div class="bk-email">kliske@outlook.com</div></td>
-          <td><span class="mono">512760dd-0628-…</span></td>
-          <td>2026-01-17</td>
-          <td class="num strong">$17,858</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/f050b364-7b67-48be-9a6f-ade266383b9b" target="_blank" rel="noopener">f050b364-7b6…</a></td>
-          <td><span class="mono">754cbfc4-0b0…</span></td>
-        </tr>
-        <tr data-search="tera guthrie teragogo@icloud.com dfa948f0-f460-4673-ab73-cb46a26283f2">
-          <td class="num">27</td>
-          <td><div class="bk-name">Tera Guthrie</div><div class="bk-email">teragogo@icloud.com</div></td>
-          <td><span class="mono">eb32fd54-3eb4-…</span></td>
-          <td>2026-02-21</td>
-          <td class="num strong">$17,644</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/dfa948f0-f460-4673-ab73-cb46a26283f2" target="_blank" rel="noopener">dfa948f0-f46…</a></td>
-          <td><span class="mono">cd7bb6f5-5ab…</span></td>
-        </tr>
-        <tr data-search="jessica stewart jessica.stewart@cox.net b8e2ca48-4b39-4e65-99b0-e13c409c2072">
-          <td class="num">28</td>
-          <td><div class="bk-name">Jessica Stewart</div><div class="bk-email">jessica.stewart@cox.net</div></td>
-          <td><span class="mono">2dd8354c-2780-…</span></td>
-          <td>2026-01-05</td>
-          <td class="num strong">$17,258</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/b8e2ca48-4b39-4e65-99b0-e13c409c2072" target="_blank" rel="noopener">b8e2ca48-4b3…</a></td>
-          <td><span class="mono">ba89331a-add…</span></td>
-        </tr>
-        <tr data-search="amy lincoln katie.larsen@fora.travel 221817aa-4bc0-4341-9a5e-8a478478f509">
-          <td class="num">29</td>
-          <td><div class="bk-name">Amy Lincoln</div><div class="bk-email">katie.larsen@fora.travel</div></td>
-          <td><span class="mono">bc0ae56c-aac4-…</span></td>
-          <td>2026-01-09</td>
-          <td class="num strong">$16,287</td>
-          <td><span class="pill bad">Cancelled</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/221817aa-4bc0-4341-9a5e-8a478478f509" target="_blank" rel="noopener">221817aa-4bc…</a></td>
-          <td><span class="mono">8bac3e68-515…</span></td>
-        </tr>
-        <tr data-search="michaella honeycutt mhoneycutt@fertitta.com 12bc8bdd-4e52-43b6-9269-e2ead473b8f1">
-          <td class="num">30</td>
-          <td><div class="bk-name">Michaella Honeycutt</div><div class="bk-email">mhoneycutt@fertitta.com</div></td>
-          <td><span class="mono">851af23f-ada6-…</span></td>
-          <td>2026-01-13</td>
-          <td class="num strong">$16,161</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/12bc8bdd-4e52-43b6-9269-e2ead473b8f1" target="_blank" rel="noopener">12bc8bdd-4e5…</a></td>
-          <td><span class="mono">a3a9fa6d-c57…</span><br><span class="mono">7238d91f-6c1…</span><br><span class="mono">a2955ebd-914…</span></td>
-        </tr>
-        <tr data-search="tia liddell ivery tia.liddell@gmail.com 2335a2f4-ba1c-478c-8451-82e9fecbbd8f">
-          <td class="num">31</td>
-          <td><div class="bk-name">Tia Liddell Ivery</div><div class="bk-email">tia.liddell@gmail.com</div></td>
-          <td><span class="mono">ab50ea82-9b95-…</span></td>
-          <td>2026-02-28</td>
-          <td class="num strong">$16,098</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/2335a2f4-ba1c-478c-8451-82e9fecbbd8f" target="_blank" rel="noopener">2335a2f4-ba1…</a></td>
-          <td><span class="mono">c67c6a72-800…</span></td>
-        </tr>
-        <tr data-search="gena wilson genawise@mac.com 9fdfd762-07c9-4073-b56f-fb797ec7d273">
-          <td class="num">32</td>
-          <td><div class="bk-name">Gena Wilson</div><div class="bk-email">genawise@mac.com</div></td>
-          <td><span class="mono">336cd0e5-46fa-…</span></td>
-          <td>2026-01-12</td>
-          <td class="num strong">$15,849</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/9fdfd762-07c9-4073-b56f-fb797ec7d273" target="_blank" rel="noopener">9fdfd762-07c…</a></td>
-          <td><span class="mono">05d00da0-271…</span><br><span class="mono">d7225c3f-77e…</span></td>
-        </tr>
-        <tr data-search="magdalena saindon msaindon@lonemountainland.com f11d9167-528b-4673-9117-7ad7def244f3">
-          <td class="num">33</td>
-          <td><div class="bk-name">Magdalena Saindon</div><div class="bk-email">msaindon@lonemountainland.com</div></td>
-          <td><span class="mono">596db2c2-a201-…</span></td>
-          <td>2026-02-28</td>
-          <td class="num strong">$15,663</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/f11d9167-528b-4673-9117-7ad7def244f3" target="_blank" rel="noopener">f11d9167-528…</a></td>
-          <td><span class="mono">7b635495-250…</span></td>
-        </tr>
-        <tr data-search="gracie oberti gracie.oberti@gmail.com ab1e0bd9-4582-4290-9e70-fde80a2bcc0a">
-          <td class="num">34</td>
-          <td><div class="bk-name">Gracie Oberti</div><div class="bk-email">gracie.oberti@gmail.com</div></td>
-          <td><span class="mono">eb32fd54-3eb4-…</span></td>
-          <td>2026-03-10</td>
-          <td class="num strong">$14,597</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/ab1e0bd9-4582-4290-9e70-fde80a2bcc0a" target="_blank" rel="noopener">ab1e0bd9-458…</a></td>
-          <td><span class="mono">476dffaa-197…</span><br><span class="mono">f43bb9f1-f11…</span></td>
-        </tr>
-        <tr data-search="lindsey searle blsearle@ubtanet.com 7415a1c1-f3aa-46de-9055-2cea24e2a435">
-          <td class="num">35</td>
-          <td><div class="bk-name">Lindsey Searle</div><div class="bk-email">blsearle@ubtanet.com</div></td>
-          <td><span class="mono">336cd0e5-46fa-…</span></td>
-          <td>2026-02-19</td>
-          <td class="num strong">$13,967</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/7415a1c1-f3aa-46de-9055-2cea24e2a435" target="_blank" rel="noopener">7415a1c1-f3a…</a></td>
-          <td><span class="mono">62c90145-a0c…</span></td>
-        </tr>
-        <tr data-search="sean ward seanpatward@gmail.com ba511418-437d-4a73-97d3-f50e411b36d3">
-          <td class="num">36</td>
-          <td><div class="bk-name">Sean Ward</div><div class="bk-email">seanpatward@gmail.com</div></td>
-          <td><span class="mono">2dd8354c-2780-…</span></td>
-          <td>2026-02-02</td>
-          <td class="num strong">$13,518</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/ba511418-437d-4a73-97d3-f50e411b36d3" target="_blank" rel="noopener">ba511418-437…</a></td>
-          <td><span class="mono">97c2b512-b99…</span></td>
-        </tr>
-        <tr data-search="ryan nelson rynnelson@gmail.com 25b6aa3c-0e98-443f-994e-5cf18a6a1bf6">
-          <td class="num">37</td>
-          <td><div class="bk-name">Ryan Nelson</div><div class="bk-email">rynnelson@gmail.com</div></td>
-          <td><span class="mono">eb32fd54-3eb4-…</span></td>
-          <td>2026-03-30</td>
-          <td class="num strong">$11,996</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/25b6aa3c-0e98-443f-994e-5cf18a6a1bf6" target="_blank" rel="noopener">25b6aa3c-0e9…</a></td>
-          <td><span class="mono">3eb22bb1-55f…</span></td>
-        </tr>
-        <tr data-search="michael tran user-57380595@relay.whimstay.com 393a331f-5f68-44cd-a3f5-011c02f2e024">
-          <td class="num">38</td>
-          <td><div class="bk-name">Michael Tran</div><div class="bk-email">user-57380595@relay.whimstay.com</div></td>
-          <td><span class="mono">2dd8354c-2780-…</span></td>
-          <td>2026-03-20</td>
-          <td class="num strong">$11,344</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/393a331f-5f68-44cd-a3f5-011c02f2e024" target="_blank" rel="noopener">393a331f-5f6…</a></td>
-          <td><span class="mono">127b538b-eb3…</span></td>
-        </tr>
-        <tr data-search="raymond ko raymondko@gmail.com 0798a467-062e-45a1-90e2-aa4edd07f295">
-          <td class="num">39</td>
-          <td><div class="bk-name">Raymond Ko</div><div class="bk-email">raymondko@gmail.com</div></td>
-          <td><span class="mono">596db2c2-a201-…</span></td>
-          <td>2026-02-03</td>
-          <td class="num strong">$11,237</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/0798a467-062e-45a1-90e2-aa4edd07f295" target="_blank" rel="noopener">0798a467-062…</a></td>
-          <td><span class="mono">6b022c55-c88…</span></td>
-        </tr>
-        <tr data-search="tim rushing tim@tmpppr.com bcd886a1-07a9-4d01-b7e3-ef5063406156">
-          <td class="num">40</td>
-          <td><div class="bk-name">Tim Rushing</div><div class="bk-email">tim@tmpppr.com</div></td>
-          <td><span class="mono">596db2c2-a201-…</span></td>
-          <td>2026-02-25</td>
-          <td class="num strong">$10,508</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/bcd886a1-07a9-4d01-b7e3-ef5063406156" target="_blank" rel="noopener">bcd886a1-07a…</a></td>
-          <td><span class="mono">567b3308-ee5…</span></td>
-        </tr>
-        <tr data-search="david jones dave_jones_47@hotmail.com 19e56c9f-7805-4f5b-add8-9cd9d2e20ade">
-          <td class="num">41</td>
-          <td><div class="bk-name">David Jones</div><div class="bk-email">dave_jones_47@hotmail.com</div></td>
-          <td><span class="mono">596db2c2-a201-…</span></td>
-          <td>2026-01-30</td>
-          <td class="num strong">$7,774</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/19e56c9f-7805-4f5b-add8-9cd9d2e20ade" target="_blank" rel="noopener">19e56c9f-780…</a></td>
-          <td><span class="mono">f5364099-614…</span></td>
-        </tr>
-        <tr data-search="sheila e. f sheilaefield@gmail.com 31617402-11fc-45c1-bc5c-cca01d6bbf28">
-          <td class="num">42</td>
-          <td><div class="bk-name">Sheila E. F</div><div class="bk-email">sheilaefield@gmail.com</div></td>
-          <td><span class="mono">ef01a943-bf52-…</span></td>
-          <td>2026-03-10</td>
-          <td class="num strong">$6,722</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/31617402-11fc-45c1-bc5c-cca01d6bbf28" target="_blank" rel="noopener">31617402-11f…</a></td>
-          <td><span class="mono">baf1f766-d0f…</span></td>
-        </tr>
-        <tr data-search="jeff trost jeffmtrost@gmail.com 5df4cbd8-f15d-4b18-9844-676bb92be2b0">
-          <td class="num">43</td>
-          <td><div class="bk-name">Jeff Trost</div><div class="bk-email">jeffmtrost@gmail.com</div></td>
-          <td><span class="mono">596db2c2-a201-…</span></td>
-          <td>2026-03-28</td>
-          <td class="num strong">$5,696</td>
-          <td><span class="pill bad">Cancelled</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/5df4cbd8-f15d-4b18-9844-676bb92be2b0" target="_blank" rel="noopener">5df4cbd8-f15…</a></td>
-          <td><span class="mono">order-a48f9b…</span></td>
-        </tr>
-        <tr data-search="jane hoffmann hoffmannjch1@gmail.com a625f137-7212-4244-aeb6-cf4b22c7307c">
-          <td class="num">44</td>
-          <td><div class="bk-name">Jane Hoffmann</div><div class="bk-email">hoffmannjch1@gmail.com</div></td>
-          <td><span class="mono">ef01a943-bf52-…</span></td>
-          <td>2026-01-28</td>
-          <td class="num strong">$5,432</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/a625f137-7212-4244-aeb6-cf4b22c7307c" target="_blank" rel="noopener">a625f137-721…</a></td>
-          <td><span class="mono">c763ebc0-9f1…</span></td>
-        </tr>
-        <tr data-search="jeff trost jeffmtrost@gmail.com 25b6056a-d709-4bd5-a69e-244d6c9fc458">
-          <td class="num">45</td>
-          <td><div class="bk-name">Jeff Trost</div><div class="bk-email">jeffmtrost@gmail.com</div></td>
-          <td><span class="mono">596db2c2-a201-…</span></td>
-          <td>2026-03-28</td>
-          <td class="num strong">$5,390</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/25b6056a-d709-4bd5-a69e-244d6c9fc458" target="_blank" rel="noopener">25b6056a-d70…</a></td>
-          <td><span class="mono">cd363c83-4a4…</span></td>
-        </tr>
-        <tr data-search="brian thornton bdthornton@sbcglobal.net 6302a3a4-35b7-4314-9eab-01bdcc77b160">
-          <td class="num">46</td>
-          <td><div class="bk-name">Brian Thornton</div><div class="bk-email">bdthornton@sbcglobal.net</div></td>
-          <td><span class="mono">ef01a943-bf52-…</span></td>
-          <td>2026-02-20</td>
-          <td class="num strong">$4,793</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/6302a3a4-35b7-4314-9eab-01bdcc77b160" target="_blank" rel="noopener">6302a3a4-35b…</a></td>
-          <td><span class="mono">8fbab793-c81…</span><br><span class="mono">49953c94-e52…</span></td>
-        </tr>
-        <tr data-search="don chookaszian chooks@comcast.net 9cf1f491-059d-4a39-aab7-56d605bc37f3">
-          <td class="num">47</td>
-          <td><div class="bk-name">Don Chookaszian</div><div class="bk-email">chooks@comcast.net</div></td>
-          <td><span class="mono">ab50ea82-9b95-…</span></td>
-          <td>2026-03-06</td>
-          <td class="num strong">$3,770</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/9cf1f491-059d-4a39-aab7-56d605bc37f3" target="_blank" rel="noopener">9cf1f491-059…</a></td>
-          <td><span class="mono">83ea7491-34d…</span></td>
-        </tr>
-        <tr data-search="mark palstring palstring_mark@yahoo.com a9cd9e5c-54f7-4d5d-848f-f253d342d441">
-          <td class="num">48</td>
-          <td><div class="bk-name">Mark Palstring</div><div class="bk-email">palstring_mark@yahoo.com</div></td>
-          <td><span class="mono">3d76a1f6-b593-…</span></td>
-          <td>2026-02-18</td>
-          <td class="num strong">$3,624</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/a9cd9e5c-54f7-4d5d-848f-f253d342d441" target="_blank" rel="noopener">a9cd9e5c-54f…</a></td>
-          <td><span class="mono">602070b8-e96…</span></td>
-        </tr>
-        <tr data-search="keely badger bluemoonavalon@gmail.com 3fb756f3-8e5d-4db1-b539-b8e305da427d">
-          <td class="num">49</td>
-          <td><div class="bk-name">Keely Badger</div><div class="bk-email">bluemoonavalon@gmail.com</div></td>
-          <td><span class="mono">ef01a943-bf52-…</span></td>
-          <td>2026-02-17</td>
-          <td class="num strong">$3,589</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/3fb756f3-8e5d-4db1-b539-b8e305da427d" target="_blank" rel="noopener">3fb756f3-8e5…</a></td>
-          <td><span class="mono">f29337e1-193…</span></td>
-        </tr>
-        <tr data-search="brianna smith brianna.vogelzang@gmail.com 400b6d29-1e05-4151-9cda-d3d4e91a849f">
-          <td class="num">50</td>
-          <td><div class="bk-name">Brianna Smith</div><div class="bk-email">brianna.vogelzang@gmail.com</div></td>
-          <td><span class="mono">ef01a943-bf52-…</span></td>
-          <td>2026-03-09</td>
-          <td class="num strong">$3,364</td>
-          <td><span class="pill bad">Cancelled</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/400b6d29-1e05-4151-9cda-d3d4e91a849f" target="_blank" rel="noopener">400b6d29-1e0…</a></td>
-          <td><span class="mono">804afbb9-e1b…</span></td>
-        </tr>
-        <tr data-search="david lloyd boiseopshelpdesk@contactcfs.com 948dcf60-307f-4450-ac40-b8777da87fa3">
-          <td class="num">51</td>
-          <td><div class="bk-name">David Lloyd</div><div class="bk-email">boiseopshelpdesk@contactcfs.com</div></td>
-          <td><span class="mono">ef01a943-bf52-…</span></td>
-          <td>2026-03-31</td>
-          <td class="num strong">$3,330</td>
-          <td><span class="pill bad">Cancelled</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/948dcf60-307f-4450-ac40-b8777da87fa3" target="_blank" rel="noopener">948dcf60-307…</a></td>
-          <td><span class="mono">6d8a5daf-fa4…</span></td>
-        </tr>
-        <tr data-search="heather maccuish smith hmaccuish@mac.com 26d204f7-5379-4c2a-8e51-35fae1c8af1a">
-          <td class="num">52</td>
-          <td><div class="bk-name">Heather Maccuish Smith</div><div class="bk-email">hmaccuish@mac.com</div></td>
-          <td><span class="mono">3d76a1f6-b593-…</span></td>
-          <td>2026-02-18</td>
-          <td class="num strong">$2,437</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/26d204f7-5379-4c2a-8e51-35fae1c8af1a" target="_blank" rel="noopener">26d204f7-537…</a></td>
-          <td><span class="mono">401828f7-fea…</span></td>
-        </tr>
-        <tr data-search="jill nunez nunez.jill@gmail.com b4e1a27f-c3d2-4b47-bce0-58032d85c874">
-          <td class="num">53</td>
-          <td><div class="bk-name">Jill Nunez</div><div class="bk-email">nunez.jill@gmail.com</div></td>
-          <td><span class="mono">cb729382-4fa2-…</span></td>
-          <td>2026-03-13</td>
-          <td class="num strong">$2,226</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/b4e1a27f-c3d2-4b47-bce0-58032d85c874" target="_blank" rel="noopener">b4e1a27f-c3d…</a></td>
-          <td><span class="mono">a347d692-ed2…</span></td>
-        </tr>
-        <tr data-search="travis venerable travis.venerable@gmail.com 5d41596c-df0f-4ebf-a4a3-8be8af891a12">
-          <td class="num">54</td>
-          <td><div class="bk-name">Travis Venerable</div><div class="bk-email">travis.venerable@gmail.com</div></td>
-          <td><span class="mono">b98b2232-e44c-…</span></td>
-          <td>2026-03-11</td>
-          <td class="num strong">$1,651</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/5d41596c-df0f-4ebf-a4a3-8be8af891a12" target="_blank" rel="noopener">5d41596c-df0…</a></td>
-          <td><span class="mono">08301f3a-570…</span></td>
-        </tr>
-        <tr data-search="solei errico danny@dannyerrico.com 4c0efb5b-ca62-4d5f-8366-fdd87a2e8e97">
-          <td class="num">55</td>
-          <td><div class="bk-name">Solei Errico</div><div class="bk-email">danny@dannyerrico.com</div></td>
-          <td><span class="mono">ef01a943-bf52-…</span></td>
-          <td>2026-03-29</td>
-          <td class="num strong">$1,626</td>
-          <td><span class="pill good">Booked</span></td>
-          <td><a class="link-orange mono" href="https://platform.hostfully.com/leads/4c0efb5b-ca62-4d5f-8366-fdd87a2e8e97" target="_blank" rel="noopener">4c0efb5b-ca6…</a></td>
-          <td><span class="mono">96fc1d24-67e…</span></td>
-        </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="bk-callout" style="margin-top:24px">
-      <div class="title">Note on what's excluded</div>
-      Internal &amp; owner emails (<b>@purekauai.com, @staykauaivacations.com, @houseofdreamskauai.com</b>) are filtered out — those looked like internal payouts or owner blocks, not real guest bookings. Cancelled bookings <b>are</b> included with a status tag for completeness (5 in Q1).
-    </div>
-
-  </div><!-- /tab-bookings -->
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- TAB: BEFORE → AFTER (Q2 Changes with data) -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div id="tab-changes" class="tab-panel">
-
-    <!-- Hero: 3 headline numbers -->
-    <div class="section">
-      <div class="section-title">What's Changing — and What the Numbers Say</div>
-      <div class="section-sub">Q1 baseline (11-month avg) vs Q2 projected outcome. Every row is a specific decision with a dollar figure attached.</div>
-
-      <div class="ba-hero">
-        <div class="ba-hero-card">
-          <div class="ba-hero-lbl">Q1 Wasted Spend</div>
-          <div class="ba-hero-val" style="color:#EF4444;">$25,605</div>
-          <div class="ba-hero-sub">Main Geo + Phone Calls over 11 months<br>→ 0 profitable conversions</div>
-        </div>
-        <div class="ba-hero-card good">
-          <div class="ba-hero-lbl">Monthly Savings (Apr onward)</div>
-          <div class="ba-hero-val" style="color:#4ADE80;">$2,300<span style="font-size:18px">/mo</span></div>
-          <div class="ba-hero-sub">Freed by pausing Main Geo + killing Phone Calls</div>
-        </div>
-        <div class="ba-hero-card warn">
-          <div class="ba-hero-lbl">Brand Budget Increase</div>
-          <div class="ba-hero-val" style="color:var(--orange);">5×</div>
-          <div class="ba-hero-sub">$10/day → $50/day<br>188× ROAS means every dollar works</div>
+        <div>
+          <table class="data-table">
+            <thead><tr><th>Channel</th><th>Bookings</th><th>April Transactions</th></tr></thead>
+            <tbody>
+              <tr class="highlight"><td>Hostfully (direct)</td><td>36</td><td>$1,308,350</td></tr>
+              <tr><td>Airbnb</td><td>6</td><td>$34,527</td></tr>
+              <tr><td>VRBO</td><td>2</td><td>$117,310</td></tr>
+              <tr><td>Other</td><td>2</td><td>—</td></tr>
+              <tr class="highlight"><td><strong>Total</strong></td><td><strong>46 stays</strong></td><td><strong>$1,460,187</strong></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-
-    <!-- Campaign before/after table -->
-    <div class="section">
-      <div class="ba-section-title">Campaign-by-Campaign: Before vs After</div>
-      <div class="ba-section-sub">Q1 figures are 11-month actuals (May 2025–Mar 2026). Monthly avg = total ÷ 11. Q2 projections are conservative estimates based on current ROAS efficiency.</div>
-
-      <div class="ba-table-wrap">
-        <table class="ba-table">
-          <thead>
-            <tr>
-              <th>Campaign</th>
-              <th class="right">Q1 Spend (11mo)</th>
-              <th class="right">Q1 Monthly Avg</th>
-              <th class="right">Q1 ROAS</th>
-              <th>Action</th>
-              <th>Q2 Direction</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr>
-              <td>
-                <div class="ba-campaign">Brand</div>
-                <div style="font-size:11px;color:var(--text3);margin-top:3px">Captures "pure kauai" search demand</div>
-              </td>
-              <td class="right"><span class="ba-before">$3,531</span></td>
-              <td class="right"><span class="ba-before">$321/mo</span></td>
-              <td class="right" style="color:#4ADE80;font-weight:700;">188×</td>
-              <td><span class="ba-action-pill scale">Scale</span></td>
-              <td>
-                <div class="ba-after-good">→ $1,500/mo ($50/day)</div>
-                <div style="font-size:11.5px;color:var(--text3);margin-top:4px">Incremental $1,179/mo into a 188× machine. Fix 4 disapproved sitelinks. Add "luxury", "private estate", "oceanfront" variants.</div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <div class="ba-campaign">California</div>
-                <div style="font-size:11px;color:var(--text3);margin-top:3px">Geo-targeted to CA bookers</div>
-              </td>
-              <td class="right"><span class="ba-before">$19,270</span></td>
-              <td class="right"><span class="ba-before">$1,752/mo</span></td>
-              <td class="right" style="color:#4ADE80;font-weight:700;">8.3×</td>
-              <td><span class="ba-action-pill scale">Scale</span></td>
-              <td>
-                <div class="ba-after-good">→ Continue + monitor</div>
-                <div style="font-size:11.5px;color:var(--text3);margin-top:4px">Best non-brand performer. Hold budget through Q2. Add audience layering once BB V2 is feeding conversion value.</div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <div class="ba-campaign">PMax</div>
-                <div style="font-size:11px;color:var(--text3);margin-top:3px">Budget-limited (69.5% IS lost)</div>
-              </td>
-              <td class="right"><span class="ba-before">$11,140</span></td>
-              <td class="right"><span class="ba-before">$1,013/mo</span></td>
-              <td class="right" style="color:var(--warn);font-weight:700;">6.9×</td>
-              <td><span class="ba-action-pill optimize">Optimize</span></td>
-              <td>
-                <div class="ba-after-tbd">→ Add assets · Wire CallRail</div>
-                <div style="font-size:11.5px;color:var(--text3);margin-top:4px">+5 images + 1 video (ad strength: Average → Excellent). CallRail integration adds phone-call conversions — likely flips ROAS upward to 9–11×.</div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <div class="ba-campaign">Hanalei</div>
-                <div style="font-size:11px;color:var(--text3);margin-top:3px">Strong phrase-match · weak broad</div>
-              </td>
-              <td class="right"><span class="ba-before">$12,023</span></td>
-              <td class="right"><span class="ba-before">$1,093/mo</span></td>
-              <td class="right" style="color:var(--warn);font-weight:700;">6.3×</td>
-              <td><span class="ba-action-pill optimize">Optimize</span></td>
-              <td>
-                <div class="ba-after-tbd">→ Pause broad-match ad groups</div>
-                <div style="font-size:11.5px;color:var(--text3);margin-top:4px">Broad-match is pulling irrelevant queries and inflating CPA. Phrase/exact only. Expect lower spend, higher ROAS on remaining budget.</div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <div class="ba-campaign">Secret Beach</div>
-                <div style="font-size:11px;color:var(--text3);margin-top:3px">Geo bleed · high CPA</div>
-              </td>
-              <td class="right"><span class="ba-before">$8,251</span></td>
-              <td class="right"><span class="ba-before">$750/mo</span></td>
-              <td class="right" style="color:var(--danger);font-weight:700;">2.0×</td>
-              <td><span class="ba-action-pill restructure">Restructure</span></td>
-              <td>
-                <div class="ba-after-tbd">→ Tighten geo · remove leaking states</div>
-                <div style="font-size:11.5px;color:var(--text3);margin-top:4px">Multiple US states spending with zero conversions. Narrow to CA, WA, NY, TX only. Re-evaluate after 60 days.</div>
-              </td>
-            </tr>
-
-            <tr style="background:rgba(239,68,68,0.04);">
-              <td>
-                <div class="ba-campaign" style="color:var(--danger);">Main Geo (US)</div>
-                <div style="font-size:11px;color:var(--text3);margin-top:3px">Broad-match · generic Hawaii queries</div>
-              </td>
-              <td class="right"><span style="color:var(--danger);font-weight:700;">$24,140</span></td>
-              <td class="right"><span style="color:var(--danger);font-weight:700;">$2,194/mo</span></td>
-              <td class="right" style="color:var(--danger);font-weight:700;">2.0×</td>
-              <td><span class="ba-action-pill pause">Pause</span></td>
-              <td>
-                <div class="ba-after-save">→ $0 spend · save $2,194/mo</div>
-                <div style="font-size:11.5px;color:var(--text3);margin-top:4px">Biggest waste in the account. Broad-match "hawaii vacation rentals" has zero conversion signal. Every dollar here is a dollar stolen from Brand or California.</div>
-              </td>
-            </tr>
-
-            <tr style="background:rgba(239,68,68,0.04);">
-              <td>
-                <div class="ba-campaign" style="color:var(--danger);">Non-brand Phone Calls</div>
-                <div style="font-size:11px;color:var(--text3);margin-top:3px">Call ads phased out by Google</div>
-              </td>
-              <td class="right"><span style="color:var(--danger);font-weight:700;">$1,465</span></td>
-              <td class="right"><span style="color:var(--danger);font-weight:700;">$133/mo</span></td>
-              <td class="right" style="color:var(--danger);font-weight:700;">0×</td>
-              <td><span class="ba-action-pill kill">Kill</span></td>
-              <td>
-                <div class="ba-after-save">→ $0 spend · save $133/mo</div>
-                <div style="font-size:11.5px;color:var(--text3);margin-top:4px">0 conversions in 11 months. Google has phased out call-only ads. Budget fully wasted. Already actioned.</div>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
+      <div class="note">
+        <strong>What "April transactions" means</strong>
+        $1,460,187 is the total value of all payments processed in April — including deposits on future stays and final payments for past stays. The 46 bookings figure is verified live from Hostfully: confirmed guest stays where the visit falls in April 2026. Forward-booked revenue ($4.61M) captures stays not yet completed.
       </div>
     </div>
+  </div>
 
-    <!-- Net effect summary -->
-    <div class="callout" style="margin-bottom:36px;">
-      <div class="callout-title">Net Effect on Monthly Budget</div>
-      <div class="callout-body">
-        <table style="width:100%;border-collapse:collapse;font-size:13.5px;">
-          <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-            <td style="padding:10px 0;color:var(--text2);">Main Geo (US) paused</td>
-            <td style="text-align:right;color:#4ADE80;font-weight:700;padding:10px 0;">+$2,194 freed/mo</td>
+  <!-- SECTION 2: GOOGLE ADS -->
+  <div class="card">
+    <div class="card-header green">
+      <div class="card-title">2 &nbsp;·&nbsp; Google Ads — Delivering Strong Returns</div>
+      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">Full Google Ads detail →</a>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val teal">17.2×</div>
+          <div class="stat-lbl">ROAS on confirmed bookings (conservative)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">$6,477</div>
+          <div class="stat-lbl">Total Google Ads spend (Apr 1–30, live)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val teal">$111,112</div>
+          <div class="stat-lbl">Verified booking value (3 confirmed in Hostfully)</div>
+        </div>
+      </div>
+
+      <!-- Conversion breakdown box -->
+      <div style="background:#f0fdf8;border:1px solid #b6e8d8;border-radius:10px;padding:16px 20px;margin:12px 0;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:#085041;margin-bottom:12px;text-transform:uppercase;">April Conversions — What Google Ads Tracked</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:#fff;border-radius:8px;padding:14px 16px;border:1px solid #d3f0e5;">
+            <div style="font-size:24px;font-weight:700;color:#085041;">7</div>
+            <div style="font-size:12px;color:#1D9E75;font-weight:600;margin-bottom:6px;">Purchase Events Tracked</div>
+            <div style="font-size:12px;color:#6b6b68;line-height:1.6;">
+              <span style="display:block;padding:3px 0;border-bottom:1px solid #eee;">3 — <strong>Confirmed</strong> in Hostfully &nbsp;<span style="background:#E1F5EE;color:#085041;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;">✓ Verified</span></span>
+              <span style="display:block;padding:3px 0;">4 — Still in pipeline &nbsp;<span style="background:#FAEEDA;color:#854F0B;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;">Pending</span></span>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:14px 16px;border:1px solid #eee;">
+            <div style="font-size:24px;font-weight:700;color:#2C2C2A;">3</div>
+            <div style="font-size:12px;color:#888780;font-weight:600;margin-bottom:6px;">Add to Cart Events</div>
+            <div style="font-size:12px;color:#6b6b68;line-height:1.6;">Booking page engagements — guests who reached checkout but did not complete. Not confirmed bookings.</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:#6b6b68;margin-top:10px;padding-top:10px;border-top:1px solid #d3f0e5;">
+          <strong style="color:#2C2C2A;">Value outlook:</strong> The 3 confirmed bookings = $111,112. The 4 pipeline purchases have an additional $206,629 attributed in Google Ads — these may convert to bookings as inquiries are finalized.
+        </div>
+      </div>
+
+      <hr class="divider">
+      <table class="data-table">
+        <thead><tr><th>Campaign</th><th>Apr 1–30 Spend</th><th>Purchase Events</th><th>Attributed Value</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td>Main (Geographic)</td><td>$2,070.67</td><td>4</td><td>$142,187</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr class="warn"><td>California</td><td>$1,763.28</td><td>2</td><td>$124,017</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr><td>Hanalei</td><td>$1,097.53</td><td>0</td><td>$0</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr class="highlight"><td>Secret Beach</td><td>$190.96</td><td>3</td><td>$41,270</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr><td>Brand</td><td>$96.22</td><td>1</td><td>$10,270</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr><td>PMax – California</td><td>$1,089.46</td><td>0</td><td>$0</td><td><span class="tag tag-warn">Paused ✓</span></td></tr>
+          <tr><td>Non-brand Phone Calls</td><td>$169.25</td><td>0</td><td>$0</td><td><span class="tag tag-warn">Paused ✓</span></td></tr>
+          <tr class="highlight"><td><strong>Total</strong></td><td><strong>$6,477.38</strong></td><td><strong>10 events</strong></td><td><strong>$317,744</strong></td><td></td></tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:14px">
+        <strong>Why conversions appeared in the last week of April</strong>
+        Google Ads attributes a booking only after the purchase is confirmed by the booking platform. Several bookings made earlier in April were finalized during the last week — that's when the conversion data settled. This is normal behavior for high-value vacation rental bookings which often involve a deposit followed by a final payment confirmation. The 3 verified bookings ($111,112) are solid. The 4 in pipeline ($206,629 attributed) will be confirmed or dropped as those guest inquiries are resolved.
+      </div>
+      <div class="note" style="margin-top:10px">
+        <strong>Why Google Ads shows 10 events but Google Analytics shows 28 purchases</strong>
+        Google Ads only credits bookings it can link directly to an ad click. Google Analytics counts all purchases from all sources — organic search, direct, referral, ads. Both are correct. The $111,112 confirmed through Google Ads is a floor, not a ceiling — many guests click an ad first, then return directly to book days later, which Google Ads does not capture.
+      </div>
+      <div class="action">
+        <strong>California campaign — needs review before May</strong>
+        California spent $1,763.28 and shows 2 purchase events ($124,017 attributed) — but those bookings are still in pipeline, not confirmed in Hostfully. Worth checking whether these 2 guests are in the inquiry queue and whether the landing page experience for California traffic matches what they're expecting.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: CALLS -->
+  <div class="card">
+    <div class="card-header red">
+      <div class="card-title">3 &nbsp;·&nbsp; Phone Calls — Significant Revenue Leakage</div>
+      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">Full call detail →</a>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val">58</div>
+          <div class="stat-lbl">Total inbound calls in April</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val coral">45</div>
+          <div class="stat-lbl">Calls that went unanswered (77.6%)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">13</div>
+          <div class="stat-lbl">Calls answered (22.4%)</div>
+        </div>
+      </div>
+      <hr class="divider">
+      <div style="margin-bottom:14px">
+        <div class="prog-row">
+          <div class="prog-label">Google Organic</div>
+          <div class="prog-track"><div class="prog-fill" style="width:36%;background:var(--teal)">21</div></div>
+          <div class="prog-count">21</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">Direct</div>
+          <div class="prog-track"><div class="prog-fill" style="width:22%;background:var(--teal-mid)">13</div></div>
+          <div class="prog-count">13</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">purekauai.com</div>
+          <div class="prog-track"><div class="prog-fill" style="width:21%;background:var(--blue)">12</div></div>
+          <div class="prog-count">12</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">Google Ads</div>
+          <div class="prog-track"><div class="prog-fill" style="width:14%;background:var(--amber)">8</div></div>
+          <div class="prog-count">8</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">Other</div>
+          <div class="prog-track"><div class="prog-fill" style="width:7%;background:var(--gray-200);color:var(--gray-500)">4</div></div>
+          <div class="prog-count">4</div>
+        </div>
+      </div>
+      <div class="action-red">
+        <strong>Revenue risk</strong>
+        At Pure Kauai's average booking value, 45 missed calls represents a significant opportunity. Even if just 10% of those callers were ready to book, that's 4–5 bookings = roughly $100,000–$130,000 in unrealized revenue this month alone. The fix is straightforward: better call coverage during business hours, or an auto-text response so missed callers know how to reach you.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: TRACKING -->
+  <div class="card">
+    <div class="card-header green">
+      <div class="card-title">4 &nbsp;·&nbsp; Tracking Fix — Resolved</div>
+    </div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>What Was Wrong</th><th>Status</th><th>Impact Going Forward</th></tr></thead>
+        <tbody>
+          <tr style="background:#f0fdf8;">
+            <td><strong>CallRail → Google Ads</strong></td>
+            <td>During April, calls and forms were not being reported back to Google Ads as conversions. Now fixed.</td>
+            <td><span class="tag tag-ok">Fixed ✓</span></td>
+            <td>Google's Smart Bidding can now learn from phone leads — better ad targeting from May onwards</td>
           </tr>
-          <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-            <td style="padding:10px 0;color:var(--text2);">Phone Calls killed</td>
-            <td style="text-align:right;color:#4ADE80;font-weight:700;padding:10px 0;">+$133 freed/mo</td>
-          </tr>
-          <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
-            <td style="padding:10px 0;color:var(--text2);">Brand scaled to $50/day</td>
-            <td style="text-align:right;color:var(--danger);padding:10px 0;">-$1,179 invested/mo</td>
-          </tr>
-          <tr>
-            <td style="padding:12px 0;color:white;font-weight:700;font-family:'Poppins',sans-serif;">Net monthly change</td>
-            <td style="text-align:right;color:#4ADE80;font-weight:800;font-size:18px;font-family:'Poppins',sans-serif;padding:12px 0;">+$1,148 saved/mo</td>
-          </tr>
-        </table>
-        <div style="font-size:12.5px;color:var(--text3);margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.07);">
-          We're spending <b style="color:white;">$1,148/month less</b> while putting <b style="color:white;">5× more money</b> into the campaign with a 188× ROAS. The account doesn't need a bigger budget — it needs a smarter one.
-        </div>
+        </tbody>
+      </table>
+      <div class="note">
+        <strong>What this means in plain terms</strong>
+        When a guest calls Pure Kauai after seeing a Google Ad, that call is now reported back to Google automatically. Google uses this signal to get smarter about who to show ads to. This fix did not affect April's $111,112 in tracked booking value — those came through the website. But it will improve performance in May and beyond.
       </div>
     </div>
+  </div>
 
-    <!-- Change tracker -->
-    <div class="section">
-      <div class="ba-section-title">Change Tracker</div>
-      <div class="ba-section-sub">Live status of every Q2 change. Updated as actions complete.</div>
-
-      <div class="ba-tracker">
-
-        <div class="ba-tracker-row">
-          <div class="ba-status-dot done"></div>
-          <div style="flex:1;">
-            <div class="ba-tracker-title">Kill Non-brand Phone Calls campaign</div>
-            <div class="ba-tracker-sub">0 conversions in 11 months. Paused. Budget redirected.</div>
-          </div>
-          <div class="ba-tracker-date" style="color:#4ADE80;">Done · Apr</div>
-        </div>
-
-        <div class="ba-tracker-row">
-          <div class="ba-status-dot inprog"></div>
-          <div style="flex:1;">
-            <div class="ba-tracker-title">Pause Main Geo (US) — broad-match keyword cleanup</div>
-            <div class="ba-tracker-sub">$24,140 in 11 months, 2× ROAS. Pausing entire campaign. Saves ~$2,194/mo.</div>
-          </div>
-          <div class="ba-tracker-date">By Apr 30</div>
-        </div>
-
-        <div class="ba-tracker-row">
-          <div class="ba-status-dot inprog"></div>
-          <div style="flex:1;">
-            <div class="ba-tracker-title">Scale Brand campaign $10 → $50/day + fix 4 disapproved sitelinks</div>
-            <div class="ba-tracker-sub">188× ROAS and currently budget-limited. Geo-lock to US + Canada. Add 3 branded keyword variants.</div>
-          </div>
-          <div class="ba-tracker-date">By Apr 30</div>
-        </div>
-
-        <div class="ba-tracker-row">
-          <div class="ba-status-dot pending"></div>
-          <div style="flex:1;">
-            <div class="ba-tracker-title">Pause Hanalei broad-match ad groups</div>
-            <div class="ba-tracker-sub">Keep phrase/exact only. Broad is pulling generic Hawaii queries and bloating CPA to $1,007.</div>
-          </div>
-          <div class="ba-tracker-date">By May 5</div>
-        </div>
-
-        <div class="ba-tracker-row">
-          <div class="ba-status-dot pending"></div>
-          <div style="flex:1;">
-            <div class="ba-tracker-title">Wire CallRail → Google Ads (DNI + integration + PMax conversion goal)</div>
-            <div class="ba-tracker-sub">3-step fix. Adds phone-call conversions to PMax for the first time. Expected ROAS lift from 6.9× to 9–11×.</div>
-          </div>
-          <div class="ba-tracker-date">By May 10</div>
-        </div>
-
-        <div class="ba-tracker-row">
-          <div class="ba-status-dot pending"></div>
-          <div style="flex:1;">
-            <div class="ba-tracker-title">Ship BookingBridge V2 — offline conversion upload to Google Ads</div>
-            <div class="ba-tracker-sub">Hostfully bookings → matched to click ID → uploaded to Google Ads as verified revenue. Q2 reports will show exactly which bookings came from which campaign.</div>
-          </div>
-          <div class="ba-tracker-date">May 15</div>
-        </div>
-
-        <div class="ba-tracker-row">
-          <div class="ba-status-dot pending"></div>
-          <div style="flex:1;">
-            <div class="ba-tracker-title">PMax creative refresh: +5 images + 1 hero video</div>
-            <div class="ba-tracker-sub">Ad strength currently Average (15 images, no video). Adding Hanalei + Secret Beach property content. Target: Excellent strength.</div>
-          </div>
-          <div class="ba-tracker-date">By Jun 15</div>
-        </div>
-
-        <div class="ba-tracker-row">
-          <div class="ba-status-dot pending"></div>
-          <div style="flex:1;">
-            <div class="ba-tracker-title">Switch California + Hanalei + PMax → Maximize Conversion Value bidding</div>
-            <div class="ba-tracker-sub">Only after BookingBridge is feeding verified $$. Bookings range $2K–$20K+ — algorithm should optimize for revenue, not just conversion count.</div>
-          </div>
-          <div class="ba-tracker-date">By Jun 5</div>
-        </div>
-
-      </div>
-
-      <div style="display:flex;gap:20px;font-size:12px;color:var(--text3);margin-top:8px;">
-        <div style="display:flex;align-items:center;gap:7px;"><div style="width:9px;height:9px;border-radius:50%;background:#4ADE80;"></div> Done</div>
-        <div style="display:flex;align-items:center;gap:7px;"><div style="width:9px;height:9px;border-radius:50%;background:#FBBF24;"></div> In progress</div>
-        <div style="display:flex;align-items:center;gap:7px;"><div style="width:9px;height:9px;border-radius:50%;background:#555;"></div> Pending</div>
-      </div>
+  <!-- SECTION 5: WHAT'S WORKING -->
+  <div class="card">
+    <div class="card-header blue">
+      <div class="card-title">5 &nbsp;·&nbsp; What's Working — Keep Doing This</div>
     </div>
+    <div class="card-body">
+      <ul class="bullets">
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>Best April revenue pacing ever recorded.</strong> At 70.3% of the $9.5M goal by April 13 — ahead of every prior year. Forward bookings ($4.61M) are up 29% vs April 2025.</span>
+        </li>
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>Google Ads is delivering strong returns.</strong> $111,112 in confirmed booking value on $6,477 in spend = 17.2× return. Two underperforming campaigns (PMax – California and Non-brand Phone Calls) have been paused — saving ~$1,259/month going forward.</span>
+        </li>
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>89.6% of April bookings came through direct channels — not VRBO or Airbnb.</strong> This means Pure Kauai keeps the OTA commission (typically 15–20%) on those stays. The website and Google Ads are contributing to this direct booking ratio.</span>
+        </li>
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>Organic search is driving calls and bookings.</strong> 21 of 58 April calls came from Google organic search. The island guide content is working as a top-of-funnel driver.</span>
+        </li>
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>BookingBridge is live and matched.</strong> The attribution system linking website ad clicks to Hostfully bookings is operational. 72 bookings in the last 6 months have been traced back to a marketing source.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-  </div><!-- /tab-changes -->
+  <!-- FULL REPORT CTA -->
+  <div class="full-report-cta">
+    <p>This summary covers the top-line numbers for April. The full report includes a full campaign-by-campaign Google Ads breakdown, all call data, GA4 web analytics, the booking attribution pipeline, and a complete action plan with step-by-step fixes.</p>
+    <a href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">View Full April 2026 Report →</a>
+  </div>
 
   <div class="footer">
-    Pure Kauai · Q1 2026 Summary · Prepared by <b>Second Step</b><br>
-    getsecondstep.com · All numbers verified from Google Ads exports (Jan 1 – Mar 31, 2026)
+    <p>Sources: Airtable Flash Reports &nbsp;·&nbsp; Hostfully PMS (live API) &nbsp;·&nbsp; Google Ads (account 316-669-4225) &nbsp;·&nbsp; CallRail (Apr 1–28) &nbsp;·&nbsp; GA4 (G-E8C5BS9ME8)</p>
   </div>
 
 </div>
-
-<script>
-  // ─── Tab switching ───
-  document.querySelectorAll('.tab').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var target = btn.dataset.tab;
-      document.querySelectorAll('.tab').forEach(function(b) { b.classList.remove('active'); });
-      document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
-      btn.classList.add('active');
-      document.getElementById('tab-' + target).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
-
-  // ─── Bookings search filter ───
-  function filterBookings() {
-    var q = (document.getElementById('bk-search').value || '').toLowerCase().trim();
-    document.querySelectorAll('#bk-tbody tr').forEach(function(r) {
-      var hay = r.dataset.search || '';
-      r.classList.toggle('row-hidden', !!q && hay.indexOf(q) === -1);
-    });
-  }
-</script>
-
-<script>
-  Chart.defaults.color = '#B8B8B8';
-  Chart.defaults.borderColor = '#333';
-  Chart.defaults.font.family = 'Inter, sans-serif';
-
-  const ORANGE = '#E87811';
-  const TEAL = '#22D3EE';
-  const GREEN = '#4ADE80';
-  const RED = '#EF4444';
-
-  // Booking value by campaign
-  new Chart(document.getElementById('chartValue'), {
-    type: 'bar',
-    data: {
-      labels: ['Brand', 'California', 'Hanalei', 'Main Geo', 'Secret Beach'],
-      datasets: [{
-        label: 'Booking Value',
-        data: [174773, 106602, 29037, 16287, 16191],
-        backgroundColor: [GREEN, GREEN, ORANGE, ORANGE, ORANGE],
-        borderRadius: 6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => '$' + ctx.raw.toLocaleString()
-          }
-        }
-      },
-      scales: {
-        x: { grid: { display: false } },
-        y: {
-          grid: { color: '#2a2a2a' },
-          ticks: {
-            callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v)
-          }
-        }
-      }
-    }
-  });
-
-  // Brand vs Non-Brand donut
-  new Chart(document.getElementById('chartSplit'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Brand · $174,773 (51%)', 'Non-Brand · $168,134 (49%)'],
-      datasets: [{
-        data: [174773, 168134],
-        backgroundColor: [ORANGE, '#444'],
-        borderColor: '#1b1b1b',
-        borderWidth: 3
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '65%',
-      plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 }, padding: 14 } }
-      }
-    }
-  });
-</script>
-
 </body>
 </html>

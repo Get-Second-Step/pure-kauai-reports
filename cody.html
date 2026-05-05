@@ -3,89 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pure Kauai — April 2026 Summary for Cody</title>
+<title>Pure Kauai — April 2026 Summary</title>
 <style>
   :root {
-    --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #085041;
+    --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #085041; --teal-mid: #5DCAA5;
     --coral: #D85A30; --coral-light: #FAECE7; --coral-dark: #993C1D;
     --amber: #EF9F27; --amber-light: #FAEEDA; --amber-dark: #854F0B;
+    --blue: #185FA5; --blue-light: #E6F1FB; --blue-dark: #0C447C;
     --gray-50: #F8F7F4; --gray-100: #EEECE6; --gray-200: #D3D1C7;
-    --gray-800: #2C2C2A; --text-muted: #6b6b68;
+    --gray-500: #888780; --gray-800: #2C2C2A; --text-muted: #6b6b68;
     --border: rgba(0,0,0,0.09);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; background: #F4F2EC; color: var(--gray-800); }
+  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; background: #F4F2EC; color: var(--gray-800); line-height: 1.5; }
 
-  .header { background: #fff; border-bottom: 1px solid var(--border); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.08em; }
+  /* HEADER */
+  .header { background: #fff; border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-size: 15px; font-weight: 700; letter-spacing: 0.08em; color: var(--gray-800); }
   .logo span { color: var(--teal); }
-  .header-tag { font-size: 12px; color: var(--text-muted); }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .badge-coral { background: var(--coral-light); color: var(--coral-dark); }
+  .badge-amber { background: var(--amber-light); color: var(--amber-dark); }
+  .badge-gray { background: var(--gray-100); color: var(--gray-500); }
 
-  .page { max-width: 860px; margin: 0 auto; padding: 36px 32px 60px; }
+  /* LAYOUT */
+  .page { max-width: 900px; margin: 0 auto; padding: 32px 32px 60px; }
 
-  /* INTRO */
-  .intro { background: var(--gray-800); color: #fff; border-radius: 14px; padding: 28px 32px; margin-bottom: 28px; }
-  .intro h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-  .intro p { font-size: 14px; line-height: 1.7; opacity: 0.82; max-width: 640px; }
+  /* INTRO CARD */
+  .intro { background: var(--gray-800); color: #fff; border-radius: 14px; padding: 28px 32px; margin-bottom: 24px; }
+  .intro-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
+  .intro h1 { font-size: 21px; font-weight: 700; margin-bottom: 5px; }
+  .intro .subtitle { font-size: 13px; opacity: 0.75; }
+  .intro-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+  .intro-stat .val { font-size: 26px; font-weight: 700; color: #fff; }
+  .intro-stat .lbl { font-size: 11px; opacity: 0.65; margin-top: 2px; }
 
-  /* SECTION */
-  .section { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 24px 28px; margin-bottom: 16px; }
-  .section.green { border-left: 4px solid var(--teal); }
-  .section.amber { border-left: 4px solid var(--amber); }
-  .section.red { border-left: 4px solid var(--coral); }
-
-  .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
-  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
-  .section.green .section-title { color: var(--teal-dark); }
-  .section.amber .section-title { color: var(--amber-dark); }
-  .section.red .section-title { color: var(--coral-dark); }
-
+  /* SECTION CARD */
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 14px; margin-bottom: 16px; overflow: hidden; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+  .card-header.green { border-left: 4px solid var(--teal); }
+  .card-header.red { border-left: 4px solid var(--coral); }
+  .card-header.amber { border-left: 4px solid var(--amber); }
+  .card-header.blue { border-left: 4px solid var(--blue); }
+  .card-title { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+  .card-header.green .card-title { color: var(--teal-dark); }
+  .card-header.red .card-title { color: var(--coral-dark); }
+  .card-header.amber .card-title { color: var(--amber-dark); }
+  .card-header.blue .card-title { color: var(--blue-dark); }
   .detail-link { font-size: 11px; color: var(--teal); text-decoration: none; font-weight: 600; white-space: nowrap; }
   .detail-link:hover { text-decoration: underline; }
+  .card-body { padding: 20px 24px; }
 
-  /* BIG STAT ROW */
-  .stat-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
-  .stat { flex: 1; min-width: 120px; }
-  .stat-val { font-size: 32px; font-weight: 700; line-height: 1; color: var(--gray-800); }
+  /* STAT ROW */
+  .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .stat { flex: 1; min-width: 110px; }
+  .stat-val { font-size: 30px; font-weight: 700; line-height: 1.1; }
   .stat-val.teal { color: var(--teal-dark); }
   .stat-val.coral { color: var(--coral-dark); }
   .stat-val.amber { color: var(--amber-dark); }
-  .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .stat-val.blue { color: var(--blue-dark); }
+  .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
 
-  /* BULLET LIST */
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+  /* BULLETS */
   .bullets { list-style: none; }
-  .bullets li { font-size: 13px; line-height: 1.6; padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  .bullets li { font-size: 13px; line-height: 1.65; padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
   .bullets li:last-child { border-bottom: none; padding-bottom: 0; }
-  .bullet-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
-  .green .bullet-dot { background: var(--teal); }
-  .amber .bullet-dot { background: var(--amber); }
-  .red .bullet-dot { background: var(--coral); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+  .dot-teal { background: var(--teal); }
+  .dot-coral { background: var(--coral); }
+  .dot-amber { background: var(--amber); }
+  .dot-blue { background: var(--blue); }
+  .dot-gray { background: var(--gray-200); }
+
+  /* DATA TABLE */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+  .data-table th { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: left; padding: 8px 12px; background: var(--gray-50); border-bottom: 1px solid var(--border); letter-spacing: 0.03em; }
+  .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr.highlight td { background: #f0fdf8; font-weight: 500; }
+  .data-table tr.warn td { background: #fdf4f2; }
+
+  /* NOTE BOX */
+  .note { background: var(--gray-50); border-radius: 8px; padding: 13px 16px; margin-top: 16px; font-size: 13px; line-height: 1.65; color: var(--text-muted); }
+  .note strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-500); margin-bottom: 5px; font-weight: 700; }
 
   /* ACTION BOX */
-  .action-box { background: var(--gray-50); border-radius: 8px; padding: 12px 16px; margin-top: 14px; font-size: 13px; line-height: 1.6; }
-  .action-box strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; color: var(--text-muted); }
+  .action { background: var(--amber-light); border-radius: 8px; padding: 13px 16px; margin-top: 16px; font-size: 13px; line-height: 1.65; color: var(--amber-dark); }
+  .action strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; font-weight: 700; }
+  .action-red { background: var(--coral-light); color: var(--coral-dark); border-radius: 8px; padding: 13px 16px; margin-top: 16px; font-size: 13px; line-height: 1.65; }
+  .action-red strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; font-weight: 700; }
 
-  /* DIVIDER NUMBER */
-  .section-num { display: inline-flex; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; margin-right: 4px; }
-  .green .section-num { background: var(--teal); }
-  .amber .section-num { background: var(--amber); }
-  .red .section-num { background: var(--coral); }
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 4px; }
+
+  /* PROGRESS BAR */
+  .prog-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .prog-label { font-size: 12px; color: var(--text-muted); width: 120px; flex-shrink: 0; }
+  .prog-track { flex: 1; background: var(--gray-100); border-radius: 4px; height: 20px; overflow: hidden; }
+  .prog-fill { height: 20px; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; }
+  .prog-count { width: 28px; text-align: right; font-size: 12px; font-weight: 600; color: var(--gray-800); }
+
+  /* STATUS TAG */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .tag-fail { background: var(--coral-light); color: var(--coral-dark); }
+  .tag-ok { background: var(--teal-light); color: var(--teal-dark); }
+  .tag-warn { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* CTA */
+  .full-report-cta { background: var(--teal-light); border: 1px solid var(--teal); border-radius: 12px; padding: 20px 24px; text-align: center; margin-top: 24px; }
+  .full-report-cta p { font-size: 13px; color: var(--teal-dark); margin-bottom: 12px; line-height: 1.6; }
+  .full-report-cta a { display: inline-block; background: var(--teal); color: #fff; font-size: 13px; font-weight: 600; padding: 11px 28px; border-radius: 8px; text-decoration: none; }
 
   /* FOOTER */
-  .footer { text-align: center; margin-top: 32px; }
-  .footer p { font-size: 12px; color: var(--text-muted); line-height: 1.8; }
+  .footer { text-align: center; margin-top: 28px; }
+  .footer p { font-size: 12px; color: var(--text-muted); line-height: 1.9; }
   .footer a { color: var(--teal); text-decoration: none; }
 
-  .full-report-cta { background: var(--teal-light); border: 1px solid var(--teal); border-radius: 10px; padding: 18px 24px; text-align: center; margin-top: 24px; }
-  .full-report-cta p { font-size: 13px; color: var(--teal-dark); margin-bottom: 10px; }
-  .full-report-cta a { display: inline-block; background: var(--teal); color: #fff; font-size: 13px; font-weight: 600; padding: 10px 24px; border-radius: 8px; text-decoration: none; }
-
-  @media (max-width: 600px) {
-    .page { padding: 20px 16px 40px; }
-    .header { padding: 14px 16px; }
+  @media (max-width: 640px) {
+    .page { padding: 16px 16px 48px; }
+    .header { padding: 14px 16px; flex-wrap: wrap; gap: 8px; }
     .intro { padding: 20px 18px; }
-    .section { padding: 18px 18px; }
+    .card-body { padding: 16px 18px; }
+    .card-header { padding: 14px 18px 12px; }
+    .two-col { grid-template-columns: 1fr; }
     .stat-val { font-size: 26px; }
+    .intro-stats { gap: 16px; }
+    .intro-stat .val { font-size: 22px; }
   }
 </style>
 </head>
@@ -93,130 +141,272 @@
 
 <div class="header">
   <div class="logo">PURE <span>KAUAI</span></div>
-  <div class="header-tag">April 2026 — Monthly Summary</div>
+  <div class="header-right">
+    <span class="badge badge-teal">April 2026</span>
+    <span class="badge badge-gray">Executive Summary</span>
+  </div>
 </div>
 
 <div class="page">
 
+  <!-- INTRO -->
   <div class="intro">
-    <h1>April 2026 — Business Summary</h1>
-    <p>A quick overview of how the business performed in April. Revenue is at its strongest April ever. Google Ads is delivering solid returns. Two issues need attention — one is about missed calls, one is a technical fix. Everything else is on track.</p>
-  </div>
-
-  <!-- SECTION 1: Revenue -->
-  <div class="section green">
-    <div class="section-head">
-      <div class="section-title"><span class="section-num">1</span> Business Revenue — On Track</div>
-      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/#pacing" target="_blank">Full revenue detail →</a>
-    </div>
-    <div class="stat-row">
-      <div class="stat">
-        <div class="stat-val teal">$6.68M</div>
-        <div class="stat-lbl">Revenue identified year-to-date (as of April 13)</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val teal">70.3%</div>
-        <div class="stat-lbl">Of the $9.5M annual goal — already there by April</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">$4.61M</div>
-        <div class="stat-lbl">Forward-booked revenue (future stays already confirmed)</div>
+    <div class="intro-top">
+      <div>
+        <h1>April 2026 — Monthly Summary</h1>
+        <div class="subtitle">Prepared by Second Step &nbsp;·&nbsp; All figures verified from source systems</div>
       </div>
     </div>
-    <ul class="bullets">
-      <li><div class="bullet-dot"></div><span>This is the <strong>best April pacing Pure Kauai has ever recorded</strong> — ahead of every prior year including 2019, 2023, 2024, and 2025.</span></li>
-      <li><div class="bullet-dot"></div><span>Forward bookings are up <strong>29% vs April 2025</strong> ($4.61M vs $3.56M), meaning demand into summer and fall is strong.</span></li>
-      <li><div class="bullet-dot"></div><span>Total April transactions processed through Hostfully: <strong>$1,460,187</strong> across 67 bookings.</span></li>
-    </ul>
-  </div>
-
-  <!-- SECTION 2: Google Ads -->
-  <div class="section green">
-    <div class="section-head">
-      <div class="section-title"><span class="section-num">2</span> Google Ads — Strong Return</div>
-      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/#ads" target="_blank">Full Google Ads detail →</a>
-    </div>
-    <div class="stat-row">
-      <div class="stat">
-        <div class="stat-val teal">17.3×</div>
-        <div class="stat-lbl">Return on ad spend (ROAS)</div>
+    <div class="intro-stats">
+      <div class="intro-stat">
+        <div class="val">$6.68M</div>
+        <div class="lbl">Revenue identified YTD (Apr 13)</div>
       </div>
-      <div class="stat">
-        <div class="stat-val">$6,405</div>
-        <div class="stat-lbl">Spent on Google Ads in April</div>
+      <div class="intro-stat">
+        <div class="val">70.3%</div>
+        <div class="lbl">Of $9.5M annual goal</div>
       </div>
-      <div class="stat">
-        <div class="stat-val teal">$111,112</div>
-        <div class="stat-lbl">In bookings tracked back to those ads</div>
+      <div class="intro-stat">
+        <div class="val">46</div>
+        <div class="lbl">Confirmed guest stays in April</div>
       </div>
-    </div>
-    <ul class="bullets">
-      <li><div class="bullet-dot"></div><span>For every $1 spent on Google Ads, Pure Kauai brought in $17.30 in tracked booking revenue. That's a strong result for the vacation rental industry.</span></li>
-      <li><div class="bullet-dot"></div><span>Two campaigns (<strong>PMax and Phone Calls</strong>) were paused this month — they were spending without results. This saves ~$1,258/month going forward.</span></li>
-      <li><div class="bullet-dot"></div><span>The remaining campaigns (Main, California, Hanalei, Secret Beach, Brand) are active and running.</span></li>
-    </ul>
-    <div class="action-box">
-      <strong>Note on the numbers</strong>
-      The $111K tracks bookings where a guest clicked a Google Ad and then completed their booking. Google Analytics shows a larger number ($893K, 28 purchases) because it counts all website bookings from all sources — not just ad clicks. Both numbers are correct; they measure different things. Full explanation in the detailed report.
+      <div class="intro-stat">
+        <div class="val">17.3×</div>
+        <div class="lbl">Google Ads return on spend</div>
+      </div>
     </div>
   </div>
 
-  <!-- SECTION 3: Missed Calls -->
-  <div class="section red">
-    <div class="section-head">
-      <div class="section-title"><span class="section-num">3</span> Phone Calls — Needs Attention</div>
-      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/#calls" target="_blank">Full call detail →</a>
+  <!-- SECTION 1: REVENUE -->
+  <div class="card">
+    <div class="card-header green">
+      <div class="card-title">1 &nbsp;·&nbsp; Business Revenue — Strongest April on Record</div>
+      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">Full report →</a>
     </div>
-    <div class="stat-row">
-      <div class="stat">
-        <div class="stat-val">58</div>
-        <div class="stat-lbl">Inbound calls received in April</div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val teal">$6.68M</div>
+          <div class="stat-lbl">Revenue identified year-to-date (Apr 13 flash report)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val teal">70.3%</div>
+          <div class="stat-lbl">Of the $9.5M annual goal — highest April % ever recorded</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">$4.61M</div>
+          <div class="stat-lbl">Forward-booked revenue (future confirmed stays)</div>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-val coral">45</div>
-        <div class="stat-lbl">Calls that went unanswered (77.6%)</div>
+      <hr class="divider">
+      <div class="two-col">
+        <div>
+          <table class="data-table">
+            <thead><tr><th>Year</th><th>By April</th><th>Goal %</th></tr></thead>
+            <tbody>
+              <tr><td>2023</td><td>$5.40M</td><td>56.9%</td></tr>
+              <tr><td>2024</td><td>$5.58M</td><td>55.8%</td></tr>
+              <tr><td>2025</td><td>$5.73M</td><td>63.6%</td></tr>
+              <tr class="highlight"><td><strong>2026</strong></td><td><strong>$6.68M</strong></td><td><strong>70.3%</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table class="data-table">
+            <thead><tr><th>Channel</th><th>Bookings</th><th>April Transactions</th></tr></thead>
+            <tbody>
+              <tr class="highlight"><td>Hostfully (direct)</td><td>36</td><td>$1,308,350</td></tr>
+              <tr><td>Airbnb</td><td>6</td><td>$34,527</td></tr>
+              <tr><td>VRBO</td><td>2</td><td>$117,310</td></tr>
+              <tr><td>Other</td><td>2</td><td>—</td></tr>
+              <tr class="highlight"><td><strong>Total</strong></td><td><strong>46 stays</strong></td><td><strong>$1,460,187</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-val">13</div>
-        <div class="stat-lbl">Calls answered (22.4%)</div>
+      <div class="note">
+        <strong>What "April transactions" means</strong>
+        $1,460,187 is the total value of all payments processed in April — including deposits on future stays and final payments for past stays. The 46 bookings figure is verified live from Hostfully: confirmed guest stays where the visit falls in April 2026. Forward-booked revenue ($4.61M) captures stays not yet completed.
       </div>
-    </div>
-    <ul class="bullets">
-      <li><div class="bullet-dot"></div><span>On <strong>April 13 alone, 15 calls came in — 13 went unanswered</strong>. This was the busiest call day of the month.</span></li>
-      <li><div class="bullet-dot"></div><span>At ~$27,000 average booking value, recovering even 3–4 missed calls per month = <strong>$80,000–$110,000 in potential additional revenue</strong>.</span></li>
-    </ul>
-    <div class="action-box">
-      <strong>What needs to happen</strong>
-      Someone needs to be available to answer calls during business hours, or CallRail's auto-SMS response should be turned on so missed callers get an immediate text reply and a link to book online. This is the single highest-impact thing that can be done right now.
     </div>
   </div>
 
-  <!-- SECTION 4: Technical Fix -->
-  <div class="section amber">
-    <div class="section-head">
-      <div class="section-title"><span class="section-num">4</span> Tracking Fix — One Action Required</div>
-      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/#actions" target="_blank">Full action list →</a>
+  <!-- SECTION 2: GOOGLE ADS -->
+  <div class="card">
+    <div class="card-header green">
+      <div class="card-title">2 &nbsp;·&nbsp; Google Ads — Delivering Strong Returns</div>
+      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">Full Google Ads detail →</a>
     </div>
-    <ul class="bullets">
-      <li><div class="bullet-dot"></div><span><strong>CallRail is not communicating with Google Ads.</strong> When someone calls after seeing an ad, that call should be reported back to Google Ads so it can learn what's working. Right now, that connection is broken.</span></li>
-      <li><div class="bullet-dot"></div><span>This is a one-time settings fix inside CallRail. Once done, Google Ads will get smarter about which ads to show to people who are likely to call — which should improve performance over time.</span></li>
-      <li><div class="bullet-dot"></div><span>This does not affect the current ad results ($111K tracked). It affects how well Google can optimize future ad spend.</span></li>
-    </ul>
-    <div class="action-box">
-      <strong>Who handles this</strong>
-      This is a settings fix in CallRail — Wendy or the team can action it, or Second Step can walk through it on the next call. It takes about 10 minutes once we're in the account together.
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val teal">17.3×</div>
+          <div class="stat-lbl">Return on ad spend (ROAS)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">$6,405</div>
+          <div class="stat-lbl">Total Google Ads spend in April</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val teal">$111,112</div>
+          <div class="stat-lbl">Booking value directly tracked to Google Ads</div>
+        </div>
+      </div>
+      <hr class="divider">
+      <table class="data-table">
+        <thead><tr><th>Campaign</th><th>April Spend</th><th>Purchases</th><th>Booking Value</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td>Main (Geographic)</td><td>$2,054.96</td><td>2</td><td>$69,842</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr class="warn"><td>California</td><td>$1,729.68</td><td>0</td><td>$0</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr><td>Hanalei</td><td>$1,077.99</td><td>0</td><td>$0</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr class="highlight"><td>Secret Beach</td><td>$190.96</td><td>1</td><td>$41,270</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr><td>Brand</td><td>$92.89</td><td>0</td><td>$0</td><td><span class="tag tag-ok">Active</span></td></tr>
+          <tr><td>PMax + Phone Calls</td><td>$1,258.71</td><td>0</td><td>$0</td><td><span class="tag tag-warn">Paused ✓</span></td></tr>
+          <tr class="highlight"><td><strong>Total</strong></td><td><strong>$6,405.19</strong></td><td><strong>3</strong></td><td><strong>$111,112</strong></td><td></td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <strong>Why the 3 purchases appeared in the last week of April</strong>
+        Google Ads has a conversion window — bookings are only credited to an ad after the purchase is fully confirmed by the booking platform. All 3 purchases were booked earlier in April but the confirmation data (including exact booking value) wasn't finalized in Google Ads until the last week of the month. This is normal behavior, especially for high-value bookings that involve deposits and final payments. The numbers you now see ($111,112 from 3 purchases) are the settled, verified figures.
+      </div>
+      <div class="note" style="margin-top:10px">
+        <strong>Why Google Ads shows 3 purchases but Google Analytics shows 28</strong>
+        Google Ads counts only bookings it can link directly to an ad click (3 purchases = $111,112). Google Analytics counts all bookings from all sources — ads, organic search, direct visits, referrals — which is why it shows 28 purchases and $893,205. Both numbers are correct. They measure different things. The $111,112 is the minimum confirmed return from ads; the true influence is higher since many guests click an ad first and return directly to book.
+      </div>
+      <div class="action">
+        <strong>One action for California campaign</strong>
+        California spent $1,729.68 with no tracked purchases. This needs a short audit — either the landing pages aren't connecting with California visitors, or conversions are happening but not being attributed back to this campaign. Les should review this before May budget is confirmed.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: CALLS -->
+  <div class="card">
+    <div class="card-header red">
+      <div class="card-title">3 &nbsp;·&nbsp; Phone Calls — Significant Revenue Leakage</div>
+      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">Full call detail →</a>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val">58</div>
+          <div class="stat-lbl">Total inbound calls in April</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val coral">45</div>
+          <div class="stat-lbl">Calls that went unanswered (77.6%)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">13</div>
+          <div class="stat-lbl">Calls answered (22.4%)</div>
+        </div>
+      </div>
+      <hr class="divider">
+      <div style="margin-bottom:14px">
+        <div class="prog-row">
+          <div class="prog-label">Google Organic</div>
+          <div class="prog-track"><div class="prog-fill" style="width:36%;background:var(--teal)">21</div></div>
+          <div class="prog-count">21</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">Direct</div>
+          <div class="prog-track"><div class="prog-fill" style="width:22%;background:var(--teal-mid)">13</div></div>
+          <div class="prog-count">13</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">purekauai.com</div>
+          <div class="prog-track"><div class="prog-fill" style="width:21%;background:var(--blue)">12</div></div>
+          <div class="prog-count">12</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">Google Ads</div>
+          <div class="prog-track"><div class="prog-fill" style="width:14%;background:var(--amber)">8</div></div>
+          <div class="prog-count">8</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">Other</div>
+          <div class="prog-track"><div class="prog-fill" style="width:7%;background:var(--gray-200);color:var(--gray-500)">4</div></div>
+          <div class="prog-count">4</div>
+        </div>
+      </div>
+      <div class="action-red">
+        <strong>Revenue risk</strong>
+        At Pure Kauai's average booking value, 45 missed calls represents a significant opportunity. Even if just 10% of those callers were ready to book, that's 4–5 bookings = roughly $100,000–$130,000 in unrealized revenue this month alone. The fix is straightforward: better call coverage during business hours, or an auto-text response so missed callers know how to reach you.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: TRACKING -->
+  <div class="card">
+    <div class="card-header amber">
+      <div class="card-title">4 &nbsp;·&nbsp; Two Tracking Fixes Needed — Both Quick</div>
+      <a class="detail-link" href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">Full action list →</a>
+    </div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>System</th><th>Issue</th><th>Status</th><th>Impact</th></tr></thead>
+        <tbody>
+          <tr class="warn">
+            <td><strong>CallRail → Google Ads</strong></td>
+            <td>Calls and forms not being sent back to Google Ads as conversions</td>
+            <td><span class="tag tag-fail">FAILED</span></td>
+            <td>Smart Bidding can't learn from phone leads</td>
+          </tr>
+          <tr class="warn">
+            <td><strong>Google My Business</strong></td>
+            <td>Not connected to CallRail — calls from the business listing are not tracked</td>
+            <td><span class="tag tag-fail">Not Connected</span></td>
+            <td>Local search call activity invisible</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <strong>What this means in plain terms</strong>
+        When a customer calls Pure Kauai after seeing a Google Ad, that call should be reported back to Google so the system learns "this ad led to a phone call." Right now that connection is broken. It does not affect the $111,112 in tracked bookings — those came through the website. But fixing it will help Google Ads get smarter and deliver better results over time. Both are settings fixes inside CallRail — estimated 10–15 minutes to resolve together.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: WHAT'S WORKING -->
+  <div class="card">
+    <div class="card-header blue">
+      <div class="card-title">5 &nbsp;·&nbsp; What's Working — Keep Doing This</div>
+    </div>
+    <div class="card-body">
+      <ul class="bullets">
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>Best April revenue pacing ever recorded.</strong> At 70.3% of the $9.5M goal by April 13 — ahead of every prior year. Forward bookings ($4.61M) are up 29% vs April 2025.</span>
+        </li>
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>Google Ads is delivering strong returns.</strong> $111,112 in confirmed booking value on $6,405 in spend = 17.3× return. Two underperforming campaigns (PMax and Phone Calls) have been paused — saving ~$1,258/month going forward.</span>
+        </li>
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>89.6% of April bookings came through direct channels — not VRBO or Airbnb.</strong> This means Pure Kauai keeps the OTA commission (typically 15–20%) on those stays. The website and Google Ads are contributing to this direct booking ratio.</span>
+        </li>
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>Organic search is driving calls and bookings.</strong> 21 of 58 April calls came from Google organic search. The island guide content is working as a top-of-funnel driver.</span>
+        </li>
+        <li>
+          <div class="dot dot-teal"></div>
+          <span><strong>BookingBridge is live and matched.</strong> The attribution system linking website ad clicks to Hostfully bookings is operational. 72 bookings in the last 6 months have been traced back to a marketing source.</span>
+        </li>
+      </ul>
     </div>
   </div>
 
   <!-- FULL REPORT CTA -->
   <div class="full-report-cta">
-    <p>This summary covers the top-line numbers. The full report includes campaign-by-campaign Google Ads data, all call details, GA4 web analytics, the BookingBridge attribution pipeline, and a complete action plan.</p>
+    <p>This summary covers the top-line numbers for April. The full report includes a full campaign-by-campaign Google Ads breakdown, all call data, GA4 web analytics, the booking attribution pipeline, and a complete action plan with step-by-step fixes.</p>
     <a href="https://get-second-step.github.io/pure-kauai-reports/" target="_blank">View Full April 2026 Report →</a>
   </div>
 
   <div class="footer">
-    <p>Prepared by Second Step &middot; <a href="https://getsecondstep.com">getsecondstep.com</a> &middot; April 2026</p>
-    <p>Data sources: Airtable Flash Reports · Hostfully PMS · Google Ads (account 316-669-4225) · CallRail · GA4</p>
+    <p>Prepared by <a href="https://getsecondstep.com">Second Step</a> &nbsp;·&nbsp; April 2026</p>
+    <p>Sources: Airtable Flash Reports &nbsp;·&nbsp; Hostfully PMS (live API) &nbsp;·&nbsp; Google Ads (account 316-669-4225) &nbsp;·&nbsp; CallRail (Apr 1–28) &nbsp;·&nbsp; GA4 (G-E8C5BS9ME8)</p>
     <p>Questions? <a href="mailto:growth@shivendrarawat.com">growth@shivendrarawat.com</a></p>
   </div>
 

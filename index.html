@@ -220,7 +220,7 @@
   <div id="view-overview" class="view active">
     <div class="snapshot-bar">
       <span>Airtable snapshot: <strong>April 13, 2026</strong> &mdash; Flash Report</span>
-      <span>CallRail: <strong>April 1&ndash;27, 2026</strong> &middot; 58 calls tracked</span>
+      <span>CallRail: <strong>April 1&ndash;30, 2026</strong> &middot; 58 calls tracked</span>
     </div>
 
     <div class="section-label">Revenue snapshot — April 13 flash report</div>
@@ -383,7 +383,7 @@
       <div class="callout-text">The CallRail integration with Google Ads is broken. Calls and form submissions are <strong>not</strong> being sent back to Google Ads as conversion events. This means: (1) Smart Bidding cannot learn from phone leads, (2) the reported conversion count in Google Ads is severely undercounted, (3) the Phone Calls campaign cannot be reactivated without fixing this first. Go to CallRail → Settings → Integrations → Google Ads and reconnect.</div>
     </div>
 
-    <div class="section-label">Call summary — April 1–27, 2026</div>
+    <div class="section-label">Call summary — April 1–30, 2026</div>
     <div class="metric-grid">
       <div class="metric-card">
         <div class="metric-label">Total calls</div>
@@ -477,61 +477,61 @@
   <div id="view-ads" class="view">
 
     <div class="snapshot-bar">
-      <span>Google Ads API &nbsp;&middot;&nbsp; Account 316-669-4225 &nbsp;&middot;&nbsp; April 1&ndash;27, 2026</span>
+      <span>Google Ads API &nbsp;&middot;&nbsp; Account 316-669-4225 &nbsp;&middot;&nbsp; April 1&ndash;30, 2026</span>
       <span><span class="badge badge-green">&#9679; Connected</span></span>
     </div>
 
     <!-- ROAS Hero -->
     <div class="roas-hero">
       <div class="roas-hero-left">
-        <h2>17.3x ROAS</h2>
-        <p>$111,112 in tracked conversion value on $6,405 in ad spend</p>
+        <h2>17.2x ROAS</h2>
+        <p>$111,112 confirmed booking value on $6,477 in ad spend (Apr 1–30)</p>
       </div>
       <div class="roas-hero-stats">
         <div class="roas-stat">
-          <div class="val">$6,405</div>
+          <div class="val">$6,477</div>
           <div class="lbl">Total spend</div>
         </div>
         <div class="roas-stat">
+          <div class="val">7</div>
+          <div class="lbl">Purchase events tracked</div>
+        </div>
+        <div class="roas-stat">
           <div class="val">3</div>
-          <div class="lbl">Purchase conversions</div>
+          <div class="lbl">Confirmed in Hostfully</div>
         </div>
         <div class="roas-stat">
           <div class="val">$111,112</div>
-          <div class="lbl">Conversion value</div>
-        </div>
-        <div class="roas-stat">
-          <div class="val">2,737</div>
-          <div class="lbl">Total clicks</div>
+          <div class="lbl">Verified booking value</div>
         </div>
       </div>
     </div>
 
     <div class="callout green">
-      <div class="callout-label">The real story: 17.3x ROAS — not "$1,244 CPA"</div>
-      <div class="callout-text">Google Ads recorded 3 completed purchases with a total value of $111,112.28 — that's a <strong>17.3x return on $6,405 in spend</strong>. The raw API data showed only 5 conversion events with no value (the conversion action query doesn't capture booking revenue from GTM). The PDF data from the Google Ads interface confirms the true picture. Additionally, 3 Add to Cart events were recorded (early booking intent) — these are not purchases but signal pipeline. The $111K is only the <em>tracked</em> portion; BookingBridge shows total April transactions of $1.46M, meaning significant revenue remains unattributed.</div>
+      <div class="callout-label">10 total conversion events — 7 purchase events, 3 confirmed bookings</div>
+      <div class="callout-text">Google Ads tracked <strong>10 primary conversion events</strong> in April: 7 Purchase events ($317,744 attributed value) and 3 Add to Cart events. Of the 7 purchase events, <strong>3 are confirmed bookings in Hostfully</strong> ($111,112 verified = 17.2x ROAS). The remaining 4 purchase events are in pipeline — tracked by Google Ads but not yet confirmed in the booking system. Note: conversions data settled in the last week of April as attribution windows closed — this is normal for high-value vacation rental bookings.</div>
     </div>
 
     <div class="metric-grid">
       <div class="metric-card win">
         <div class="metric-label">Total April spend</div>
-        <div class="metric-value">$6,405</div>
-        <div class="metric-sub neutral">$4,962 active &plus; $1,443 now-paused</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Total clicks</div>
-        <div class="metric-value">2,737</div>
-        <div class="metric-sub neutral">69,351 impressions &middot; 3.95% CTR</div>
+        <div class="metric-value">$6,477</div>
+        <div class="metric-sub neutral">Apr 1–30 · live API pull</div>
       </div>
       <div class="metric-card win">
-        <div class="metric-label">Purchase conversions</div>
-        <div class="metric-value">3</div>
-        <div class="metric-sub up">+3 Add to Cart &middot; $111,112 total value</div>
+        <div class="metric-label">Purchase events</div>
+        <div class="metric-value">7</div>
+        <div class="metric-sub up">3 confirmed · 4 pipeline · +3 Add to Cart</div>
       </div>
       <div class="metric-card win">
-        <div class="metric-label">ROAS</div>
-        <div class="metric-value" style="color:var(--teal-dark)">17.3x</div>
-        <div class="metric-sub up">$37,037 avg booking value tracked</div>
+        <div class="metric-label">Verified booking value</div>
+        <div class="metric-value">$111,112</div>
+        <div class="metric-sub up">3 confirmed bookings in Hostfully</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">ROAS (confirmed)</div>
+        <div class="metric-value" style="color:var(--teal-dark)">17.2x</div>
+        <div class="metric-sub up">Pipeline value: $317,744 if all 7 confirm</div>
       </div>
     </div>
 
@@ -554,17 +554,17 @@
               <tr>
                 <td><strong>Main (Geo)</strong></td>
                 <td><span class="badge badge-green">Active</span></td>
-                <td>$2,009</td><td>1,535</td><td>8.9%</td><td>$1.31</td>
-                <td><span class="badge badge-green">2</span></td>
+                <td>$2,071</td><td>1,535</td><td>8.9%</td><td>$1.35</td>
+                <td><span class="badge badge-green">4</span></td>
               </tr>
               <tr class="alert-row">
                 <td><strong>California</strong></td>
                 <td><span class="badge badge-green">Active</span></td>
-                <td>$1,644</td><td>381</td><td>12.1%</td><td>$4.32</td>
-                <td><span class="badge badge-coral">0</span></td>
+                <td>$1,763</td><td>381</td><td>12.1%</td><td>$4.63</td>
+                <td><span class="badge badge-amber">2 pipeline</span></td>
               </tr>
               <tr>
-                <td><strong>PMax</strong></td>
+                <td><strong>PMax – California</strong></td>
                 <td><span class="badge badge-amber">Paused &#10003;</span></td>
                 <td>$1,089</td><td>369</td><td>0.8%</td><td>$2.95</td>
                 <td><span class="badge badge-coral">0</span></td>
@@ -572,7 +572,7 @@
               <tr class="alert-row">
                 <td><strong>Hanalei</strong></td>
                 <td><span class="badge badge-green">Active</span></td>
-                <td>$1,028</td><td>243</td><td>11.0%</td><td>$4.23</td>
+                <td>$1,098</td><td>243</td><td>11.0%</td><td>$4.52</td>
                 <td><span class="badge badge-coral">0</span></td>
               </tr>
               <tr class="current-row">
@@ -582,7 +582,7 @@
                 <td><strong>3 &#10003;</strong></td>
               </tr>
               <tr>
-                <td><strong>Phone Calls</strong></td>
+                <td><strong>Non-brand Phone Calls</strong></td>
                 <td><span class="badge badge-amber">Paused &#10003;</span></td>
                 <td>$169</td><td>43</td><td>8.8%</td><td>$3.94</td>
                 <td><span class="badge badge-coral">0</span></td>
@@ -590,8 +590,14 @@
               <tr>
                 <td><strong>Brand</strong></td>
                 <td><span class="badge badge-green">Active</span></td>
-                <td>$90</td><td>139</td><td>42.1%</td><td>$0.65</td>
-                <td>0</td>
+                <td>$96</td><td>139</td><td>42.1%</td><td>$0.69</td>
+                <td><span class="badge badge-green">1</span></td>
+              </tr>
+              <tr style="background:var(--gray-50);font-weight:600;">
+                <td><strong>Total</strong></td>
+                <td></td>
+                <td><strong>$6,477</strong></td><td>2,737</td><td>—</td><td>—</td>
+                <td><strong>10 events</strong></td>
               </tr>
             </tbody>
           </table>
@@ -926,7 +932,7 @@
 
   <div class="report-footer">
     <p>Pure Kauai Monthly Report &mdash; April 2026 &middot; Prepared by <a href="https://getsecondstep.com">Second Step</a></p>
-    <p style="margin-top:4px">Data: Airtable Flash Reports · CallRail (Apr 1–27) · Google Ads API (account 316-669-4225) · GA4 (G-E8C5BS9ME8) · Hostfully PMS · BookingBridge</p>
+    <p style="margin-top:4px">Data: Airtable Flash Reports · CallRail (Apr 1–30) · Google Ads API (account 316-669-4225) · GA4 (G-E8C5BS9ME8) · Hostfully PMS · BookingBridge</p>
     <p style="margin-top:6px">Questions? <a href="mailto:growth@shivendrarawat.com">growth@shivendrarawat.com</a></p>
   </div>
 

@@ -202,8 +202,8 @@
   <div class="alert-banner">
     <div class="alert-icon">⚠️</div>
     <div class="alert-text">
-      <strong>Two critical issues this month: 77.6% missed call rate &amp; CallRail ↔ Google Ads integration FAILED</strong>
-      <p>45 of 58 calls went unanswered (revenue leakage). Separately, CallRail's Google Ads integration is broken — calls and form fills are not being sent back as conversions, which means Smart Bidding is flying blind. Both must be fixed before May budget is set.</p>
+      <strong>Two known issues being worked on: telecom forwarding (busy signal) and CallRail to Google Ads conversion sync</strong>
+      <p>The 77.6% "missed call rate" is not a team coverage problem. Hawaiian Telecom is failing to forward the secondary tracking numbers to the main reservations line, so callers reach a busy signal instead of the team. Cody and the telecom provider are actively resolving it. Separately, CallRail's Google Ads integration is broken: call and form conversions are not flowing back as conversions for Smart Bidding. Both should be fixed before May budget is locked.</p>
     </div>
   </div>
 
@@ -214,6 +214,7 @@
     <button class="tab" onclick="switchTab('ads', this)">Google Ads</button>
     <button class="tab" onclick="switchTab('ga4', this)">GA4 &amp; Web</button>
     <button class="tab warn" onclick="switchTab('actions', this)">Issues &amp; Actions</button>
+    <button class="tab" onclick="switchTab('organic', this)">Organic</button>
   </div>
 
   <!-- ======== OVERVIEW ======== -->
@@ -391,6 +392,216 @@
         <div class="callout-text">Forward bookings represent paid or confirmed upcoming stays. The gap between <em>Identified</em> ($6.68M) and <em>Completed YTD</em> ($2.07M) = $4.61M in confirmed future revenue. As trips complete through the year, Identified will rise and Completed will approach it.</div>
       </div>
     </div>
+  </div>
+
+  <!-- ======== ORGANIC ======== -->
+  <div id="view-organic" class="view">
+
+    <div class="callout blue">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">Fewer visitors, more bookings. Organic search did less work this April but earned more business than any prior April. Revenue tied to organic visitors climbed, phone calls jumped 550% year over year, and engagement quality held above the site average. The website is no longer a brochure. It is a sales floor that closes.</div>
+    </div>
+
+    <div class="snapshot-bar">
+      <span>GA4 source: <strong>Organic Search channel</strong> &middot; Apr 1 to 30, 2026</span>
+      <span>10,442 total sessions &middot; <strong>4,055 from Organic Search</strong></span>
+    </div>
+
+    <div class="section-label">Headline metrics for April 2026</div>
+    <div class="metric-grid">
+      <div class="metric-card highlight">
+        <div class="metric-label">Organic-attributed revenue</div>
+        <div class="metric-value">$87,251</div>
+        <div class="metric-sub up">91 high-intent events</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Calls from Google Organic</div>
+        <div class="metric-value">26</div>
+        <div class="metric-sub up">+550% vs April 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Organic search sessions</div>
+        <div class="metric-value">4,055</div>
+        <div class="metric-sub up">+13% vs March</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Time on site (organic)</div>
+        <div class="metric-value">1:06</div>
+        <div class="metric-sub neutral">101% of site average</div>
+      </div>
+    </div>
+
+    <div class="section-label">ROI comparison: Organic vs Paid Search</div>
+    <div class="two-col">
+      <div class="insight-card" style="border-left:3px solid var(--teal);">
+        <div class="insight-title">Organic Search</div>
+        <div class="insight-sub">Revenue earned with zero media spend in April</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">
+          <div style="font-size:32px;font-weight:700;color:var(--teal-dark);">$87,251</div>
+          <div style="font-size:13px;color:var(--text-muted);">revenue</div>
+        </div>
+        <table style="width:100%;font-size:12px;">
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Ad spend</td><td style="padding:6px 0;text-align:right;font-weight:600;">$0</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">High-intent events</td><td style="padding:6px 0;text-align:right;font-weight:600;">91</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Cost per booking</td><td style="padding:6px 0;text-align:right;font-weight:600;">$0</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Media ROAS</td><td style="padding:6px 0;text-align:right;font-weight:700;color:var(--teal-dark);">No media cost</td></tr>
+        </table>
+      </div>
+      <div class="insight-card" style="border-left:3px solid var(--blue);">
+        <div class="insight-title">Google Ads (for comparison)</div>
+        <div class="insight-sub">Same month, paid channel</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">
+          <div style="font-size:32px;font-weight:700;color:var(--blue-dark);">$111,112</div>
+          <div style="font-size:13px;color:var(--text-muted);">revenue</div>
+        </div>
+        <table style="width:100%;font-size:12px;">
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Ad spend</td><td style="padding:6px 0;text-align:right;font-weight:600;">$6,477</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Confirmed bookings</td><td style="padding:6px 0;text-align:right;font-weight:600;">3</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Cost per booking</td><td style="padding:6px 0;text-align:right;font-weight:600;">$2,159</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Media ROAS</td><td style="padding:6px 0;text-align:right;font-weight:700;color:var(--blue-dark);">17.2x</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <div class="callout-label">Combined channel story</div>
+      <div class="callout-text">Organic and Paid Search together generated <strong>$198,363</strong> in April on only $6,477 of ad spend. Organic is the larger absolute contributor. Paid is the most efficient on a per-dollar basis. Both grow together when the tracking and content foundation underneath them improves.</div>
+    </div>
+
+    <div class="section-label">All organic search metrics for April 2026</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th style="text-align:right;">Value</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Organic sessions</td><td style="text-align:right;font-weight:600;">4,055</td><td>+13% vs March</td></tr>
+          <tr><td>Organic pageviews</td><td style="text-align:right;font-weight:600;">6,633</td><td>+5% vs March</td></tr>
+          <tr><td>Organic-attributed revenue</td><td style="text-align:right;font-weight:600;">$87,251</td><td>$40,570 gain vs April 2025</td></tr>
+          <tr><td>High-intent events</td><td style="text-align:right;font-weight:600;">91</td><td>forms, calls, carts, purchases</td></tr>
+          <tr><td>Calls from Google Organic</td><td style="text-align:right;font-weight:600;">26 <span class="badge badge-amber">see note</span></td><td>+550% vs April 2025</td></tr>
+          <tr><td>Avg time on site (organic)</td><td style="text-align:right;font-weight:600;">1:06</td><td>101% of overall site average</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-label">Note on the call number</div>
+      <div class="callout-text">CallRail logged 26 attempted calls from Google Organic, but a Hawaiian Telecom forwarding issue (see Overview alert) means some callers reached a busy signal. Actual call quality is being validated with the reservations team. The trend is real and large; the exact number may revise once forwarding is fixed.</div>
+    </div>
+
+    <div class="section-label">Where AI search is sending visitors in April 2026</div>
+    <div class="callout purple">
+      <div class="callout-label">AI traffic is small but high quality</div>
+      <div class="callout-text">55 sessions arrived from AI assistants in April. That is 0.53% of total traffic, but the visitors who came spent <strong>22% longer</strong> on site than the average visitor and fired <strong>135 high-intent events</strong>. This is why the AEO program matters. AI is small today, big tomorrow, and Pure Kauai is the kind of brand AI assistants want to recommend.</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>AI Source</th><th style="text-align:right;">Sessions</th><th style="text-align:right;">Engagement rate</th><th style="text-align:right;">Avg time on site</th><th style="text-align:right;">Key events</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ChatGPT</strong></td><td style="text-align:right;">47</td><td style="text-align:right;color:var(--teal-dark);font-weight:600;">97.87%</td><td style="text-align:right;">1m 20s</td><td style="text-align:right;font-weight:600;">120</td></tr>
+          <tr><td><strong>Gemini</strong></td><td style="text-align:right;">6</td><td style="text-align:right;color:var(--teal-dark);">83.33%</td><td style="text-align:right;">22s</td><td style="text-align:right;">14</td></tr>
+          <tr><td><strong>Perplexity</strong></td><td style="text-align:right;">2</td><td style="text-align:right;color:var(--teal-dark);">100%</td><td style="text-align:right;">n/a</td><td style="text-align:right;">1</td></tr>
+          <tr class="current-row"><td><strong>Total AI traffic</strong></td><td style="text-align:right;font-weight:700;">55</td><td style="text-align:right;font-weight:700;color:var(--teal-dark);">96.4%</td><td style="text-align:right;">n/a</td><td style="text-align:right;font-weight:700;">135</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:var(--blue-light);border:1px solid var(--blue);border-radius:var(--radius);padding:22px 26px;margin-bottom:24px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--blue);margin-bottom:6px;">Top Performing Content for April 2026</div>
+      <div style="font-size:13px;color:var(--blue-dark);line-height:1.7;margin-bottom:18px;">
+        These are the pages organic visitors actually engaged with. Guide content brings them in. Property pages convert them. Both are working in sync this month.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="background:#fff;border-radius:var(--radius-sm);padding:18px 20px;border:1px solid rgba(24,95,165,0.2);">
+          <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">Top Articles</div>
+          <table style="width:100%;font-size:13px;border-collapse:collapse;">
+            <tr><td style="padding:7px 0;color:var(--text-muted);width:24px;font-weight:600;font-family:Georgia,serif;border:none;">01</td><td style="padding:7px 0;border:none;">Things to do in Kauai when it rains</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">982</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">02</td><td style="padding:7px 0;border:none;">What is the best month to go to Kauai</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">792</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">03</td><td style="padding:7px 0;border:none;">Where to see turtles in Kauai</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">427</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">04</td><td style="padding:7px 0;border:none;">Where to surf in Kauai</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">283</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">05</td><td style="padding:7px 0;border:none;">What side of Kauai is best to stay on</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">149</td></tr>
+          </table>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">Pageviews in April</div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius-sm);padding:18px 20px;border:1px solid rgba(24,95,165,0.2);">
+          <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">Top Property Pages</div>
+          <table style="width:100%;font-size:13px;border-collapse:collapse;">
+            <tr><td style="padding:7px 0;color:var(--text-muted);width:24px;font-weight:600;font-family:Georgia,serif;border:none;">01</td><td style="padding:7px 0;border:none;">Ikena Lani</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">697</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">02</td><td style="padding:7px 0;border:none;">Secret Cove</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">674</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">03</td><td style="padding:7px 0;border:none;">Hanalei Plantation Villa</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">572</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">04</td><td style="padding:7px 0;border:none;">Secret Beach House</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">542</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">05</td><td style="padding:7px 0;border:none;">Hanalei Hideaway</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">506</td></tr>
+          </table>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">Pageviews in April</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Where the visitors came from in April</div>
+    <div class="two-col">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Top Hawaii cities</th><th style="text-align:right;">Sessions</th></tr></thead>
+          <tbody>
+            <tr><td>Honolulu</td><td style="text-align:right;font-weight:600;">673</td></tr>
+            <tr><td>Kalaheo</td><td style="text-align:right;font-weight:600;">153</td></tr>
+            <tr><td>Kapaa</td><td style="text-align:right;font-weight:600;">108</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Top mainland metros</th><th style="text-align:right;">Sessions</th></tr></thead>
+          <tbody>
+            <tr><td>Los Angeles</td><td style="text-align:right;font-weight:600;">597</td></tr>
+            <tr><td>New York</td><td style="text-align:right;font-weight:600;">168</td></tr>
+            <tr><td>San Jose</td><td style="text-align:right;font-weight:600;">151</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-label">Content cadence question</div>
+    <div class="callout amber">
+      <div class="callout-label">Worth discussing with David</div>
+      <div class="callout-text">Current editorial pace is roughly 2 posts per month. Given how much traffic the existing library still produces (top 5 posts pulled 2,633 views in April), moving to 2 or 3 posts per week is the fastest unpaid lever to widen the funnel. A short working session with David will lock the new cadence and the topic queue.</div>
+    </div>
+
+    <div class="section-label">Suggested topics built on what is already working</div>
+    <div class="table-wrap" style="padding:14px 18px;">
+      <ul class="issue-list">
+        <li><div class="issue-num">1</div><div class="issue-body"><strong>North Shore vs South Shore Kauai for first-time visitors</strong><span>Extends the strong performance of "what side of Kauai is best to stay on."</span></div></li>
+        <li><div class="issue-num">2</div><div class="issue-body"><strong>Best beaches in Kauai for families with young children</strong><span>Builds on existing beach and family-swim content.</span></div></li>
+        <li><div class="issue-num">3</div><div class="issue-body"><strong>Hidden snorkel spots beyond Tunnels and Kee</strong><span>Activity content with strong commercial pull-through to property pages.</span></div></li>
+        <li><div class="issue-num">4</div><div class="issue-body"><strong>What to pack for a Kauai luxury vacation</strong><span>Top-of-funnel planning content that earns links and email signups.</span></div></li>
+        <li><div class="issue-num">5</div><div class="issue-body"><strong>Sunrise and sunset photography spots in Kauai</strong><span>Highly shareable, attracts the curious traveler before dates are set.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="section-label">Two signals worth watching</div>
+    <div class="two-col">
+      <div class="callout coral" style="margin:0;">
+        <div class="callout-label">Signal 1 &middot; AI Visibility</div>
+        <div class="callout-text"><strong>Score 23/100 (Low).</strong> The AI Overview component dropped six points in 30 days. As Google routes more vacation-rental searches through AI summaries, organic clicks are at risk. The dedicated AEO plan is being prepared as a separate brief.</div>
+      </div>
+      <div class="callout amber" style="margin:0;">
+        <div class="callout-label">Signal 2 &middot; California softening</div>
+        <div class="callout-text"><strong>2,583 sessions, down 12% year over year.</strong> California is still the #1 source state but trending down. Auditing California-specific organic queries to identify what is being absorbed by AI Overviews.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Next 30 days: where to focus</div>
+    <div class="table-wrap" style="padding:14px 18px;">
+      <ul class="issue-list">
+        <li><div class="issue-num">1</div><div class="issue-body"><strong>Strengthen the top performing guide content</strong><span>Refresh the five best blog posts with current photography and deeper internal links to top property pages. Goal: lift the top-five view cluster from 2,633 to 3,500 plus in 60 days.</span></div></li>
+        <li><div class="issue-num">2</div><div class="issue-body"><strong>Lock the editorial cadence</strong><span>Working session with David to move from 2 posts per month to 2 or 3 per week, using the topic queue above.</span></div></li>
+        <li><div class="issue-num">3</div><div class="issue-body"><strong>Close the attribution loop on organic calls</strong><span>26 calls came from Google Organic. Sync with reservation agents to track how many became bookings. The $87K floor in GA4 likely understates organic's true contribution.</span></div></li>
+      </ul>
+    </div>
+
   </div>
 
   <!-- ======== CALLS ======== -->

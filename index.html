@@ -284,9 +284,9 @@
         <div class="metric-sub neutral">67 transactions &middot; Apr 2026</div>
       </div>
       <div class="metric-card alert">
-        <div class="metric-label">Calls answered</div>
-        <div class="metric-value">13</div>
-        <div class="metric-sub down">22.4% answer rate — 45 missed</div>
+        <div class="metric-label">Calls reaching the team</div>
+        <div class="metric-value">13 of 58</div>
+        <div class="metric-sub down">45 hit busy signal &middot; telecom fix shipped May 19</div>
       </div>
       <div class="metric-card alert">
         <div class="metric-label">CallRail integration</div>
@@ -607,9 +607,9 @@
   <!-- ======== CALLS ======== -->
   <div id="view-calls" class="view">
 
-    <div class="callout coral">
-      <div class="callout-label">Critical: 77.6% miss rate in April</div>
-      <div class="callout-text">Pure Kauai received 58 inbound calls in April. 45 went unanswered. This is a critical business issue — luxury vacation rental inquiries are often urgent and high-value. A caller who can't reach anyone will book with a competitor. At $27,148 average booking value, recovering just 3–4 missed bookings/month = $80K–$110K in additional revenue.</div>
+    <div class="callout green">
+      <div class="callout-label">Resolved: telecom forwarding fix shipped May 19</div>
+      <div class="callout-text">Of 58 inbound calls in April, only 13 reached the team. The other 45 hit a busy signal because Hawaiian Telecom was failing to forward the secondary tracking numbers to the main reservations line. Discovered May 19 during a manual call test with Cody. The carrier number was replaced and forwarding is now confirmed working across every tracking number. May data will reflect the corrected state.</div>
     </div>
 
     <div class="callout coral">
@@ -1078,10 +1078,10 @@
       <div style="padding:20px">
         <ul class="issue-list">
           <li>
-            <div class="issue-num red">1</div>
+            <div class="issue-num" style="background:var(--teal);">✓</div>
             <div class="issue-body">
-              <strong>Fix the missed call problem — 45/58 calls unanswered</strong>
-              <span>Options: (a) Add a team member for call coverage during business hours; (b) Enable CallRail's SMS auto-response for missed calls — "Sorry we missed you, text us or visit purekauai.com/properties"; (c) Set up voicemail capture with prompt callbacks. At $27K average booking value, each recovered call = major revenue. The April 13 spike (15 calls, 13 missed) suggests demand spikes happen unpredictably.</span>
+              <strong>Telecom forwarding fix: shipped May 19</strong>
+              <span>The 45 of 58 unanswered calls in April were not a team coverage issue. Hawaiian Telecom was failing to forward the secondary tracking numbers to the main reservations line, so callers reached a busy signal. Cody replaced the carrier number on May 19 and reconfigured forwarding. Manual test confirmed every tracking number now connects to the team. May data will reflect the corrected state.</span>
             </div>
           </li>
           <li>

@@ -236,6 +236,20 @@
     background: var(--gray-100);
     color: var(--gray-500);
   }
+  .card-status.coming {
+    background: var(--amber-light);
+    color: var(--amber-dark);
+  }
+  .report-card.coming-soon {
+    border-left: 3px solid var(--amber);
+    cursor: default;
+  }
+  .card-icon.coming {
+    background: var(--amber-light);
+  }
+  .report-card.coming-soon .stats li {
+    color: var(--text);
+  }
   .report-card h3 {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 24px;
@@ -332,22 +346,27 @@
     <p>Open any month to see the full report. Each one covers Overview, Revenue Pacing, Calls, Google Ads, GA4 &amp; Web, Organic, and AEO.</p>
   </div>
 
-  <div class="section-label">Current Month</div>
-  <div class="featured-card">
-    <div class="top-row">
-      <div class="icon">📊</div>
-      <span class="status-pill">Coming Soon</span>
-    </div>
-    <h2>May 2026</h2>
-    <p class="desc">May data is being compiled. The first clean month after the Hawaiian Telecom forwarding fix, the start of the AEO foundation work, and the launch of the 38-blog content pipeline.</p>
-    <div class="footer-row">
-      <span>Coming soon</span>
-      <span>Available first week of June 2026</span>
-    </div>
-  </div>
-
-  <div class="section-label">Past Reports</div>
+  <div class="section-label">All Reports</div>
   <div class="reports-grid">
+
+    <div class="report-card coming-soon">
+      <div class="card-top">
+        <div class="card-icon coming">📊</div>
+        <span class="card-status coming">Coming Soon</span>
+      </div>
+      <h3>May 2026</h3>
+      <div class="date">Available first week of June 2026</div>
+      <ul class="stats">
+        <li><span class="label">First clean month after telecom fix</span></li>
+        <li><span class="label">AEO foundation work begins</span></li>
+        <li><span class="label">38-blog content pipeline launches</span></li>
+        <li><span class="label">Pacing against $9.5M annual goal</span></li>
+      </ul>
+      <div class="open-row">
+        <span class="sections-count">Data compiling</span>
+        <span style="color:var(--amber-dark);font-weight:700;">Ships first week of June</span>
+      </div>
+    </div>
 
     <a href="april/" class="report-card published">
       <div class="card-top">

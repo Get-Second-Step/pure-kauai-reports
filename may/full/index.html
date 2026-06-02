@@ -152,6 +152,13 @@
   /* DIVIDER */
   .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
 
+  /* WIP */
+  .wip-banner { background: var(--amber-light); border: 1px solid var(--amber); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 20px; display: flex; gap: 14px; align-items: flex-start; }
+  .wip-banner-icon { font-size: 22px; line-height: 1; margin-top: 2px; }
+  .wip-banner-title { font-size: 12px; font-weight: 700; color: var(--amber-dark); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
+  .wip-banner-text { font-size: 13px; color: var(--amber-dark); line-height: 1.65; }
+  .wip-content { opacity: 0.35; pointer-events: none; user-select: none; filter: grayscale(85%); }
+
   /* CALL DISTRIBUTION */
   .call-bar-wrap { display: flex; flex-direction: column; gap: 10px; }
   .call-bar-row { display: flex; align-items: center; gap: 12px; }
@@ -210,7 +217,7 @@
 
   <div class="tabs">
     <button class="tab active" onclick="switchTab('overview', this)">Overview</button>
-    <button class="tab" onclick="switchTab('pacing', this)">Revenue Pacing</button>
+    <button class="tab" onclick="switchTab('pacing', this)">Revenue Pacing <span style="font-size:9px;opacity:0.7;letter-spacing:0.08em;">· WIP</span></button>
     <button class="tab" onclick="switchTab('calls', this)">Call Performance</button>
     <button class="tab" onclick="switchTab('ads', this)">Google Ads</button>
     <button class="tab" onclick="switchTab('ga4', this)">GA4 &amp; Web</button>
@@ -353,6 +360,16 @@
 
   <!-- ======== PACING ======== -->
   <div id="view-pacing" class="view">
+
+    <div class="wip-banner">
+      <div class="wip-banner-icon">🚧</div>
+      <div>
+        <div class="wip-banner-title">Work in progress</div>
+        <div class="wip-banner-text">We are wiring this Revenue Pacing view to an <strong>automated daily Hostfully pull via the DeepDash sync</strong>. Once live, every snapshot below will refresh overnight against the latest bookings, forward pipeline, and check-in revenue. The numbers shown are accurate as of May 31, 2026 — they are greyed out here while we replace this view with the live, always-current version.</div>
+      </div>
+    </div>
+
+    <div class="wip-content">
     <div class="section-label">2026 snapshots — year to date</div>
     <div class="table-wrap">
       <table>
@@ -422,6 +439,7 @@
         <div class="callout-text">Forward bookings represent paid or confirmed upcoming stays. The gap between <em>Identified</em> ($10.67M) and <em>Completed YTD</em> ($4.61M) = $6.06M in confirmed future revenue. As trips complete through the year, Completed will rise toward Identified — and new bookings keep adding to both.</div>
       </div>
     </div>
+    </div><!-- /wip-content -->
   </div>
 
   <!-- ======== ORGANIC ======== -->

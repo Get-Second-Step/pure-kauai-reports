@@ -206,6 +206,15 @@
 
 <div class="page">
 
+  <!-- FULL REPORT NOTE -->
+  <div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:var(--radius);padding:16px 22px;margin-bottom:18px;display:flex;gap:14px;align-items:flex-start;">
+    <div style="font-size:20px;line-height:1;margin-top:1px;">📊</div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--blue-dark);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:4px;">Full Page Report — May 2026</div>
+      <div style="font-size:13px;color:var(--text);line-height:1.6;">This is the deep-dive companion to the <a href="../" style="color:var(--blue);font-weight:600;text-decoration:none;">May summary</a>. Note that <strong>Revenue Pacing now lives as a separate dedicated dashboard</strong> — we are wiring it to an automated daily Hostfully pull via the DeepDash sync, so it refreshes overnight from the source. Until that dashboard ships, the headline pacing numbers stay visible in the banner below.</div>
+    </div>
+  </div>
+
   <!-- HEADLINE BANNER -->
   <div class="alert-banner" style="background:var(--teal-light);border-color:var(--teal);">
     <div class="alert-icon" style="color:var(--teal-dark);">🌺</div>
@@ -217,7 +226,6 @@
 
   <div class="tabs">
     <button class="tab active" onclick="switchTab('overview', this)">Overview</button>
-    <button class="tab" onclick="switchTab('pacing', this)">Revenue Pacing <span style="font-size:9px;opacity:0.7;letter-spacing:0.08em;">· WIP</span></button>
     <button class="tab" onclick="switchTab('calls', this)">Call Performance</button>
     <button class="tab" onclick="switchTab('ads', this)">Google Ads</button>
     <button class="tab" onclick="switchTab('ga4', this)">GA4 &amp; Web</button>
@@ -356,90 +364,6 @@
         <div class="callout-text">May added 41 fresh bookings worth $1.17M — the second-highest revenue month for new bookings in 2026. Direct (Hostfully) channel held 82% share. OTA share stayed in check. The mix favors margin: every direct booking avoids the 15-20% OTA take. Marketing now exists to feed that direct funnel.</div>
       </div>
     </div>
-  </div>
-
-  <!-- ======== PACING ======== -->
-  <div id="view-pacing" class="view">
-
-    <div class="wip-banner">
-      <div class="wip-banner-icon">🚧</div>
-      <div>
-        <div class="wip-banner-title">Work in progress</div>
-        <div class="wip-banner-text">We are wiring this Revenue Pacing view to an <strong>automated daily Hostfully pull via the DeepDash sync</strong>. Once live, every snapshot below will refresh overnight against the latest bookings, forward pipeline, and check-in revenue. The numbers shown are accurate as of May 31, 2026 — they are greyed out here while we replace this view with the live, always-current version.</div>
-      </div>
-    </div>
-
-    <div class="wip-content">
-    <div class="section-label">2026 snapshots — year to date</div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th>Snapshot</th>
-          <th>Completed YTD</th>
-          <th>Forward booked</th>
-          <th>Identified total</th>
-          <th>Goal</th>
-          <th>% of goal</th>
-          <th>Progress</th>
-        </tr></thead>
-        <tbody>
-          <tr><td>Feb 4, 2026</td><td>$361,807</td><td>$4,134,902</td><td>$4,496,709</td><td>$9,500,000</td><td>47.3%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:47.3%"></div></div></td></tr>
-          <tr><td>Feb 11, 2026</td><td>$508,923</td><td>$4,307,914</td><td>$4,816,837</td><td>$9,500,000</td><td>50.7%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:50.7%"></div></div></td></tr>
-          <tr><td>Mar 25, 2026</td><td>$1,593,290</td><td>$4,117,484</td><td>$5,710,775</td><td>$9,500,000</td><td>60.1%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:60.1%"></div></div></td></tr>
-          <tr><td>Apr 13, 2026</td><td>$2,071,847</td><td>$4,606,543</td><td>$6,678,390</td><td>$9,500,000</td><td>70.3%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:70.3%"></div></div></td></tr>
-          <tr class="current-row"><td><strong>May 31, 2026</strong> <span class="badge badge-green">latest</span></td><td><strong>$4,611,028</strong></td><td><strong>$6,055,113</strong></td><td><strong>$10,666,141</strong></td><td>$9,500,000</td><td><strong>112.3%</strong></td><td><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="section-label">Year-over-year — identified by May 31</div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th>Year</th>
-          <th>Identified by May 31</th>
-          <th>Goal</th>
-          <th>% of goal</th>
-          <th>Trips</th>
-          <th>Rev / booking</th>
-          <th>Progress</th>
-        </tr></thead>
-        <tbody>
-          <tr><td>2023</td><td>$9,701,106</td><td>$9,500,000</td><td>102.1%</td><td>269</td><td>$36,064</td><td><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></td></tr>
-          <tr><td>2024</td><td>$9,915,869</td><td>$10,000,000</td><td>99.2%</td><td>306</td><td>$32,405</td><td><div class="prog-wrap"><div class="prog-bar" style="width:99.2%"></div></div></td></tr>
-          <tr><td>2025</td><td>$10,575,440</td><td>$9,000,000</td><td>117.5%</td><td>289</td><td>$36,593</td><td><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></td></tr>
-          <tr class="current-row"><td><strong>2026</strong> <span class="badge badge-green">current</span></td><td><strong>$10,666,141</strong></td><td>$9,500,000</td><td><strong>112.3%</strong></td><td><strong>340</strong></td><td><strong>$31,371</strong></td><td><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout amber">
-      <div class="callout-label">Reading this honestly</div>
-      <div class="callout-text">2026's identified revenue by May is the highest absolute number on record at $10.67M. Trip count (340) is the highest ever for this point in the year. Average revenue per booking ($31,371) is below 2025 ($36,593) and 2023 ($36,064) — this is mix shift, not pricing weakness. More mid-tier and shoulder-season trips are entering the funnel alongside the flagship estates. Volume + AOV together still net positive.</div>
-    </div>
-
-    <div class="chart-section">
-      <div class="chart-title">Identified revenue vs goal — May 31 snapshot by year</div>
-      <div class="chart-legend">
-        <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Identified by May 31</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#EEECE6"></div>Full year goal</div>
-      </div>
-      <div class="chart-wrap">
-        <canvas id="yoyChart"></canvas>
-      </div>
-    </div>
-
-    <div class="two-col">
-      <div class="callout green">
-        <div class="callout-label">Annual goal cleared by May 31</div>
-        <div class="callout-text">2026's identified revenue is $10.67M against the $9.5M target — 112.3% with seven months still to play. Forward bookings of $6.06M alone exceed the $5.5M needed to hit the original goal. The story for the rest of 2026 is no longer "make the number." It is "decide how much we want to overshoot, and reinvest the cushion."</div>
-      </div>
-      <div class="callout blue">
-        <div class="callout-label">How to read forward bookings</div>
-        <div class="callout-text">Forward bookings represent paid or confirmed upcoming stays. The gap between <em>Identified</em> ($10.67M) and <em>Completed YTD</em> ($4.61M) = $6.06M in confirmed future revenue. As trips complete through the year, Completed will rise toward Identified — and new bookings keep adding to both.</div>
-      </div>
-    </div>
-    </div><!-- /wip-content -->
   </div>
 
   <!-- ======== ORGANIC ======== -->
@@ -952,28 +876,6 @@ new Chart(document.getElementById('channelRevenueChart'), {
     plugins: {
       legend: { position: 'right', labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12, padding: 10 } },
       tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.toLocaleString() } }
-    }
-  }
-});
-
-/* ── Chart: Year-over-Year (Identified by May 31) ── */
-new Chart(document.getElementById('yoyChart'), {
-  type: 'bar',
-  data: {
-    labels: ['2023', '2024', '2025', '2026'],
-    datasets: [
-      { label: 'Identified by May 31', data: [9701106, 9915869, 10575440, 10666141],
-        backgroundColor: ['#5DCAA5','#5DCAA5','#5DCAA5','#1D9E75'], borderRadius: 4, barPercentage: 0.45 },
-      { label: 'Full year goal', data: [9500000, 10000000, 9000000, 9500000],
-        backgroundColor: '#EEECE6', borderRadius: 4, barPercentage: 0.45 }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.dataset.label + ': $' + Math.round(ctx.parsed.y).toLocaleString() } } },
-    scales: {
-      x: { grid: { display: false }, ticks: { color: '#888780', font: { size: 12 } } },
-      y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#888780', font: { size: 11 }, callback: v => '$' + (v >= 1000000 ? (v/1000000).toFixed(1)+'M' : v) } }
     }
   }
 });

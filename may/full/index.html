@@ -159,6 +159,31 @@
   .wip-banner-text { font-size: 13px; color: var(--amber-dark); line-height: 1.65; }
   .wip-content { opacity: 0.35; pointer-events: none; user-select: none; filter: grayscale(85%); }
 
+  /* DEEPDASH CARDS */
+  .dd-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 22px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+  .dd-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; padding: 18px 22px; border-bottom: 1px solid var(--border); background: var(--gray-50); }
+  .dd-card-title { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 3px; }
+  .dd-card-sub { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .dd-card-action { font-size: 11px; font-weight: 700; color: var(--teal-dark); background: var(--teal-light); border: 1px solid var(--teal); border-radius: 6px; padding: 6px 12px; cursor: pointer; white-space: nowrap; letter-spacing: 0.04em; transition: all 0.15s; }
+  .dd-card-action:hover { background: var(--teal); color: #fff; }
+  .dd-card-body { padding: 14px; background: #fbfbf8; }
+  .dd-card-body img { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid var(--border); cursor: zoom-in; transition: transform 0.15s; }
+  .dd-card-body img:hover { transform: scale(1.005); }
+  .dd-card-footer { padding: 11px 22px; background: #fff; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
+  .dd-card-footer strong { color: var(--gray-800); }
+
+  /* LIGHTBOX */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; align-items: center; justify-content: center; padding: 30px; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox-img-wrap { position: relative; max-width: 100%; max-height: 100%; overflow: auto; display: flex; align-items: center; justify-content: center; cursor: grab; }
+  .lightbox-img-wrap:active { cursor: grabbing; }
+  .lightbox img { max-width: none; height: auto; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,0.5); display: block; }
+  .lightbox-close { position: fixed; top: 18px; right: 22px; background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; z-index: 10000; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+  .lightbox-zoom-controls { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 6px; z-index: 10000; }
+  .lightbox-zoom-controls button { background: rgba(255,255,255,0.1); color: #fff; border: 0; border-radius: 999px; min-width: 38px; height: 32px; padding: 0 14px; font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.03em; }
+  .lightbox-zoom-controls button:hover { background: rgba(255,255,255,0.2); }
+
   /* CALL DISTRIBUTION */
   .call-bar-wrap { display: flex; flex-direction: column; gap: 10px; }
   .call-bar-row { display: flex; align-items: center; gap: 12px; }
@@ -211,7 +236,7 @@
     <div style="font-size:20px;line-height:1;margin-top:1px;">📊</div>
     <div>
       <div style="font-size:11px;font-weight:700;color:var(--blue-dark);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:4px;">Full Page Report — May 2026</div>
-      <div style="font-size:13px;color:var(--text);line-height:1.6;">This is the deep-dive companion to the <a href="../" style="color:var(--blue);font-weight:600;text-decoration:none;">May summary</a>. Note that <strong>Revenue Pacing now lives as a separate dedicated dashboard</strong> — we are wiring it to an automated daily Hostfully pull via the DeepDash sync, so it refreshes overnight from the source. Until that dashboard ships, the headline pacing numbers stay visible in the banner below.</div>
+      <div style="font-size:13px;color:var(--text);line-height:1.6;">This is the deep-dive companion to the <a href="../" style="color:var(--blue);font-weight:600;text-decoration:none;">May summary</a>. The pacing view we built is in the <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-pacing').classList.add('active');document.querySelectorAll('.tab')[1].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">Revenue Pacing tab</a> and Cody's current <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-deepdash').classList.add('active');document.querySelectorAll('.tab')[2].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">DeepDash + Flash Report</a> screenshots are mirrored as their own tab. Both are placeholders until the daily automated Hostfully pull ships.</div>
     </div>
   </div>
 
@@ -226,6 +251,8 @@
 
   <div class="tabs">
     <button class="tab active" onclick="switchTab('overview', this)">Overview</button>
+    <button class="tab" onclick="switchTab('pacing', this)">Revenue Pacing</button>
+    <button class="tab" onclick="switchTab('deepdash', this)">DeepDash + Flash Report</button>
     <button class="tab" onclick="switchTab('calls', this)">Call Performance</button>
     <button class="tab" onclick="switchTab('ads', this)">Google Ads</button>
     <button class="tab" onclick="switchTab('ga4', this)">GA4 &amp; Web</button>
@@ -364,6 +391,143 @@
         <div class="callout-text">May added 41 fresh bookings worth $1.17M — the second-highest revenue month for new bookings in 2026. Direct (Hostfully) channel held 82% share. OTA share stayed in check. The mix favors margin: every direct booking avoids the 15-20% OTA take. Marketing now exists to feed that direct funnel.</div>
       </div>
     </div>
+  </div>
+
+  <!-- ======== REVENUE PACING ======== -->
+  <div id="view-pacing" class="view">
+
+    <div style="background:var(--blue-light);border:1px solid var(--blue);border-radius:var(--radius);padding:18px 22px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;" onclick="switchTabById('deepdash')">
+      <div style="font-size:22px;line-height:1;margin-top:2px;">👉</div>
+      <div style="flex:1;">
+        <div style="font-size:11px;font-weight:700;color:var(--blue-dark);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:5px;">Heads up — DeepDash + Flash Report mirrors live here too</div>
+        <div style="font-size:13px;color:var(--blue-dark);line-height:1.6;">For the current Hostfully snapshot you're used to seeing, <strong>check out the revenue pacing in the DeepDash + Flash Report tab</strong>. We're keeping our derived pacing view below as well, greyed out until the automated daily pull is live.</div>
+      </div>
+      <div style="font-size:13px;color:var(--blue);font-weight:700;align-self:center;white-space:nowrap;">Open DeepDash tab &rarr;</div>
+    </div>
+
+    <div class="wip-banner">
+      <div class="wip-banner-icon">🚧</div>
+      <div>
+        <div class="wip-banner-title">Work in progress</div>
+        <div class="wip-banner-text">We are wiring this Revenue Pacing view to an <strong>automated daily Hostfully pull via the DeepDash sync</strong>. Once live, every snapshot below will refresh overnight against the latest bookings, forward pipeline, and check-in revenue. The numbers shown are accurate as of May 31, 2026 — they are greyed out here while we replace this view with the live, always-current version.</div>
+      </div>
+    </div>
+
+    <div class="wip-content">
+    <div class="section-label">2026 snapshots — year to date</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Snapshot</th>
+          <th>Completed YTD</th>
+          <th>Forward booked</th>
+          <th>Identified total</th>
+          <th>Goal</th>
+          <th>% of goal</th>
+          <th>Progress</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Feb 4, 2026</td><td>$361,807</td><td>$4,134,902</td><td>$4,496,709</td><td>$9,500,000</td><td>47.3%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:47.3%"></div></div></td></tr>
+          <tr><td>Feb 11, 2026</td><td>$508,923</td><td>$4,307,914</td><td>$4,816,837</td><td>$9,500,000</td><td>50.7%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:50.7%"></div></div></td></tr>
+          <tr><td>Mar 25, 2026</td><td>$1,593,290</td><td>$4,117,484</td><td>$5,710,775</td><td>$9,500,000</td><td>60.1%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:60.1%"></div></div></td></tr>
+          <tr><td>Apr 13, 2026</td><td>$2,071,847</td><td>$4,606,543</td><td>$6,678,390</td><td>$9,500,000</td><td>70.3%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:70.3%"></div></div></td></tr>
+          <tr class="current-row"><td><strong>May 31, 2026</strong> <span class="badge badge-green">latest</span></td><td><strong>$4,611,028</strong></td><td><strong>$6,055,113</strong></td><td><strong>$10,666,141</strong></td><td>$9,500,000</td><td><strong>112.3%</strong></td><td><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-label">Year-over-year — identified by May 31</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Year</th>
+          <th>Identified by May 31</th>
+          <th>Goal</th>
+          <th>% of goal</th>
+          <th>Trips</th>
+          <th>Rev / booking</th>
+          <th>Progress</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>2023</td><td>$9,701,106</td><td>$9,500,000</td><td>102.1%</td><td>269</td><td>$36,064</td><td><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></td></tr>
+          <tr><td>2024</td><td>$9,915,869</td><td>$10,000,000</td><td>99.2%</td><td>306</td><td>$32,405</td><td><div class="prog-wrap"><div class="prog-bar" style="width:99.2%"></div></div></td></tr>
+          <tr><td>2025</td><td>$10,575,440</td><td>$9,000,000</td><td>117.5%</td><td>289</td><td>$36,593</td><td><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></td></tr>
+          <tr class="current-row"><td><strong>2026</strong> <span class="badge badge-green">current</span></td><td><strong>$10,666,141</strong></td><td>$9,500,000</td><td><strong>112.3%</strong></td><td><strong>340</strong></td><td><strong>$31,371</strong></td><td><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-label">Reading this honestly</div>
+      <div class="callout-text">2026's identified revenue by May is the highest absolute number on record at $10.67M. Trip count (340) is the highest ever for this point in the year. Average revenue per booking ($31,371) is below 2025 ($36,593) and 2023 ($36,064) — this is mix shift, not pricing weakness. More mid-tier and shoulder-season trips are entering the funnel alongside the flagship estates. Volume + AOV together still net positive.</div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout green">
+        <div class="callout-label">Annual goal cleared by May 31</div>
+        <div class="callout-text">2026's identified revenue is $10.67M against the $9.5M target — 112.3% with seven months still to play. Forward bookings of $6.06M alone exceed the $5.5M needed to hit the original goal. The story for the rest of 2026 is no longer "make the number." It is "decide how much we want to overshoot, and reinvest the cushion."</div>
+      </div>
+      <div class="callout blue">
+        <div class="callout-label">How to read forward bookings</div>
+        <div class="callout-text">Forward bookings represent paid or confirmed upcoming stays. The gap between <em>Identified</em> ($10.67M) and <em>Completed YTD</em> ($4.61M) = $6.06M in confirmed future revenue. As trips complete through the year, Completed will rise toward Identified — and new bookings keep adding to both.</div>
+      </div>
+    </div>
+    </div><!-- /wip-content -->
+  </div>
+
+  <!-- ======== DEEPDASH + FLASH REPORT ======== -->
+  <div id="view-deepdash" class="view">
+
+    <div class="callout blue">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">This tab mirrors the two Hostfully exports Pure Kauai has historically used — the <strong>DeepDash Accommodations Revenue Report</strong> and the <strong>Flash Report (YTD)</strong> — both as of Jun 2, 2026. Treat this as the source of truth for revenue pacing until we ship the automated daily pull. Click either screenshot to zoom in.</div>
+    </div>
+
+    <div class="section-label">Flash Report — Accommodations Revenue YTD</div>
+    <div class="dd-card">
+      <div class="dd-card-header">
+        <div>
+          <div class="dd-card-title">Accommodations Revenue Flash Report (YTD)</div>
+          <div class="dd-card-sub">Data as of 6/2/26 &middot; Identified Calendar-Year Revenue + Goal Gap by year (2019, 2023, 2024, 2025, 2026)</div>
+        </div>
+        <div class="dd-card-action" onclick="openLightbox('assets/flash-report.png')">⤢ Click to zoom</div>
+      </div>
+      <div class="dd-card-body">
+        <img src="assets/flash-report.png" alt="Pure Kauai — Accommodations Revenue Flash Report (YTD) as of 6/2/26" onclick="openLightbox('assets/flash-report.png')">
+      </div>
+      <div class="dd-card-footer">
+        <span><strong>2026 identified (this report):</strong> $7,221,449 &middot; <strong>Goal:</strong> $9.5M &middot; <strong>% of goal:</strong> 76.0% &middot; <strong>Identified trips:</strong> 273</span>
+      </div>
+    </div>
+
+    <div class="section-label">DeepDash — Accommodations Revenue Report (full)</div>
+    <div class="dd-card">
+      <div class="dd-card-header">
+        <div>
+          <div class="dd-card-title">DeepDash &mdash; full accommodations breakdown</div>
+          <div class="dd-card-sub">YTD &amp; Total revenue by month / quarter / half &middot; Bookings by source &middot; Bookings by date (year prior + year of)</div>
+        </div>
+        <div class="dd-card-action" onclick="openLightbox('assets/deepdash.png')">⤢ Click to zoom</div>
+      </div>
+      <div class="dd-card-body">
+        <img src="assets/deepdash.png" alt="Pure Kauai — DeepDash Accommodations Revenue Report as of 6/2/26" onclick="openLightbox('assets/deepdash.png')">
+      </div>
+      <div class="dd-card-footer">
+        <span><strong>2026 Total Revenue (this view):</strong> $7,221,449 &middot; <strong>Top source:</strong> Hostfully ($5,595,538 rent + $1,120,445 fees) &middot; <strong>Tracked sources:</strong> Hostfully · Airbnb · Vrbo · HVMB · TravelStaytion · Whimstay</span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout green">
+        <div class="callout-label">Why this view exists</div>
+        <div class="callout-text">Cody's two PDFs are how Pure Kauai has been seeing pacing for years. Mirroring them in the report keeps continuity with the format the leadership team is used to, while we build the automated daily Hostfully pull that will replace this with a live view.</div>
+      </div>
+      <div class="callout amber">
+        <div class="callout-label">Note on the numbers</div>
+        <div class="callout-text">The DeepDash Total Revenue for 2026 ($7,221,449) covers <em>Accommodations only</em> by month. The derived Identified-by-May-31 view we maintain ($10,666,141) uses a different cut — every booking on the books for 2026, including fees and forward stays. Both views are correct for their own framing; the gap is the framing, not the data.</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- ======== ORGANIC ======== -->
@@ -838,7 +1002,65 @@
 
 </div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightbox(event)" title="Close">×</div>
+  <div class="lightbox-img-wrap" id="lightbox-wrap" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="zoomed view">
+  </div>
+  <div class="lightbox-zoom-controls" onclick="event.stopPropagation()">
+    <button onclick="setZoom(zoomLevel - 0.25)">&minus;</button>
+    <button onclick="setZoom(1)">Fit</button>
+    <button onclick="setZoom(zoomLevel + 0.25)">+</button>
+    <button onclick="setZoom(2)">2×</button>
+    <button onclick="setZoom(3)">3×</button>
+  </div>
+</div>
+
 <script>
+/* ── Lightbox ── */
+let zoomLevel = 1;
+let baseWidth = 0;
+function openLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  img.onload = () => {
+    baseWidth = Math.min(img.naturalWidth, window.innerWidth - 80);
+    setZoom(1);
+  };
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e && e.target && e.target.id && e.target.id !== 'lightbox' && !e.target.classList.contains('lightbox-close')) return;
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function setZoom(level) {
+  zoomLevel = Math.max(0.25, Math.min(level, 5));
+  const img = document.getElementById('lightbox-img');
+  if (img && baseWidth) img.style.width = (baseWidth * zoomLevel) + 'px';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox({target:{id:'lightbox'}});
+  if (e.key === '+' || e.key === '=') setZoom(zoomLevel + 0.25);
+  if (e.key === '-') setZoom(zoomLevel - 0.25);
+  if (e.key === '0') setZoom(1);
+});
+
+/* ── Tab helper (used by inline CTAs) ── */
+function switchTabById(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  const tabs = document.querySelectorAll('.tab');
+  const tabIds = ['overview','pacing','deepdash','calls','ads','ga4','actions','organic'];
+  const idx = tabIds.indexOf(name);
+  if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
 /* ── Chart: Revenue Pacing 2026 ── */
 new Chart(document.getElementById('pacingChart'), {
   type: 'bar',

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pure Kauai — Microsoft Clarity Behavior Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #085041; --teal-mid: #5DCAA5;
+    --blue: #185FA5; --blue-light: #E6F1FB; --blue-dark: #0C447C;
+    --amber: #EF9F27; --amber-light: #FAEEDA; --amber-dark: #854F0B;
+    --coral: #D85A30; --coral-light: #FAECE7; --coral-dark: #993C1D;
+    --purple: #7C4DBA; --purple-light: #F0EAFA;
+    --gray-50: #F8F7F4; --gray-100: #EEECE6; --gray-200: #D3D1C7;
+    --gray-500: #888780; --gray-800: #2C2C2A;
+    --text: #1a1a18; --text-muted: #6b6b68;
+    --border: rgba(0,0,0,0.09); --radius: 12px; --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; background: #F4F2EC; color: var(--text); min-height: 100vh; line-height: 1.55; }
+
+  .header { background: #fff; border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .header-left { display: flex; flex-direction: column; }
+  .back-link { font-size: 11px; color: var(--gray-500); text-decoration: none; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .back-link:hover { color: var(--teal); }
+  .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.08em; color: var(--gray-800); }
+  .logo span { color: var(--teal); }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .badge { display: inline-block; padding: 4px 11px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
+  .badge-teal { background: var(--teal-light); color: var(--teal-dark); }
+  .badge-amber { background: var(--amber-light); color: var(--amber-dark); }
+  .badge-gray { background: var(--gray-100); color: var(--gray-500); }
+
+  .page { max-width: 1200px; margin: 0 auto; padding: 28px 32px 60px; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #0C447C 0%, #185FA5 50%, #5DCAA5 100%); color: #fff; border-radius: var(--radius); padding: 32px 36px; margin-bottom: 22px; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; top: -80px; right: -50px; width: 320px; height: 320px; background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%); pointer-events: none; }
+  .hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; position: relative; }
+  .hero .lede { font-size: 14px; opacity: 0.9; max-width: 720px; margin-bottom: 22px; position: relative; }
+  .hero-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; position: relative; }
+  .hero-stat .val { font-size: 28px; font-weight: 700; line-height: 1.1; }
+  .hero-stat .lbl { font-size: 11px; opacity: 0.75; margin-top: 4px; letter-spacing: 0.04em; }
+
+  /* SECTION LABEL */
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* CARDS */
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+  .metric { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .metric.win { border-color: var(--teal); background: linear-gradient(135deg, #f0fdf8 0%, #fff 100%); }
+  .metric.warn { border-color: var(--amber); background: linear-gradient(135deg, #fdf9ee 0%, #fff 100%); }
+  .metric.alert { border-color: var(--coral); background: linear-gradient(135deg, #fdf4f2 0%, #fff 100%); }
+  .metric .label { font-size: 11.5px; color: var(--text-muted); margin-bottom: 7px; font-weight: 500; }
+  .metric .val { font-size: 28px; font-weight: 700; color: var(--gray-800); line-height: 1; margin-bottom: 6px; }
+  .metric .val.teal { color: var(--teal-dark); }
+  .metric .val.coral { color: var(--coral-dark); }
+  .metric .val.amber { color: var(--amber-dark); }
+  .metric .sub { font-size: 11.5px; color: var(--text-muted); }
+  .metric .sub.up { color: var(--teal-dark); }
+  .metric .sub.down { color: var(--coral-dark); }
+
+  /* CALLOUT */
+  .callout { border-left: 3px solid; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 14px 18px; margin-bottom: 16px; }
+  .callout.blue { background: var(--blue-light); border-color: var(--blue); }
+  .callout.amber { background: var(--amber-light); border-color: var(--amber); }
+  .callout.coral { background: var(--coral-light); border-color: var(--coral); }
+  .callout.green { background: var(--teal-light); border-color: var(--teal); }
+  .callout.purple { background: var(--purple-light); border-color: var(--purple); }
+  .callout-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .callout.blue .callout-label { color: var(--blue); }
+  .callout.amber .callout-label { color: var(--amber-dark); }
+  .callout.coral .callout-label { color: var(--coral-dark); }
+  .callout.green .callout-label { color: var(--teal-dark); }
+  .callout.purple .callout-label { color: var(--purple); }
+  .callout-text { font-size: 13px; line-height: 1.65; }
+  .callout.blue .callout-text { color: var(--blue-dark); }
+  .callout.amber .callout-text { color: var(--amber-dark); }
+  .callout.coral .callout-text { color: var(--coral-dark); }
+  .callout.green .callout-text { color: var(--teal-dark); }
+  .callout.purple .callout-text { color: var(--purple); }
+
+  /* TABLES */
+  .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--gray-50); padding: 11px 14px; text-align: left; font-weight: 600; font-size: 11px; color: var(--text-muted); border-bottom: 1px solid var(--border); letter-spacing: 0.04em; text-transform: uppercase; }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--gray-50); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.url { font-family: 'SF Mono', Menlo, monospace; font-size: 11.5px; color: var(--blue-dark); word-break: break-all; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .pill.green { background: var(--teal-light); color: var(--teal-dark); }
+  .pill.amber { background: var(--amber-light); color: var(--amber-dark); }
+  .pill.coral { background: var(--coral-light); color: var(--coral-dark); }
+  .pill.gray { background: var(--gray-100); color: var(--gray-500); }
+  .pill.blue { background: var(--blue-light); color: var(--blue-dark); }
+  .pill.purple { background: var(--purple-light); color: var(--purple); }
+
+  /* PROGRESS BAR */
+  .prog-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .prog-label { font-size: 12.5px; color: var(--text); width: 200px; flex-shrink: 0; }
+  .prog-label .sub { font-size: 11px; color: var(--text-muted); display: block; }
+  .prog-track { flex: 1; background: var(--gray-100); border-radius: 4px; height: 22px; overflow: hidden; }
+  .prog-fill { height: 22px; border-radius: 4px; display: flex; align-items: center; padding-left: 9px; font-size: 11.5px; font-weight: 600; color: #fff; transition: width 0.6s ease; }
+  .prog-count { width: 80px; text-align: right; font-size: 12px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+
+  /* HEALTH GAUGE */
+  .health-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 28px; display: flex; align-items: center; gap: 28px; margin-bottom: 18px; }
+  .gauge { width: 140px; height: 140px; flex-shrink: 0; position: relative; }
+  .gauge-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .gauge-bg { fill: none; stroke: var(--gray-100); stroke-width: 12; }
+  .gauge-fg { fill: none; stroke-width: 12; stroke-linecap: round; }
+  .gauge-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+  .gauge-score { font-size: 38px; font-weight: 700; line-height: 1; color: var(--gray-800); }
+  .gauge-suffix { font-size: 11px; color: var(--text-muted); margin-top: 4px; letter-spacing: 0.06em; }
+  .health-body h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: var(--gray-800); margin-bottom: 6px; }
+  .health-body p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* CHART */
+  .chart-section { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; margin-bottom: 18px; }
+  .chart-title { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.07em; }
+  .chart-wrap { position: relative; height: 240px; }
+
+  /* INSIGHT */
+  .insight-list { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 4px 0; margin-bottom: 18px; list-style: none; }
+  .insight-list li { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; gap: 16px; align-items: flex-start; }
+  .insight-list li:last-child { border-bottom: none; }
+  .insight-num { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; margin-top: 1px; }
+  .insight-num.green { background: var(--teal); }
+  .insight-num.coral { background: var(--coral); }
+  .insight-num.amber { background: var(--amber); }
+  .insight-num.blue { background: var(--blue); }
+  .insight-num.purple { background: var(--purple); }
+  .insight-body strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+  .insight-body p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .insight-body .ev { display: inline-block; margin-top: 6px; font-size: 11px; color: var(--text-muted); font-style: italic; }
+
+  /* PLAYBOOK */
+  .playbook { background: linear-gradient(135deg, #1a1a18 0%, #2C2C2A 100%); color: #fff; border-radius: var(--radius); padding: 32px 36px; margin-bottom: 22px; }
+  .playbook-tag { display: inline-block; background: rgba(255,255,255,0.12); color: #fff; font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .playbook h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .playbook .intro { font-size: 13.5px; opacity: 0.85; max-width: 760px; margin-bottom: 22px; line-height: 1.6; }
+  .playbook-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .play-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-sm); padding: 16px 18px; }
+  .play-card .play-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .play-card .play-num { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; color: var(--teal-mid); }
+  .play-card p { font-size: 12.5px; opacity: 0.85; line-height: 1.6; }
+
+  /* SNAPSHOT BAR */
+  .snapshot-bar { background: var(--teal-light); border: 1px solid var(--teal); border-radius: var(--radius-sm); padding: 10px 16px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--teal-dark); }
+
+  /* FOOTER */
+  .report-footer { text-align: center; padding: 36px 0 0; font-size: 12px; color: var(--text-muted); }
+  .report-footer a { color: var(--teal); text-decoration: none; }
+
+  @media (max-width: 900px) {
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .playbook-grid { grid-template-columns: 1fr; }
+    .health-card { flex-direction: column; text-align: center; }
+    .prog-label { width: 140px; }
+    .page { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <a href="../" class="back-link">&larr; All reports</a>
+    <div class="logo">PURE <span>KAUAI</span> &middot; Microsoft Clarity Behavior Report</div>
+  </div>
+  <div class="header-right">
+    <span class="badge badge-teal">Last 3 days &middot; May 31 to Jun 2</span>
+    <span class="badge badge-gray">Pulled Jun 3</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>What Pure Kauai visitors are actually doing</h1>
+    <p class="lede">Microsoft Clarity records every session: mouse moves, scrolls, taps, rage clicks, dead clicks, time on every section. This report distills three days of real visitor behavior into a frustration score, a traffic map, a page-by-page diagnostic, and a growth playbook the top 1% of operators use to compound revenue from existing traffic.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="val">1,428</div>
+        <div class="lbl">Real sessions (38 bots filtered)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">1,184</div>
+        <div class="lbl">Distinct users</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">2.05</div>
+        <div class="lbl">Pages per session</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">1:47</div>
+        <div class="lbl">Avg active time per session</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">43.96%</div>
+        <div class="lbl">Avg scroll depth</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="snapshot-bar">
+    <span>Source: <strong>Microsoft Clarity Data Export API</strong> &middot; project live-insights endpoint</span>
+    <span>Window: <strong>3 days (May 31 to Jun 2, 2026)</strong> &middot; Clarity's max window per call</span>
+  </div>
+
+  <!-- HEALTH GAUGE -->
+  <div class="section-label">Frustration Health Score</div>
+  <div class="health-card">
+    <div class="gauge">
+      <svg class="gauge-svg" viewBox="0 0 160 160">
+        <circle class="gauge-bg" cx="80" cy="80" r="64"/>
+        <circle class="gauge-fg" cx="80" cy="80" r="64" stroke="#EF9F27" stroke-dasharray="402" stroke-dashoffset="180"/>
+      </svg>
+      <div class="gauge-label">
+        <div class="gauge-score">55<span style="font-size:18px;color:var(--text-muted);">/100</span></div>
+        <div class="gauge-suffix">Needs attention</div>
+      </div>
+    </div>
+    <div class="health-body">
+      <h2>The site is working, but it is leaking high-intent visitors.</h2>
+      <p>Three signals are above what we expect for a luxury rental site: <strong style="color:var(--coral-dark);">37% of sessions hit a script error</strong> (target &lt;10%), <strong style="color:var(--coral-dark);">22.5% experience a dead click</strong> (an element that looks tappable but does nothing, target &lt;10%), and <strong style="color:var(--amber-dark);">15% quick-back</strong> (visit a page and immediately go back, often signalling wrong landing match). Together these cost an estimated 8-15% of bookable intent that the site is currently swallowing in silence.</p>
+    </div>
+  </div>
+
+  <div class="section-label">Friction signals (3-day window)</div>
+  <div class="grid-4">
+    <div class="metric alert">
+      <div class="label">Script errors</div>
+      <div class="val coral">37.23%</div>
+      <div class="sub down">780 errors across 771 page views &middot; high priority</div>
+    </div>
+    <div class="metric alert">
+      <div class="label">Dead clicks</div>
+      <div class="val coral">22.54%</div>
+      <div class="sub down">960 dead-click events across 446 page views</div>
+    </div>
+    <div class="metric warn">
+      <div class="label">Quick-back rate</div>
+      <div class="val amber">14.96%</div>
+      <div class="sub down">344 sessions land then bounce back</div>
+    </div>
+    <div class="metric warn">
+      <div class="label">Rage clicks</div>
+      <div class="val amber">1.37%</div>
+      <div class="sub down">49 rage clicks &middot; small but worth the recording deep-dive</div>
+    </div>
+  </div>
+
+  <!-- TRAFFIC MAP -->
+  <div class="section-label">Where Pure Kauai visitors are coming from</div>
+  <div class="grid-2">
+    <div class="chart-section">
+      <div class="chart-title">Device split</div>
+      <div class="chart-wrap"><canvas id="deviceChart"></canvas></div>
+    </div>
+    <div class="chart-section">
+      <div class="chart-title">Operating system</div>
+      <div class="chart-wrap"><canvas id="osChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-section">
+      <div class="chart-title">Top browsers (sessions)</div>
+      <div style="padding:6px 4px 4px;">
+        <div class="prog-row"><div class="prog-label">Mobile Safari<span class="sub">iPhone/iPad native browser</span></div><div class="prog-track"><div class="prog-fill" style="width:100%;background:#185FA5">717</div></div><div class="prog-count">49.0%</div></div>
+        <div class="prog-row"><div class="prog-label">Chrome (desktop)<span class="sub">macOS + Windows</span></div><div class="prog-track"><div class="prog-fill" style="width:40%;background:#5DCAA5">285</div></div><div class="prog-count">19.5%</div></div>
+        <div class="prog-row"><div class="prog-label">Chrome Mobile<span class="sub">Android default</span></div><div class="prog-track"><div class="prog-fill" style="width:32%;background:#1D9E75">229</div></div><div class="prog-count">15.6%</div></div>
+        <div class="prog-row"><div class="prog-label">Safari (desktop)<span class="sub">macOS</span></div><div class="prog-track"><div class="prog-fill" style="width:13%;background:#9FE1CB">95</div></div><div class="prog-count">6.5%</div></div>
+        <div class="prog-row"><div class="prog-label">Google App<span class="sub">in-app Google Search browser</span></div><div class="prog-track"><div class="prog-fill" style="width:9%;background:#EF9F27">61</div></div><div class="prog-count">4.2%</div></div>
+        <div class="prog-row"><div class="prog-label">Edge / Firefox / Other<span class="sub">long tail</span></div><div class="prog-track"><div class="prog-fill" style="width:9%;background:#D3D1C7;color:#888780">67</div></div><div class="prog-count">4.6%</div></div>
+      </div>
+    </div>
+    <div class="chart-section">
+      <div class="chart-title">Geography (top countries)</div>
+      <div class="table-wrap" style="margin:0;border:none;">
+        <table>
+          <thead><tr><th>Country</th><th class="num">Sessions</th><th class="num">% share</th></tr></thead>
+          <tbody>
+            <tr><td>United States <span class="pill green">primary</span></td><td class="num"><strong>1,356</strong></td><td class="num">92.5%</td></tr>
+            <tr><td>United Kingdom</td><td class="num">27</td><td class="num">1.8%</td></tr>
+            <tr><td>Canada</td><td class="num">13</td><td class="num">0.9%</td></tr>
+            <tr><td>India</td><td class="num">11</td><td class="num">0.8%</td></tr>
+            <tr><td>France</td><td class="num">11</td><td class="num">0.8%</td></tr>
+            <tr><td>Switzerland</td><td class="num">9</td><td class="num">0.6%</td></tr>
+            <tr><td>Finland</td><td class="num">8</td><td class="num">0.5%</td></tr>
+            <tr><td>Italy, Australia, Spain</td><td class="num">13</td><td class="num">0.9%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-label">What the device + geography mix tells us</div>
+    <div class="callout-text"><strong>65% of sessions are mobile, 63% are iOS, 49% specifically Mobile Safari.</strong> This is a textbook luxury-traveller profile, but it also means every UX issue on iPhone is hitting the majority of visitors. Pair that with the 37% script error rate and the picture sharpens: the booking flow, property cards, and inquiry form need to be tested on iOS Safari first, every release. Geography is overwhelmingly US-domestic (93%) — the long-tail European sessions are small but their engagement is worth watching as the AEO content matures.</div>
+  </div>
+
+  <!-- REFERRERS -->
+  <div class="section-label">Where the traffic originates</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Referrer</th><th class="num">Sessions</th><th class="num">Share</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td><strong>google.com</strong> <span class="pill blue">organic search</span></td><td class="num"><strong>669</strong></td><td class="num">45.6%</td><td>The dominant inbound source. The site lives or dies by Google.</td></tr>
+        <tr><td>Direct / no referrer</td><td class="num">531</td><td class="num">36.2%</td><td>Type-ins, app linking, brand recall. Strong loyalty signal.</td></tr>
+        <tr><td>/properties/ (internal)</td><td class="num">218</td><td class="num">14.9%</td><td>Properties index is doing real funnelling work.</td></tr>
+        <tr><td>/ (homepage internal)</td><td class="num">99</td><td class="num">6.8%</td><td>Homepage successfully passes visitors deeper.</td></tr>
+        <tr><td>/property/hanalei-oasis/ (internal)</td><td class="num">25</td><td class="num">1.7%</td><td>Hanalei Oasis is the launch pad for browsing other properties.</td></tr>
+        <tr><td>Google Ads &mdash; "luxury kauai vacation" kw <span class="pill purple">paid</span></td><td class="num">15</td><td class="num">1.0%</td><td>Campaign ID 39097788. Brand-adjacent paid traffic.</td></tr>
+        <tr><td>Google Ads &mdash; campaign 22726840955 <span class="pill purple">paid</span></td><td class="num">12</td><td class="num">0.8%</td><td>Display Network ("network=x"). Lower intent.</td></tr>
+        <tr><td>/contact/ (internal)</td><td class="num">12</td><td class="num">0.8%</td><td>Likely re-visits after inquiry submission.</td></tr>
+        <tr><td>/properties/long-term/ (internal)</td><td class="num">11</td><td class="num">0.8%</td><td>Long-term rental browsing path.</td></tr>
+        <tr><td>Google Ads &mdash; "hanalei bay hale" kw <span class="pill purple">paid</span></td><td class="num">11</td><td class="num">0.8%</td><td>Property-specific bid. High intent.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-label">The story behind the referrers</div>
+    <div class="callout-text">Direct visits (36%) almost equal Google organic (46%) — this is unusually strong brand recall for a vacation rental brand. Combined, organic + direct = <strong>82% of inbound traffic</strong>. Paid ads contribute single-digit percentage of sessions in this window but disproportionately drive booking-intent traffic given their checkin parameter URLs (visible in the per-page section below).</div>
+  </div>
+
+  <!-- TOP PAGES -->
+  <div class="section-label">Most-visited pages (3-day window)</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Page</th><th class="num">Sessions</th><th>Type</th><th>Notable</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Homepage</strong></td><td class="num"><strong>434</strong></td><td><span class="pill blue">landing</span></td><td>Visitors then route mostly to /properties/ or directly to property pages.</td></tr>
+        <tr><td>/properties/ <em>(properties index)</em></td><td class="num">291</td><td><span class="pill blue">browse</span></td><td>The second-most-trafficked page. The hub that decides which property gets the next click.</td></tr>
+        <tr><td><strong>/property/hanalei-oasis/</strong></td><td class="num"><strong>271</strong></td><td><span class="pill green">property</span></td><td>3rd-most-trafficked page in the entire site. Why is this one property pulling so much?</td></tr>
+        <tr><td>/island-guide/what-is-the-best-month-to-go-to-kauai/</td><td class="num">105</td><td><span class="pill purple">SEO blog</span></td><td>The standout AEO/SEO win. Doing top-of-funnel work.</td></tr>
+        <tr><td>/property/ikena-lani/</td><td class="num">65</td><td><span class="pill green">property</span></td><td>Flagship estate, deserved high traffic.</td></tr>
+        <tr><td>/island-guide/what-is-the-best-beach-on-kauai/</td><td class="num">56</td><td><span class="pill purple">SEO blog</span></td><td>Consistent blog driver.</td></tr>
+        <tr><td>/around-the-island/</td><td class="num">55</td><td><span class="pill blue">guide</span></td><td>Destination content. Mid-funnel.</td></tr>
+        <tr><td>/island-guide/where-to-see-turtles-in-kauai/</td><td class="num">53</td><td><span class="pill purple">SEO blog</span></td><td>Long-tail organic darling.</td></tr>
+        <tr><td>/property/hanalei-hideaway/</td><td class="num">53</td><td><span class="pill green">property</span></td><td>Hanalei Hideaway continues to perform.</td></tr>
+        <tr><td>/island-guide/things-to-do-in-kauai-when-it-rains/</td><td class="num">52</td><td><span class="pill purple">SEO blog</span></td><td>Evergreen long-tail. Doing year-round work.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout green">
+    <div class="callout-label">The Hanalei Oasis question</div>
+    <div class="callout-text"><strong>Hanalei Oasis pulled 271 sessions in 3 days — third-most-visited page in the entire site.</strong> No flagship-estate label, no homepage callout, no Google Ads campaign of its own. Best hypothesis: it ranks well on Google for a specific intent we are not yet exploiting (likely "hanalei oasis kauai" or a derivative). Action: pull a Search Console query for this URL, see the top 5 queries driving it, and replicate the pattern across other mid-tier properties. The internal-referrer data shows 25 sessions land on Hanalei Oasis and then browse onward to other properties: it is functioning as a top-of-funnel hub even though it isn't designed to be one.</div>
+  </div>
+
+  <!-- HIGH ENGAGEMENT -->
+  <div class="section-label">Pages with the highest engagement quality</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Page</th><th class="num">Scroll depth</th><th class="num">Active time</th><th>Signal</th></tr></thead>
+      <tbody>
+        <tr><td>/property/kalihiwai-bay-estate/</td><td class="num" style="color:var(--teal-dark);font-weight:700;">96.67%</td><td class="num">135s</td><td><span class="pill green">deep read</span> Visitors consume virtually the entire page.</td></tr>
+        <tr><td>/destinations-kalihiwai/</td><td class="num" style="color:var(--teal-dark);font-weight:700;">100%</td><td class="num">10s</td><td><span class="pill green">single-scroll page</span> Quick check then onward.</td></tr>
+        <tr><td>/about/</td><td class="num" style="color:var(--teal-dark);font-weight:700;">58.39%</td><td class="num">67s</td><td><span class="pill green">trust-building</span> Story page is doing its job.</td></tr>
+        <tr><td>/property/hanalei-bay-hale/ (with checkin params)</td><td class="num">48%</td><td class="num">83s</td><td><span class="pill green">intent</span> User is checking availability for specific dates.</td></tr>
+        <tr><td>/property/hale-ae-kai/ (with checkin params)</td><td class="num">47%</td><td class="num">83s</td><td><span class="pill green">intent</span> Same pattern, flagship estate.</td></tr>
+        <tr><td>/property/kamalani-modern/ (with checkin params)</td><td class="num">36%</td><td class="num">15s</td><td><span class="pill amber">decision in motion</span> Probably comparing options.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WHAT'S BREAKING -->
+  <div class="section-label">Where the site is leaking visitors</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Page</th><th class="num">Sessions</th><th class="num">Dead clicks</th><th class="num">Quick-back</th><th>Script err</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr style="background:#fdf4f2;"><td>/property/hanalei-bay-hale/</td><td class="num">9</td><td class="num" style="color:var(--coral-dark);font-weight:700;">33.3%</td><td class="num" style="color:var(--coral-dark);font-weight:700;">44.4%</td><td><span class="pill coral">100% sessions</span></td><td>Triple-red. Click here is broken.</td></tr>
+        <tr style="background:#fdf9ee;"><td>/about/</td><td class="num">18</td><td class="num" style="color:var(--coral-dark);font-weight:700;">27.8%</td><td class="num">11.1%</td><td><span class="pill gray">none</span></td><td>Rage clicks too (11.1%) + dead clicks. Something looks clickable but isn't.</td></tr>
+        <tr style="background:#fdf9ee;"><td>/property/kalihiwai-bay-estate/</td><td class="num">2</td><td class="num">0%</td><td class="num">0%</td><td><span class="pill coral">100% sessions</span></td><td>Script error, no other frustration.</td></tr>
+        <tr><td>Best beach blog (paid traffic land)</td><td class="num">5+</td><td class="num">0%</td><td class="num" style="color:var(--coral-dark);font-weight:700;">paid&rarr;low scroll</td><td><span class="pill gray">none</span></td><td>Ad clickers scroll &lt;10% then leave. Ad/landing mismatch.</td></tr>
+        <tr><td>Hanalei Oasis (some checkin params)</td><td class="num">25</td><td class="num">~15%</td><td class="num">~15%</td><td><span class="pill amber">partial</span></td><td>Watch list — large session count + frustration.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout coral">
+    <div class="callout-label">Top priority: the Hanalei Bay Hale page</div>
+    <div class="callout-text">9 sessions to /property/hanalei-bay-hale/ in 3 days. <strong>33% of those visitors had a dead click. 44% quick-backed (visited and immediately bounced). 100% triggered a script error.</strong> This is one of Pure Kauai's flagship properties and is showing up in Google Ads bids on its own keyword (see referrers table). Every paid click landing here is being burned. Action: open Clarity, filter sessions to this URL, watch 5 recordings to find the broken interaction, then ship the fix this week.</div>
+  </div>
+
+  <!-- INSIGHTS / RECOMMENDATIONS -->
+  <div class="section-label">Growth actions ranked by impact</div>
+  <ul class="insight-list">
+    <li>
+      <div class="insight-num coral">1</div>
+      <div class="insight-body">
+        <strong>Fix the script error firing on 37% of sessions</strong>
+        <p>Most likely candidates: a third-party widget (booking, chat, or analytics) failing on iOS Safari, or a JS error in the property template (Hanalei Bay Hale and Kalihiwai Bay Estate both show 100% script error rate, suggesting a template issue). In Clarity, filter by JS Error and watch a recording. Patch the error, then re-pull this report in 7 days to confirm the rate drops below 15%.</p>
+        <span class="ev">Evidence: 780 errors across 1,464 sessions, 37.23% session penetration</span>
+      </div>
+    </li>
+    <li>
+      <div class="insight-num coral">2</div>
+      <div class="insight-body">
+        <strong>Investigate the 22.5% dead click rate site-wide</strong>
+        <p>Dead clicks happen when a visitor taps something that looks interactive but isn't. Most often: an image without a link, a heading styled like a button, a "(more)" indicator with no handler. Use Clarity's Dead Click heatmap, prioritize the property pages, and either wire up the missing handler or restyle to look static. This usually returns 1-3% on conversion rate in luxury/travel verticals.</p>
+        <span class="ev">Evidence: 960 dead-click events across 446 page views</span>
+      </div>
+    </li>
+    <li>
+      <div class="insight-num amber">3</div>
+      <div class="insight-body">
+        <strong>Map paid-ad landing pages to ad copy</strong>
+        <p>The "best beaches" blog post is receiving paid clicks from a "kauai vacation accommodations" keyword with active time of 4 seconds and scroll depth of 7%. The ad copy and landing page disagree about what the visitor is going to find. Move that keyword to a property index or a destination page that matches the buyer's intent, or write a property-focused landing variant of the blog post.</p>
+        <span class="ev">Evidence: Multiple paid-traffic URLs showing &lt;10% scroll + &lt;20s active time</span>
+      </div>
+    </li>
+    <li>
+      <div class="insight-num green">4</div>
+      <div class="insight-body">
+        <strong>Replicate the Hanalei Oasis pattern across mid-tier properties</strong>
+        <p>Hanalei Oasis pulls 271 sessions in 3 days with no special promotion, ranking 3rd in site-wide traffic. It also serves as an internal referrer to other properties (25 onward navigations). Pull Search Console for this URL, find the top 5 query patterns it ranks on, and apply the same on-page changes (title, H1, schema, internal linking) to 3 mid-tier properties as an A/B test. Conservative read: 1.5x the traffic on 3 properties = ~150 incremental sessions per week.</p>
+        <span class="ev">Evidence: Hanalei Oasis = 3rd most-visited page, 25 internal-referrer sessions, no paid spend</span>
+      </div>
+    </li>
+    <li>
+      <div class="insight-num blue">5</div>
+      <div class="insight-body">
+        <strong>Set up Clarity Smart Events on the booking funnel</strong>
+        <p>Right now Clarity sees what page visitors are on but not what they intend. Configure Smart Events for: inquiry-form open, inquiry-form submit, BookingBridge widget open, checkin date selected, calendar interaction. Once those fire, every recording becomes filterable by intent. The reservations team can then watch the 10 highest-intent sessions per day instead of all 480.</p>
+        <span class="ev">Setting up Smart Events takes about 30 minutes once</span>
+      </div>
+    </li>
+    <li>
+      <div class="insight-num purple">6</div>
+      <div class="insight-body">
+        <strong>Build a recurring "Pages with checkin params + low scroll" segment</strong>
+        <p>A visitor who reaches /property/X/?checkin=&hellip; has selected specific dates. If their scroll depth is below 30% on that page, they are either price-shocked, availability-shocked, or unsure how to proceed. Create a Clarity segment for "URL contains checkin AND scroll &lt; 30%" and review one recording per day. This is the highest-leverage diagnostic in the entire account — every loss here is a near-conversion.</p>
+        <span class="ev">Evidence: Several checkin-parameter URLs show 35-48% scroll, edge cases warrant deeper review</span>
+      </div>
+    </li>
+    <li>
+      <div class="insight-num green">7</div>
+      <div class="insight-body">
+        <strong>Surface the About page strategically</strong>
+        <p>58% average scroll depth and 67s active time is best-in-class for a brand page. People who read About convert better in luxury verticals. Add an About prompt in the property-page sidebar ("Why choose Pure Kauai") so visitors who are evaluating a property can build trust without leaving the funnel.</p>
+        <span class="ev">Evidence: /about/ shows 18 sessions, 58.4% scroll, 67s active time</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- PLAYBOOK -->
+  <div class="playbook">
+    <span class="playbook-tag">THE TOP 1% PLAYBOOK</span>
+    <h2>How the best operators turn Clarity into compounding growth</h2>
+    <p class="intro">Clarity is free, so most teams treat it like a free tool. The top 1% use it as the connective tissue between analytics, customer support, paid media, and product. Here is the playbook we follow for Pure Kauai.</p>
+    <div class="playbook-grid">
+      <div class="play-card">
+        <div class="play-title"><span class="play-num">01</span> Watch one recording every morning</div>
+        <p>Top operators do not run reports. They watch. One recording a day filtered to "purchase intent" sessions (checkin parameter URLs, time on page &gt; 60s). After 30 days, the patterns are obvious. Conversion blockers become visible weeks before they show up in analytics.</p>
+      </div>
+      <div class="play-card">
+        <div class="play-title"><span class="play-num">02</span> Tag the booking funnel with Smart Events</div>
+        <p>Smart Events convert Clarity from "what they did" to "why they came." Tag: inquiry-form open, inquiry-form submit, calendar interaction, price-section scroll, gallery open. Then every recording is filterable by intent.</p>
+      </div>
+      <div class="play-card">
+        <div class="play-title"><span class="play-num">03</span> Pair Clarity recordings with GA4 funnel drop-offs</div>
+        <p>GA4 tells you "30% drop between step 2 and step 3." Clarity tells you why. Cross-reference the GA4 funnel report against Clarity recordings on the same URL pattern + same date range. The dropoff explanation is usually a single dead click or a confusing micro-copy.</p>
+      </div>
+      <div class="play-card">
+        <div class="play-title"><span class="play-num">04</span> Create a "high-intent loss" daily segment</div>
+        <p>Build a Clarity segment that captures: contained a checkin parameter + did not reach /confirmation. These are visitors who got close and didn't convert. Watch 1-2 daily, document the loss reason, ticket it. Over a quarter, this becomes a backlog of high-leverage fixes ordered by frequency.</p>
+      </div>
+      <div class="play-card">
+        <div class="play-title"><span class="play-num">05</span> Use Clarity to validate ad creative</div>
+        <p>When a Google Ads campaign underperforms, do not just look at CTR. Filter Clarity to that campaign's UTMs, watch 3 sessions, see what those visitors actually did. Most "bad campaigns" are good campaigns landing on the wrong page.</p>
+      </div>
+      <div class="play-card">
+        <div class="play-title"><span class="play-num">06</span> Mine rage clicks for product roadmap</div>
+        <p>Rage clicks are the cheapest customer research available. Every cluster of rage clicks is the audience telling you exactly where to invest engineering. Sort by element, address the top 3, repeat monthly.</p>
+      </div>
+      <div class="play-card">
+        <div class="play-title"><span class="play-num">07</span> Compare segments instead of averages</div>
+        <p>Average engagement time hides the story. Instead segment: mobile vs desktop, paid vs organic, new vs returning, US vs international. The deltas show you the highest-leverage problem to solve next.</p>
+      </div>
+      <div class="play-card">
+        <div class="play-title"><span class="play-num">08</span> Make Clarity recordings part of customer feedback loops</div>
+        <p>When a reservations agent gets a confused phone call ("I tried to book but it wouldn't let me"), they should be able to pull that visitor's recording in seconds. Tie Clarity sessions to phone numbers via CallRail's visitor ID and recordings become support superpowers.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT PULL -->
+  <div class="callout amber">
+    <div class="callout-label">Note on the data window</div>
+    <div class="callout-text">Microsoft Clarity's Data Export API allows a maximum 3-day window per call and caps total project calls per day. Today's pull captured the full account view plus a deep per-URL drilldown (395 URLs with frustration + engagement signals). Deeper dimension cuts (per-source, per-device, per-campaign frustration) will be added in the next pull when the rate limit resets. Heatmaps and session recordings live in Clarity directly: <a href="https://clarity.microsoft.com/" target="_blank" rel="noopener" style="color:var(--amber-dark);font-weight:600;">clarity.microsoft.com</a></div>
+  </div>
+
+  <div class="report-footer">
+    <p>Source: <strong>Microsoft Clarity Data Export API</strong> &middot; project live-insights endpoint &middot; 3-day window ending Jun 2, 2026 &middot; Pulled Jun 3, 2026</p>
+    <p style="margin-top:8px;">CONFIDENTIAL &nbsp;&middot;&nbsp; <a href="../">All Pure Kauai reports</a></p>
+  </div>
+
+</div>
+
+<script>
+const totalSessions = 1466;
+
+new Chart(document.getElementById('deviceChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Mobile (951)', 'PC (419)', 'Tablet (95)', 'Email (1)'],
+    datasets: [{
+      data: [951, 419, 95, 1],
+      backgroundColor: ['#185FA5', '#5DCAA5', '#EF9F27', '#D3D1C7'],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '60%',
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.toLocaleString() + ' sessions (' + (ctx.parsed/totalSessions*100).toFixed(1) + '%)' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('osChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['iOS (922)', 'macOS (239)', 'Windows (167)', 'Android (124)', 'ChromeOS / Linux (14)'],
+    datasets: [{
+      data: [922, 239, 167, 124, 14],
+      backgroundColor: ['#1D9E75', '#5DCAA5', '#185FA5', '#EF9F27', '#D3D1C7'],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '60%',
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.toLocaleString() + ' sessions (' + (ctx.parsed/totalSessions*100).toFixed(1) + '%)' } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

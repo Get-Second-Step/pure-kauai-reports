@@ -236,7 +236,7 @@
     <div style="font-size:20px;line-height:1;margin-top:1px;">📊</div>
     <div>
       <div style="font-size:11px;font-weight:700;color:var(--blue-dark);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:4px;">Full Page Report — May 2026</div>
-      <div style="font-size:13px;color:var(--text);line-height:1.6;">This is the deep-dive companion to the <a href="../" style="color:var(--blue);font-weight:600;text-decoration:none;">May summary</a>. The pacing view we built is in the <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-pacing').classList.add('active');document.querySelectorAll('.tab')[1].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">Revenue Pacing tab</a> and Cody's current <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-deepdash').classList.add('active');document.querySelectorAll('.tab')[2].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">DeepDash + Flash Report</a> screenshots are mirrored as their own tab. Both are placeholders until the daily automated Hostfully pull ships.</div>
+      <div style="font-size:13px;color:var(--text);line-height:1.6;">This is the deep-dive companion to the <a href="../" style="color:var(--blue);font-weight:600;text-decoration:none;">May summary</a>. The pacing view we built is in the <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-pacing').classList.add('active');document.querySelectorAll('.tab')[1].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">Revenue Pacing tab</a> and Cody's current <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-deepdash').classList.add('active');document.querySelectorAll('.tab')[2].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">Deep Dash + Flash Report</a> screenshots are mirrored as their own tab. Both are placeholders until the daily automated Hostfully pull ships.</div>
     </div>
   </div>
 
@@ -252,7 +252,7 @@
   <div class="tabs">
     <button class="tab active" onclick="switchTab('overview', this)">Overview</button>
     <button class="tab" onclick="switchTab('pacing', this)">Revenue Pacing</button>
-    <button class="tab" onclick="switchTab('deepdash', this)">DeepDash + Flash Report</button>
+    <button class="tab" onclick="switchTab('deepdash', this)">Deep Dash + Flash Report</button>
     <button class="tab" onclick="switchTab('calls', this)">Call Performance</button>
     <button class="tab" onclick="switchTab('ads', this)">Google Ads</button>
     <button class="tab" onclick="switchTab('ga4', this)">GA4 &amp; Web</button>
@@ -374,7 +374,7 @@
         </div>
       </div>
       <div class="chart-section">
-        <div class="chart-title">2026 bookings by source — Hostfully DeepDash</div>
+        <div class="chart-title">2026 bookings by source — Hostfully Deep Dash</div>
         <div class="chart-wrap">
           <canvas id="channelRevenueChart"></canvas>
         </div>
@@ -399,17 +399,17 @@
     <div style="background:var(--blue-light);border:1px solid var(--blue);border-radius:var(--radius);padding:18px 22px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;" onclick="switchTabById('deepdash')">
       <div style="font-size:22px;line-height:1;margin-top:2px;">👉</div>
       <div style="flex:1;">
-        <div style="font-size:11px;font-weight:700;color:var(--blue-dark);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:5px;">Heads up — DeepDash + Flash Report mirrors live here too</div>
-        <div style="font-size:13px;color:var(--blue-dark);line-height:1.6;">For the current Hostfully snapshot you're used to seeing, <strong>check out the revenue pacing in the DeepDash + Flash Report tab</strong>. We're keeping our derived pacing view below as well, greyed out until the automated daily pull is live.</div>
+        <div style="font-size:11px;font-weight:700;color:var(--blue-dark);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:5px;">Heads up — Deep Dash + Flash Report mirrors live here too</div>
+        <div style="font-size:13px;color:var(--blue-dark);line-height:1.6;">For the current Hostfully snapshot you're used to seeing, <strong>check out the revenue pacing in the Deep Dash + Flash Report tab</strong>. We're keeping our derived pacing view below as well, greyed out until the automated daily pull is live.</div>
       </div>
-      <div style="font-size:13px;color:var(--blue);font-weight:700;align-self:center;white-space:nowrap;">Open DeepDash tab &rarr;</div>
+      <div style="font-size:13px;color:var(--blue);font-weight:700;align-self:center;white-space:nowrap;">Open Deep Dash tab &rarr;</div>
     </div>
 
     <div class="wip-banner">
       <div class="wip-banner-icon">🚧</div>
       <div>
         <div class="wip-banner-title">Work in progress</div>
-        <div class="wip-banner-text">We are wiring this Revenue Pacing view to an <strong>automated daily Hostfully pull via the DeepDash sync</strong>. Once live, every snapshot below will refresh overnight against the latest bookings, forward pipeline, and check-in revenue. The numbers shown are accurate as of May 31, 2026 — they are greyed out here while we replace this view with the live, always-current version.</div>
+        <div class="wip-banner-text">We are wiring this Revenue Pacing view to an <strong>automated daily Hostfully pull via the Deep Dash sync</strong>. Once live, every snapshot below will refresh overnight against the latest bookings, forward pipeline, and check-in revenue. The numbers shown are accurate as of May 31, 2026 — they are greyed out here while we replace this view with the live, always-current version.</div>
       </div>
     </div>
 
@@ -481,7 +481,7 @@
 
     <div class="callout blue">
       <div class="callout-label">The Story</div>
-      <div class="callout-text">This tab mirrors the two Hostfully exports Pure Kauai has historically used — the <strong>DeepDash Accommodations Revenue Report</strong> and the <strong>Flash Report (YTD)</strong> — both as of Jun 2, 2026. Treat this as the source of truth for revenue pacing until we ship the automated daily pull. Click either screenshot to zoom in.</div>
+      <div class="callout-text">This tab mirrors the two Hostfully exports Pure Kauai has historically used — the <strong>Deep Dash Accommodations Revenue Report</strong> and the <strong>Flash Report (YTD)</strong> — both as of Jun 2, 2026. Treat this as the source of truth for revenue pacing until we ship the automated daily pull. Click either screenshot to zoom in.</div>
     </div>
 
     <div class="section-label">Flash Report — Accommodations Revenue YTD</div>
@@ -501,17 +501,17 @@
       </div>
     </div>
 
-    <div class="section-label">DeepDash — Accommodations Revenue Report (full)</div>
+    <div class="section-label">Deep Dash — Accommodations Revenue Report (full)</div>
     <div class="dd-card">
       <div class="dd-card-header">
         <div>
-          <div class="dd-card-title">DeepDash &mdash; full accommodations breakdown</div>
+          <div class="dd-card-title">Deep Dash &mdash; full accommodations breakdown</div>
           <div class="dd-card-sub">YTD &amp; Total revenue by month / quarter / half &middot; Bookings by source &middot; Bookings by date (year prior + year of)</div>
         </div>
         <div class="dd-card-action" onclick="openLightbox('assets/deepdash.png')">⤢ Click to zoom</div>
       </div>
       <div class="dd-card-body">
-        <img src="assets/deepdash.png" alt="Pure Kauai — DeepDash Accommodations Revenue Report as of 6/2/26" onclick="openLightbox('assets/deepdash.png')">
+        <img src="assets/deepdash.png" alt="Pure Kauai — Deep Dash Accommodations Revenue Report as of 6/2/26" onclick="openLightbox('assets/deepdash.png')">
       </div>
       <div class="dd-card-footer">
         <span><strong>2026 Total Revenue (this view):</strong> $7,221,449 &middot; <strong>Top source:</strong> Hostfully ($5,595,538 rent + $1,120,445 fees) &middot; <strong>Tracked sources:</strong> Hostfully · Airbnb · Vrbo · HVMB · TravelStaytion · Whimstay</span>
@@ -1007,7 +1007,7 @@
   </div>
 
   <div class="report-footer">
-    <p>Sources: Hostfully PMS (DeepDash sync, refreshed Jun 1 2026) &nbsp;&middot;&nbsp; Google Ads (account 316-669-4225) &nbsp;&middot;&nbsp; CallRail &nbsp;&middot;&nbsp; GA4 (G-E8C5BS9ME8) &nbsp;&middot;&nbsp; <em>Some sections pending pull</em></p>
+    <p>Sources: Hostfully PMS (Deep Dash sync, refreshed Jun 1 2026) &nbsp;&middot;&nbsp; Google Ads (account 316-669-4225) &nbsp;&middot;&nbsp; CallRail &nbsp;&middot;&nbsp; GA4 (G-E8C5BS9ME8) &nbsp;&middot;&nbsp; <em>Some sections pending pull</em></p>
   </div>
 
 </div>
@@ -1091,7 +1091,7 @@ new Chart(document.getElementById('pacingChart'), {
   }
 });
 
-/* ── Chart: Overview — 2026 bookings by source (DeepDash, rent + fees) ── */
+/* ── Chart: Overview — 2026 bookings by source (Deep Dash, rent + fees) ── */
 new Chart(document.getElementById('channelRevenueChart'), {
   type: 'doughnut',
   data: {

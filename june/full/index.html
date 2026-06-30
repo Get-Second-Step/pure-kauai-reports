@@ -236,7 +236,7 @@
     <div style="font-size:20px;line-height:1;margin-top:1px;">📊</div>
     <div>
       <div style="font-size:11px;font-weight:700;color:var(--blue-dark);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:4px;">Full Page Report — June 2026</div>
-      <div style="font-size:13px;color:var(--text);line-height:1.6;">This is the deep-dive companion to the <a href="../" style="color:var(--blue);font-weight:600;text-decoration:none;">June summary</a>. The pacing view we built is in the <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-pacing').classList.add('active');document.querySelectorAll('.tab')[1].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">Revenue Pacing tab</a> and Cody's current <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-deepdash').classList.add('active');document.querySelectorAll('.tab')[2].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">Deep Dash + Flash Report</a> screenshots are mirrored as their own tab. Both are placeholders until the daily automated Hostfully pull ships.</div>
+      <div style="font-size:13px;color:var(--text);line-height:1.6;">This is the deep-dive companion to the <a href="../" style="color:var(--blue);font-weight:600;text-decoration:none;">June summary</a>. The pacing view we built is in the <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-pacing').classList.add('active');document.querySelectorAll('.tab')[1].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">Revenue Pacing tab</a> and Cody's current <a href="javascript:void(0)" onclick="document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-deepdash').classList.add('active');document.querySelectorAll('.tab')[2].classList.add('active');window.scrollTo(0,0);" style="color:var(--blue);font-weight:600;text-decoration:none;">Deep Dash + Flash Report</a> screenshots are mirrored as their own tab. The pacing view is the Jun 30 cut of Cody's Flash Report.</div>
     </div>
   </div>
 
@@ -397,24 +397,21 @@
   <!-- ======== REVENUE PACING ======== -->
   <div id="view-pacing" class="view">
 
-    <div style="background:var(--blue-light);border:1px solid var(--blue);border-radius:var(--radius);padding:18px 22px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;" onclick="switchTabById('deepdash')">
-      <div style="font-size:22px;line-height:1;margin-top:2px;">👉</div>
-      <div style="flex:1;">
-        <div style="font-size:11px;font-weight:700;color:var(--blue-dark);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:5px;">Heads up — Deep Dash + Flash Report mirrors live here too</div>
-        <div style="font-size:13px;color:var(--blue-dark);line-height:1.6;">For the current Hostfully snapshot you're used to seeing, <strong>check out the revenue pacing in the Deep Dash + Flash Report tab</strong>. We're keeping our derived pacing view below as well, greyed out until the automated daily pull is live.</div>
-      </div>
-      <div style="font-size:13px;color:var(--blue);font-weight:700;align-self:center;white-space:nowrap;">Open Deep Dash tab &rarr;</div>
+    <div class="callout green">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">2026 is pacing at the strongest position on record. Identified accommodations revenue climbed from 47.3% of the $9.5M goal in early February to <strong>82.2% by June 30</strong>, and the year-end position sits ahead of every tracked year (2025's 80.6% was the prior best). $1.69M remains to close against $3.66M already forward-booked. All figures are the Jun 30 cut of Cody's Accommodations Flash Report and the Pacing by Booking Date tab; the Deep Dash + Flash Report tab carries the source screenshots.</div>
     </div>
 
-    <div class="wip-banner">
-      <div class="wip-banner-icon">🚧</div>
-      <div>
-        <div class="wip-banner-title">Work in progress</div>
-        <div class="wip-banner-text">We are wiring this Revenue Pacing view to an <strong>automated daily Hostfully pull via the Deep Dash sync</strong>. Once live, every snapshot below will refresh overnight against the latest bookings, forward pipeline, and check-in revenue. The numbers shown are accurate as of Jun 30, 2026 — they are greyed out here while we replace this view with the live, always-current version.</div>
-      </div>
+    <div class="snapshot-bar">
+      <span>Source: <strong>Accommodations Flash Report + Pacing by Booking Date</strong> &middot; Jun 30, 2026</span>
+      <span>Goal <strong>$9.5M</strong> &middot; Identified <strong>$7.81M (82.2%)</strong> &middot; Gap <strong>$1.69M</strong></span>
     </div>
 
-    <div class="wip-content">
+    <div class="chart-section">
+      <div class="chart-title">2026 cumulative identified revenue vs $9.5M goal (by check-in month)</div>
+      <div class="chart-wrap"><canvas id="pacingCumChart"></canvas></div>
+    </div>
+
     <div class="section-label">2026 snapshots — year to date (Flash Report cut)</div>
     <div class="table-wrap">
       <table>
@@ -475,7 +472,7 @@
         <div class="callout-text">Forward bookings represent paid or confirmed upcoming stays. The gap between <em>Identified</em> ($7.81M) and <em>Completed YTD</em> ($4.15M) = $3.66M in confirmed future revenue. As trips complete through the year, Completed will rise toward Identified — and new bookings keep adding to both.</div>
       </div>
     </div>
-    </div><!-- /wip-content -->
+    
   </div>
 
   <!-- ======== DEEPDASH + FLASH REPORT ======== -->
@@ -1330,6 +1327,29 @@ new Chart(document.getElementById('adsDailyChart'), {
     scales: {
       x: { grid: { display: false }, ticks: { color: '#888780', font: { size: 11 } } },
       y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#888780', font: { size: 10 }, callback: v => '$' + (v >= 1000 ? Math.round(v/1000) + 'K' : v) } }
+    }
+  }
+});
+
+/* ── Chart: Revenue Pacing — 2026 cumulative vs goal ── */
+new Chart(document.getElementById('pacingCumChart'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [
+      { label: 'Cumulative identified', data: [309807,698720,1818210,2273733,3061936,4145307,5575823,6071006,6177003,6214390,6950254,7806619],
+        borderColor: '#1D9E75', backgroundColor: 'rgba(29,158,117,0.10)', fill: true, tension: 0.25, pointRadius: 3, pointBackgroundColor: '#1D9E75' },
+      { label: '$9.5M goal', data: [9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000],
+        borderColor: '#EF9F27', borderDash: [6,4], pointRadius: 0, fill: false, tension: 0 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: true, labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12 } },
+      tooltip: { callbacks: { label: ctx => '  ' + ctx.dataset.label + ': $' + Math.round(ctx.parsed.y).toLocaleString() } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#888780', font: { size: 11 } } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#888780', font: { size: 10 }, callback: v => '$' + (v >= 1000000 ? (v/1000000).toFixed(0) + 'M' : Math.round(v/1000) + 'K') } }
     }
   }
 });

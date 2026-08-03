@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pure Kauai — July 2026 Monthly Report</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #085041; --teal-mid: #5DCAA5;
+    --blue: #185FA5; --blue-light: #E6F1FB; --blue-dark: #0C447C;
+    --amber: #EF9F27; --amber-light: #FAEEDA; --amber-dark: #854F0B;
+    --coral: #D85A30; --coral-light: #FAECE7; --coral-dark: #993C1D;
+    --purple: #7C4DBA; --purple-light: #F0EAFA;
+    --gray-50: #F8F7F4; --gray-100: #EEECE6; --gray-200: #D3D1C7;
+    --gray-500: #888780; --gray-800: #2C2C2A;
+    --text: #1a1a18; --text-muted: #6b6b68;
+    --border: rgba(0,0,0,0.1); --radius: 12px; --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; background: #F4F2EC; color: var(--text); min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: #fff; border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.08em; color: var(--gray-800); }
+  .logo span { color: var(--teal); }
+  .header-right { display: flex; align-items: center; gap: 20px; }
+  .header-badge { background: var(--teal-light); color: var(--teal-dark); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .header-meta { font-size: 12px; color: var(--text-muted); }
+
+  /* LAYOUT */
+  .page { max-width: 1200px; margin: 0 auto; padding: 32px 32px 80px; }
+
+  /* ALERT BANNER */
+  .alert-banner { background: var(--coral-light); border: 1px solid var(--coral); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 12px; }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+  .alert-text strong { color: var(--coral-dark); font-size: 13px; display: block; margin-bottom: 3px; }
+  .alert-text p { font-size: 12px; color: var(--coral-dark); line-height: 1.6; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 2px; margin-bottom: 24px; background: #fff; border-radius: var(--radius); padding: 4px; border: 1px solid var(--border); width: fit-content; flex-wrap: wrap; }
+  .tab { padding: 8px 18px; font-size: 13px; border: none; background: none; cursor: pointer; border-radius: var(--radius-sm); color: var(--text-muted); font-weight: 500; transition: all 0.15s; white-space: nowrap; }
+  .tab:hover { background: var(--gray-50); color: var(--text); }
+  .tab.active { background: var(--gray-800); color: #fff; }
+  .tab.warn { position: relative; }
+  .tab.warn::after { content: '!'; position: absolute; top: 4px; right: 6px; background: var(--coral); color: #fff; font-size: 9px; font-weight: 700; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 14px; text-align: center; }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* METRICS */
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+  .metric-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .metric-card { background: #fff; border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 22px; }
+  .metric-card.highlight { border-color: var(--teal); background: linear-gradient(135deg, #f0fdf8 0%, #fff 100%); }
+  .metric-card.alert { border-color: var(--coral); background: linear-gradient(135deg, #fdf4f2 0%, #fff 100%); }
+  .metric-card.win { border-color: var(--teal); background: linear-gradient(135deg, #f0fdf8 0%, #fff 100%); }
+  .metric-label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+  .metric-value { font-size: 28px; font-weight: 600; color: var(--gray-800); line-height: 1; margin-bottom: 6px; }
+  .metric-value.big { font-size: 36px; color: var(--teal-dark); }
+  .metric-sub { font-size: 12px; }
+  .up { color: var(--teal-dark); } .down { color: var(--coral-dark); } .neutral { color: var(--text-muted); }
+
+  /* SECTION LABELS */
+  .section-label { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; margin-top: 8px; }
+
+  /* TABLES */
+  .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--gray-50); padding: 11px 16px; text-align: left; font-weight: 600; font-size: 11px; color: var(--text-muted); border-bottom: 1px solid var(--border); letter-spacing: 0.03em; }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--gray-50); }
+  .current-row td { background: #f0fdf8; font-weight: 500; }
+  .alert-row td { background: #fdf4f2; }
+
+  /* PROGRESS BAR */
+  .prog-wrap { background: var(--gray-100); border-radius: 4px; height: 8px; overflow: hidden; width: 100%; min-width: 80px; }
+  .prog-bar { height: 8px; border-radius: 4px; background: var(--teal); }
+  .prog-bar.danger { background: var(--coral); }
+  .prog-bar.warn-bar { background: var(--amber); }
+
+  /* CALLOUTS */
+  .callout { border-left: 3px solid; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 14px 18px; margin-bottom: 20px; }
+  .callout.blue { background: var(--blue-light); border-color: var(--blue); }
+  .callout.amber { background: var(--amber-light); border-color: var(--amber); }
+  .callout.coral { background: var(--coral-light); border-color: var(--coral); }
+  .callout.green { background: var(--teal-light); border-color: var(--teal); }
+  .callout.purple { background: var(--purple-light); border-color: var(--purple); }
+  .callout-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .callout.blue .callout-label { color: var(--blue); }
+  .callout.amber .callout-label { color: var(--amber-dark); }
+  .callout.coral .callout-label { color: var(--coral-dark); }
+  .callout.green .callout-label { color: var(--teal-dark); }
+  .callout.purple .callout-label { color: var(--purple); }
+  .callout-text { font-size: 13px; line-height: 1.65; }
+  .callout.blue .callout-text { color: var(--blue-dark); }
+  .callout.amber .callout-text { color: var(--amber-dark); }
+  .callout.coral .callout-text { color: var(--coral-dark); }
+  .callout.green .callout-text { color: var(--teal-dark); }
+  .callout.purple .callout-text { color: var(--purple); }
+
+  /* CHARTS */
+  .chart-section { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+  .chart-legend { display: flex; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .chart-wrap { position: relative; height: 240px; }
+  .chart-title { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* BADGES */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge-green { background: var(--teal-light); color: var(--teal-dark); }
+  .badge-amber { background: var(--amber-light); color: var(--amber-dark); }
+  .badge-blue { background: var(--blue-light); color: var(--blue-dark); }
+  .badge-gray { background: var(--gray-100); color: var(--gray-500); }
+  .badge-coral { background: var(--coral-light); color: var(--coral-dark); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+
+  /* TWO-COL / THREE-COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .insight-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+  .insight-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .insight-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+
+  /* ISSUE LIST */
+  .issue-list { list-style: none; }
+  .issue-list li { font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: flex-start; line-height: 1.5; }
+  .issue-list li:last-child { border-bottom: none; }
+  .issue-num { width: 22px; height: 22px; border-radius: 50%; background: var(--gray-800); color: #fff; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .issue-num.red { background: var(--coral); }
+  .issue-num.amber { background: var(--amber); color: #fff; }
+  .issue-body strong { display: block; color: var(--text); margin-bottom: 2px; }
+  .issue-body span { color: var(--text-muted); font-size: 12px; }
+
+  /* SNAPSHOT BAR */
+  .snapshot-bar { background: var(--teal-light); border: 1px solid var(--teal); border-radius: var(--radius-sm); padding: 10px 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+  .snapshot-bar span { font-size: 12px; color: var(--teal-dark); }
+  .snapshot-bar strong { color: var(--teal-dark); }
+
+  /* FUNNEL */
+  .funnel-wrap { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+  .funnel-step { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; }
+  .funnel-bar-outer { flex: 1; background: var(--gray-100); border-radius: 6px; height: 44px; overflow: hidden; position: relative; }
+  .funnel-bar-inner { height: 44px; border-radius: 6px; display: flex; align-items: center; padding: 0 16px; font-size: 13px; font-weight: 600; color: #fff; transition: width 0.8s ease; }
+  .funnel-label { width: 170px; flex-shrink: 0; }
+  .funnel-label strong { display: block; font-size: 13px; color: var(--text); }
+  .funnel-label span { font-size: 11px; color: var(--text-muted); }
+  .funnel-val { width: 80px; flex-shrink: 0; text-align: right; font-size: 20px; font-weight: 700; color: var(--gray-800); }
+  .funnel-arrow { text-align: center; color: var(--gray-200); font-size: 20px; padding-left: 190px; margin-bottom: 4px; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* WIP */
+  .wip-banner { background: var(--amber-light); border: 1px solid var(--amber); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 20px; display: flex; gap: 14px; align-items: flex-start; }
+  .wip-banner-icon { font-size: 22px; line-height: 1; margin-top: 2px; }
+  .wip-banner-title { font-size: 12px; font-weight: 700; color: var(--amber-dark); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
+  .wip-banner-text { font-size: 13px; color: var(--amber-dark); line-height: 1.65; }
+  .wip-content { opacity: 0.35; pointer-events: none; user-select: none; filter: grayscale(85%); }
+
+  /* DEEPDASH CARDS */
+  .dd-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 22px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+  .dd-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; padding: 18px 22px; border-bottom: 1px solid var(--border); background: var(--gray-50); }
+  .dd-card-title { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 3px; }
+  .dd-card-sub { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .dd-card-action { font-size: 11px; font-weight: 700; color: var(--teal-dark); background: var(--teal-light); border: 1px solid var(--teal); border-radius: 6px; padding: 6px 12px; cursor: pointer; white-space: nowrap; letter-spacing: 0.04em; transition: all 0.15s; }
+  .dd-card-action:hover { background: var(--teal); color: #fff; }
+  .dd-card-body { padding: 14px; background: #fbfbf8; }
+  .dd-card-body img { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid var(--border); cursor: zoom-in; transition: transform 0.15s; }
+  .dd-card-body img:hover { transform: scale(1.005); }
+  .dd-card-footer { padding: 11px 22px; background: #fff; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
+  .dd-card-footer strong { color: var(--gray-800); }
+
+  /* LIGHTBOX */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; align-items: center; justify-content: center; padding: 30px; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox-img-wrap { position: relative; max-width: 100%; max-height: 100%; overflow: auto; display: flex; align-items: center; justify-content: center; cursor: grab; }
+  .lightbox-img-wrap:active { cursor: grabbing; }
+  .lightbox img { max-width: none; height: auto; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,0.5); display: block; }
+  .lightbox-close { position: fixed; top: 18px; right: 22px; background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; z-index: 10000; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+  .lightbox-zoom-controls { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 6px; z-index: 10000; }
+  .lightbox-zoom-controls button { background: rgba(255,255,255,0.1); color: #fff; border: 0; border-radius: 999px; min-width: 38px; height: 32px; padding: 0 14px; font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.03em; }
+  .lightbox-zoom-controls button:hover { background: rgba(255,255,255,0.2); }
+
+  /* CALL DISTRIBUTION */
+  .call-bar-wrap { display: flex; flex-direction: column; gap: 10px; }
+  .call-bar-row { display: flex; align-items: center; gap: 12px; }
+  .call-bar-label { font-size: 12px; color: var(--text-muted); width: 130px; flex-shrink: 0; text-align: right; }
+  .call-bar-track { flex: 1; background: var(--gray-100); border-radius: 4px; height: 22px; overflow: hidden; display: flex; }
+  .call-bar-fill { height: 22px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 30px; border-radius: 4px 0 0 4px; transition: width 0.6s ease; }
+  .call-bar-count { font-size: 12px; font-weight: 600; color: var(--text); width: 30px; text-align: right; }
+
+  /* ROAS HERO */
+  .roas-hero { background: linear-gradient(135deg, #085041 0%, #1D9E75 100%); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 24px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
+  .roas-hero-left h2 { font-size: 42px; font-weight: 700; letter-spacing: -1px; margin-bottom: 4px; }
+  .roas-hero-left p { font-size: 14px; opacity: 0.85; }
+  .roas-hero-stats { display: flex; gap: 32px; }
+  .roas-stat { text-align: center; }
+  .roas-stat .val { font-size: 22px; font-weight: 700; }
+  .roas-stat .lbl { font-size: 11px; opacity: 0.75; margin-top: 2px; }
+
+  /* REPORT FOOTER */
+  .report-footer { text-align: center; padding: 32px 0 0; }
+  .report-footer p { font-size: 12px; color: var(--text-muted); }
+  .report-footer a { color: var(--teal); text-decoration: none; }
+
+  @media (max-width: 900px) {
+    .metric-grid { grid-template-columns: 1fr 1fr; }
+    .metric-grid-3 { grid-template-columns: 1fr 1fr; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .page { padding: 20px 16px; }
+    .header { padding: 14px 16px; flex-wrap: wrap; gap: 8px; }
+    .roas-hero { flex-direction: column; gap: 20px; }
+    .roas-hero-stats { flex-wrap: wrap; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <a href="../" style="display:inline-block;font-size:11px;color:#888780;text-decoration:none;margin-bottom:4px;letter-spacing:0.05em;">&larr; Back to July summary</a>
+    <div class="logo">PURE <span>KAUAI</span> &mdash; Monthly Performance Report</div>
+  </div>
+  <div class="header-right">
+    <span class="header-badge">July 2026</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HEADLINE BANNER -->
+  <div class="alert-banner" style="background:var(--teal-light);border-color:var(--teal);">
+    <div class="alert-icon" style="color:var(--teal-dark);">🌺</div>
+    <div class="alert-text">
+      <strong style="color:var(--teal-dark);">$8.10M identified through Jul 31 &middot; 85.3% of the $9.5M goal &middot; most identified revenue on record</strong>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('overview', this)">Overview</button>
+    <button class="tab" onclick="switchTab('pacing', this)">Revenue Pacing</button>
+    <button class="tab" onclick="switchTab('deepdash', this)">Deep Dash + Flash Report</button>
+    <button class="tab" onclick="switchTab('calls', this)">Call Performance</button>
+    <button class="tab" onclick="switchTab('ads', this)">Google Ads</button>
+    <button class="tab" onclick="switchTab('ga4', this)">GA4 &amp; Web</button>
+    <button class="tab" onclick="switchTab('social', this)">Social Media</button>
+    <button class="tab" onclick="switchTab('actions', this)">Issues &amp; Actions</button>
+    <button class="tab" onclick="switchTab('organic', this)">Organic</button>
+  </div>
+
+  <!-- ======== OVERVIEW ======== -->
+  <div id="view-overview" class="view active">
+
+    <!-- WHAT WE BUILT THIS MONTH -->
+    <div style="background:var(--blue-light);border:1px solid var(--blue);border-radius:var(--radius);padding:22px 26px;margin-bottom:24px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--blue);margin-bottom:6px;">What This Month Tells Us</div>
+      <div style="font-size:13px;color:var(--blue-dark);line-height:1.7;margin-bottom:18px;">
+        July was the biggest month of the year and pushed Pure Kauai to the most revenue ever identified at this point on the calendar: $8.10M, 85.3% of the $9.5M goal. The month also reversed June's two soft spots — organic traffic and phone calls both recovered strongly — while the Deep Dash, ads, calls, GA4 and AEO detail all refresh below.
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;border:1px solid rgba(24,95,165,0.2);">
+          <div style="font-size:12px;font-weight:700;color:var(--blue-dark);margin-bottom:5px;">Most identified revenue on record</div>
+          <div style="font-size:12px;color:var(--blue-dark);line-height:1.6;opacity:0.85;">$8.10M identified through Jul 31 is 85.3% of the $9.5M goal — level with 2025's record pace and +$419K ahead of 2025 in absolute dollars, the most ever identified at this point in the year.</div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;border:1px solid rgba(24,95,165,0.2);">
+          <div style="font-size:12px;font-weight:700;color:var(--blue-dark);margin-bottom:5px;">July was the biggest month</div>
+          <div style="font-size:12px;color:var(--blue-dark);line-height:1.6;opacity:0.85;">$1.47M of accommodations revenue for July check-ins, +17.8% vs July 2025 — the strongest completed month of 2026, landing well above last year rather than merely matching it.</div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;border:1px solid rgba(24,95,165,0.2);">
+          <div style="font-size:12px;font-weight:700;color:var(--blue-dark);margin-bottom:5px;">Organic recovered</div>
+          <div style="font-size:12px;color:var(--blue-dark);line-height:1.6;opacity:0.85;">Organic search sessions rose +35% YoY and SEO pageviews +54% YoY as the island-guide content tracked again after the Framer migration — reversing June's dip and lifting organic revenue to $61,704.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="snapshot-bar">
+      <span>Source: <strong>Pure Kauai Accommodations Flash Report</strong> &middot; data as of Jul 31, 2026</span>
+      <span>Marketing data: <strong>Google Ads + RightNow dashboard</strong> &middot; Jul 1&ndash;31, 2026</span>
+    </div>
+
+    <div class="section-label">Revenue snapshot — YTD as of Jul 31, 2026</div>
+    <div class="metric-grid">
+      <div class="metric-card highlight">
+        <div class="metric-label">Identified accommodations revenue</div>
+        <div class="metric-value">$8.10M</div>
+        <div class="metric-sub up">+$419K vs 2025 ($7.68M) &middot; most on record at this point</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">% of full year goal ($9.5M)</div>
+        <div class="metric-value">85.3%</div>
+        <div class="metric-sub up">level with 2025's record 85.3%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Forward-booked revenue</div>
+        <div class="metric-value">$2.49M</div>
+        <div class="metric-sub up">93 future stays on the books</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Identified trip count</div>
+        <div class="metric-value">309</div>
+        <div class="metric-sub up">+31 trips vs 2025 (278) &middot; 216 completed / 93 forward</div>
+      </div>
+    </div>
+
+    <div class="section-label">July 2026 — month in review</div>
+    <div class="metric-grid">
+      <div class="metric-card win">
+        <div class="metric-label">July accommodations revenue</div>
+        <div class="metric-value">$1.47M</div>
+        <div class="metric-sub up">+17.8% vs July 2025 ($1.25M) &middot; strongest month of 2026</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Completed trip revenue YTD</div>
+        <div class="metric-value">$5.61M</div>
+        <div class="metric-sub up">216 stays completed Jan&ndash;Jul</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Revenue per completed trip</div>
+        <div class="metric-value">$25,971</div>
+        <div class="metric-sub neutral">vs $28,969 in 2025 &middot; mix shift</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Revenue per booking total</div>
+        <div class="metric-value">$26,217</div>
+        <div class="metric-sub neutral">$26,787 forward avg &middot; $25,971 completed avg</div>
+      </div>
+    </div>
+
+    <div class="section-label">Marketing performance highlights — July 2026</div>
+    <div class="metric-grid">
+      <div class="metric-card win">
+        <div class="metric-label">Google Ads ROAS</div>
+        <div class="metric-value" style="color:var(--teal-dark)">15.2x</div>
+        <div class="metric-sub up">$91,085 confirmed on $6,006 spend</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Forward-booked pipeline</div>
+        <div class="metric-value">$2.49M</div>
+        <div class="metric-sub up">93 future stays &middot; Aug&ndash;Dec check-ins</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Google Ads clicks</div>
+        <div class="metric-value">2,545</div>
+        <div class="metric-sub neutral">114,584 impressions &middot; 2.22% CTR</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Inbound calls (CallRail)</div>
+        <div class="metric-value" style="color:var(--teal-dark)">34</div>
+        <div class="metric-sub up">flat vs July 2025 &middot; +36% vs June</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="chart-section">
+        <div class="chart-title">2026 accommodations revenue by check-in month</div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Completed (Jan&ndash;Jul)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#9FE1CB"></div>Forward booked (Aug&ndash;Dec)</div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="pacingChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-section">
+        <div class="chart-title">2026 bookings by source — Hostfully Deep Dash</div>
+        <div class="chart-wrap">
+          <canvas id="channelRevenueChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout green">
+        <div class="callout-label">Most identified revenue on record, more in the pipeline</div>
+        <div class="callout-text">$8.10M identified through Jul 31 is 85.3% of the $9.5M goal — level with 2025's record pace and +$419K ahead in absolute dollars ($7.68M), the most ever identified at this point in the year. With $2.49M forward-booked across 93 future stays, only $1.40M remains to clear the goal cleanly.</div>
+      </div>
+      <div class="callout blue">
+        <div class="callout-label">July led the year</div>
+        <div class="callout-text">$1.47M of July accommodations revenue is the strongest completed month of 2026 and +17.8% ahead of July 2025 — the biggest month of the year landing above last year, not merely matching it. Mix shift continues: revenue per completed trip ($25,971) sits below 2025 ($28,969) as more mid-tier and shoulder-season stays enter the funnel alongside the flagship estates.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== REVENUE PACING ======== -->
+  <div id="view-pacing" class="view">
+
+    <div class="callout green">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">2026 is pacing level with the strongest year on record and ahead of it in absolute dollars. Identified accommodations revenue climbed from 47.3% of the $9.5M goal in early February to <strong>85.3% by July 31</strong> — matching 2025's record pace and +$419K ahead of it in dollars ($8.10M vs $7.68M), the most ever identified at this point in the year. $1.40M remains to close against $2.49M already forward-booked. All figures are the Jul 31 cut of Cody's Accommodations Flash Report; the Deep Dash + Flash Report tab carries the full breakdown.</div>
+    </div>
+
+    <div class="snapshot-bar">
+      <span>Source: <strong>Accommodations Flash Report</strong> &middot; Jul 31, 2026</span>
+      <span>Goal <strong>$9.5M</strong> &middot; Identified <strong>$8.10M (85.3%)</strong> &middot; Gap <strong>$1.40M</strong></span>
+    </div>
+
+    <div class="chart-section">
+      <div class="chart-title">2026 cumulative identified revenue vs $9.5M goal (by check-in month)</div>
+      <div class="chart-wrap"><canvas id="pacingCumChart"></canvas></div>
+    </div>
+
+    <div class="section-label">2026 snapshots — year to date (Flash Report cut)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Snapshot</th>
+          <th>Completed YTD</th>
+          <th>Forward booked</th>
+          <th>Identified total</th>
+          <th>Goal</th>
+          <th>% of goal</th>
+          <th>Progress</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Feb 4, 2026</td><td>$361,807</td><td>$4,134,902</td><td>$4,496,709</td><td>$9,500,000</td><td>47.3%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:47.3%"></div></div></td></tr>
+          <tr><td>Feb 11, 2026</td><td>$508,923</td><td>$4,307,914</td><td>$4,816,837</td><td>$9,500,000</td><td>50.7%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:50.7%"></div></div></td></tr>
+          <tr><td>Mar 25, 2026</td><td>$1,593,290</td><td>$4,117,484</td><td>$5,710,775</td><td>$9,500,000</td><td>60.1%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:60.1%"></div></div></td></tr>
+          <tr><td>Apr 13, 2026</td><td>$2,071,847</td><td>$4,606,543</td><td>$6,678,390</td><td>$9,500,000</td><td>70.3%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:70.3%"></div></div></td></tr>
+          <tr><td>Jun 2, 2026</td><td>$3,128,136</td><td>$4,093,312</td><td>$7,221,449</td><td>$9,500,000</td><td>76.0%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:76%"></div></div></td></tr>
+          <tr><td>Jun 30, 2026</td><td>$4,145,308</td><td>$3,661,313</td><td>$7,806,620</td><td>$9,500,000</td><td>82.2%</td><td><div class="prog-wrap"><div class="prog-bar" style="width:82.2%"></div></div></td></tr>
+          <tr class="current-row"><td><strong>Jul 31, 2026</strong> <span class="badge badge-green">latest</span></td><td><strong>$5,609,721</strong></td><td><strong>$2,491,230</strong></td><td><strong>$8,100,952</strong></td><td>$9,500,000</td><td><strong>85.3%</strong></td><td><div class="prog-wrap"><div class="prog-bar" style="width:85.3%"></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-label">Year-over-year — identified YTD (Flash Report cut)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Year</th>
+          <th>Identified YTD</th>
+          <th>Goal</th>
+          <th>% of goal</th>
+          <th>Trips</th>
+          <th>Rev / booking</th>
+          <th>Progress</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>2019</td><td>$6,210,982</td><td>$8,000,000</td><td>77.6%</td><td>334</td><td>$18,596</td><td><div class="prog-wrap"><div class="prog-bar" style="width:77.6%"></div></div></td></tr>
+          <tr><td>2023</td><td>$7,261,524</td><td>$9,500,000</td><td>76.4%</td><td>271</td><td>$26,795</td><td><div class="prog-wrap"><div class="prog-bar" style="width:76.4%"></div></div></td></tr>
+          <tr><td>2024</td><td>$7,253,062</td><td>$10,000,000</td><td>72.5%</td><td>294</td><td>$24,670</td><td><div class="prog-wrap"><div class="prog-bar" style="width:72.5%"></div></div></td></tr>
+          <tr><td>2025</td><td>$7,681,395</td><td>$9,000,000</td><td>85.3%</td><td>278</td><td>$27,631</td><td><div class="prog-wrap"><div class="prog-bar" style="width:85.3%"></div></div></td></tr>
+          <tr class="current-row"><td><strong>2026</strong> <span class="badge badge-green">current</span></td><td><strong>$8,100,952</strong></td><td>$9,500,000</td><td><strong>85.3%</strong></td><td><strong>309</strong></td><td><strong>$26,217</strong></td><td><div class="prog-wrap"><div class="prog-bar" style="width:85.3%"></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-label">Reading this honestly</div>
+      <div class="callout-text">2026's identified revenue by Jul 31 is $8.10M — 85.3% of the $9.5M goal, level with 2025's record pace and +$419K ahead of 2025 ($7.68M) in absolute dollars, the most ever identified at this point. Trip count (309) is the highest at this point in any tracked year. Average revenue per booking ($26,217) sits below 2025 ($27,631) — mix shift toward more mid-tier and shoulder-season stays, not pricing weakness.</div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout green">
+        <div class="callout-label">Most on record, more in the pipeline</div>
+        <div class="callout-text">$8.10M identified through Jul 31 is 85.3% of the $9.5M goal — level with 2025's record pace and +$419K ahead in absolute dollars ($7.68M). Only $1.40M still to close to hit the $9.5M goal — comfortably within reach given the $2.49M already forward-booked across 93 future stays.</div>
+      </div>
+      <div class="callout blue">
+        <div class="callout-label">How to read forward bookings</div>
+        <div class="callout-text">Forward bookings represent paid or confirmed upcoming stays. The gap between <em>Identified</em> ($8.10M) and <em>Completed YTD</em> ($5.61M) = $2.49M in confirmed future revenue. As trips complete through the year, Completed will rise toward Identified — and new bookings keep adding to both.</div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- ======== DEEPDASH + FLASH REPORT ======== -->
+  <div id="view-deepdash" class="view">
+
+    <div class="callout blue">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">This tab mirrors the two Hostfully exports Pure Kauai has historically used — the <strong>Deep Dash Accommodations Revenue Report</strong> and the <strong>Flash Report (YTD)</strong> — both as of Jul 31, 2026. Treat this as the source of truth for revenue pacing until we ship the automated daily Hostfully pull. The tables below reproduce Cody&#39;s Flash Report and Deep Dash views exactly, as of Jul 31, 2026.</div>
+    </div>
+
+    <div class="section-label">Flash Report — Accommodations Revenue YTD</div>
+    <div class="dd-card">
+      <div class="dd-card-header">
+        <div>
+          <div class="dd-card-title">Accommodations Revenue Flash Report (YTD)</div>
+          <div class="dd-card-sub">Data as of 7/31/26 &middot; Identified Calendar-Year Revenue + Goal Gap by year (2019, 2023, 2024, 2025, 2026)</div>
+        </div>
+        <div class="dd-card-action" style="cursor:default;background:var(--gray-100);color:var(--gray-500);border-color:var(--gray-200);">Cody&#39;s July 31 sheet</div>
+      </div>
+      <div class="dd-card-body" style="padding:18px 20px;">
+        <img src="assets/flash-report.png" alt="Pure Kauai — Accommodations Revenue Flash Report (YTD) as of 6/30/26" style="display:none;width:100%;height:auto;border-radius:6px;border:1px solid var(--border);cursor:zoom-in;" onload="this.style.display='block';this.nextElementSibling.style.display='none';" onclick="openLightbox('assets/flash-report.png')">
+        <table class="data-table" style="font-size:12.5px;">
+          <thead><tr><th></th><th style="text-align:right;">2019</th><th style="text-align:right;">2023</th><th style="text-align:right;">2024</th><th style="text-align:right;">2025</th><th style="text-align:right;">2026</th></tr></thead>
+          <tbody>
+            <tr><td>Completed trip revenue</td><td style="text-align:right;">$4,255,742</td><td style="text-align:right;">$5,638,856</td><td style="text-align:right;">$5,199,286</td><td style="text-align:right;">$5,591,028</td><td style="text-align:right;">$5,609,721</td></tr>
+            <tr><td>Booked YTD for rest of year</td><td style="text-align:right;">$1,955,240</td><td style="text-align:right;">$1,622,668</td><td style="text-align:right;">$2,053,776</td><td style="text-align:right;">$2,090,367</td><td style="text-align:right;">$2,491,230</td></tr>
+            <tr class="highlight"><td><strong>Identified revenue</strong></td><td style="text-align:right;">$6,210,982</td><td style="text-align:right;">$7,261,524</td><td style="text-align:right;">$7,253,062</td><td style="text-align:right;">$7,681,395</td><td style="text-align:right;"><strong>$8,100,952</strong></td></tr>
+            <tr><td>Full-year goal</td><td style="text-align:right;">$8,000,000</td><td style="text-align:right;">$9,500,000</td><td style="text-align:right;">$10,000,000</td><td style="text-align:right;">$9,000,000</td><td style="text-align:right;">$9,500,000</td></tr>
+            <tr><td>Revenue gap</td><td style="text-align:right;">$1,789,018</td><td style="text-align:right;">$2,238,476</td><td style="text-align:right;">$2,746,938</td><td style="text-align:right;">$1,318,605</td><td style="text-align:right;">$1,399,048</td></tr>
+            <tr class="highlight"><td><strong>% of goal</strong></td><td style="text-align:right;">77.6%</td><td style="text-align:right;">76.4%</td><td style="text-align:right;">72.5%</td><td style="text-align:right;">85.3%</td><td style="text-align:right;"><strong>85.3%</strong></td></tr>
+            <tr><td>Identified trips</td><td style="text-align:right;">334</td><td style="text-align:right;">271</td><td style="text-align:right;">294</td><td style="text-align:right;">278</td><td style="text-align:right;">309</td></tr>
+            <tr><td>Rev per booking total</td><td style="text-align:right;">$18,596</td><td style="text-align:right;">$26,795</td><td style="text-align:right;">$24,670</td><td style="text-align:right;">$27,631</td><td style="text-align:right;">$26,217</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dd-card-footer">
+        <span><strong>2026 identified (this report):</strong> $8,100,952 &middot; <strong>Goal:</strong> $9.5M &middot; <strong>% of goal:</strong> 85.3% &middot; <strong>Identified trips:</strong> 309</span>
+      </div>
+    </div>
+
+    <div class="section-label">Deep Dash — Accommodations Revenue Report (full)</div>
+    <div class="dd-card">
+      <div class="dd-card-header">
+        <div>
+          <div class="dd-card-title">Deep Dash &mdash; full accommodations breakdown</div>
+          <div class="dd-card-sub">YTD &amp; Total revenue by month / quarter / half &middot; Bookings by source &middot; Bookings by date (year prior + year of)</div>
+        </div>
+        <div class="dd-card-action" style="cursor:default;background:var(--gray-100);color:var(--gray-500);border-color:var(--gray-200);">Cody&#39;s July 31 sheet</div>
+      </div>
+      <div class="dd-card-body" style="padding:18px 20px;">
+        <img src="assets/deepdash.png" alt="Pure Kauai — Deep Dash Accommodations Revenue Report as of 6/30/26" style="display:none;width:100%;height:auto;border-radius:6px;border:1px solid var(--border);cursor:zoom-in;" onload="this.style.display='block';this.nextElementSibling.style.display='none';" onclick="openLightbox('assets/deepdash.png')">
+        <table class="data-table" style="font-size:12.5px;">
+          <thead><tr><th>Check-in month</th><th style="text-align:right;">2026</th><th style="text-align:right;">2025</th><th style="text-align:right;">YoY</th></tr></thead>
+          <tbody>
+            <tr><td>Jan</td><td style="text-align:right;">$309,807</td><td style="text-align:right;color:var(--text-muted);">$396,977</td><td style="text-align:right;color:var(--coral-dark);">&minus;22%</td></tr>
+            <tr><td>Feb</td><td style="text-align:right;">$388,913</td><td style="text-align:right;color:var(--text-muted);">$397,776</td><td style="text-align:right;color:var(--coral-dark);">&minus;2%</td></tr>
+            <tr><td>Mar</td><td style="text-align:right;">$1,119,490</td><td style="text-align:right;color:var(--text-muted);">$1,199,746</td><td style="text-align:right;color:var(--coral-dark);">&minus;7%</td></tr>
+            <tr><td>Apr</td><td style="text-align:right;">$450,523</td><td style="text-align:right;color:var(--text-muted);">$830,609</td><td style="text-align:right;color:var(--coral-dark);">&minus;46%</td></tr>
+            <tr><td>May</td><td style="text-align:right;">$785,703</td><td style="text-align:right;color:var(--text-muted);">$356,398</td><td style="text-align:right;color:var(--teal-dark);">+121%</td></tr>
+            <tr><td>Jun</td><td style="text-align:right;">$1,082,261</td><td style="text-align:right;color:var(--text-muted);">$1,158,824</td><td style="text-align:right;color:var(--coral-dark);">&minus;6.6%</td></tr>
+            <tr class="highlight"><td><strong>Jul</strong></td><td style="text-align:right;">$1,473,025</td><td style="text-align:right;color:var(--text-muted);">$1,250,699</td><td style="text-align:right;color:var(--teal-dark);">+17.8%</td></tr>
+            <tr><td>Aug (booked)</td><td style="text-align:right;">$546,111</td><td style="text-align:right;color:var(--text-muted);">$738,237</td><td style="text-align:right;color:var(--coral-dark);">&minus;26%</td></tr>
+            <tr><td>Sep (booked)</td><td style="text-align:right;">$115,026</td><td style="text-align:right;color:var(--text-muted);">$177,150</td><td style="text-align:right;color:var(--coral-dark);">&minus;35%</td></tr>
+            <tr><td>Oct (booked)</td><td style="text-align:right;">$75,864</td><td style="text-align:right;color:var(--text-muted);">$213,525</td><td style="text-align:right;color:var(--coral-dark);">&minus;64%</td></tr>
+            <tr><td>Nov (booked)</td><td style="text-align:right;">$735,864</td><td style="text-align:right;color:var(--text-muted);">$590,470</td><td style="text-align:right;color:var(--teal-dark);">+25%</td></tr>
+            <tr><td>Dec (booked)</td><td style="text-align:right;">$1,018,365</td><td style="text-align:right;color:var(--text-muted);">$1,718,146</td><td style="text-align:right;color:var(--coral-dark);">&minus;41%</td></tr>
+            <tr class="highlight"><td><strong>Total identified</strong></td><td style="text-align:right;"><strong>$8,100,952</strong></td><td style="text-align:right;color:var(--text-muted);">$9,028,556</td><td style="text-align:right;"></td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:11.5px;color:var(--text-muted);margin-top:10px;line-height:1.6;">Months Jan&ndash;Jul are completed check-ins; Aug&ndash;Dec are forward-booked. <strong>2026 booking value by source:</strong> Hostfully $6.77M (~87%) &middot; Vrbo $598K &middot; Airbnb $287K &middot; HVMB $73K &middot; Whimstay $10K &middot; TravelStaytion $4K.</div>
+      </div>
+      <div class="dd-card-footer">
+        <span><strong>2026 Total Revenue (this view):</strong> $8,100,952 &middot; <strong>Top source:</strong> Hostfully ($5,642,588 rent + $1,127,715 fees) &middot; <strong>Tracked sources:</strong> Hostfully · Vrbo · Airbnb · HVMB · TravelStaytion · Whimstay</span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout green">
+        <div class="callout-label">Why this view exists</div>
+        <div class="callout-text">Cody's two PDFs are how Pure Kauai has been seeing pacing for years. Mirroring them in the report keeps continuity with the format the leadership team is used to, while we build the automated daily Hostfully pull that will replace this with a live view.</div>
+      </div>
+      <div class="callout blue">
+        <div class="callout-label">Why we use this view across the report</div>
+        <div class="callout-text">Every revenue and pacing number elsewhere in this report (Overview, Revenue Pacing tab, one-pager) is sourced from this Flash Report cut — accommodations rent by check-in month against the calendar-year goal. This keeps the numbers consistent with what Cody and the Pure Kauai leadership team have used for years.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== ORGANIC ======== -->
+  <div id="view-organic" class="view">
+
+    <a href="https://reports.rightnowinc.com/app/view/dashboard-L-cbPJ1sy0-gyYydBOPSIA" target="_blank" rel="noopener" style="text-decoration:none;display:block;background:#fff;border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:var(--radius);padding:16px 22px;margin-bottom:18px;display:flex;gap:14px;align-items:center;transition:all 0.15s;" onmouseover="this.style.borderLeftColor='var(--teal)';this.style.transform='translateX(2px)';" onmouseout="this.style.borderLeftColor='var(--blue)';this.style.transform='translateX(0)';">
+      <div style="font-size:22px;line-height:1;">🔗</div>
+      <div style="flex:1;">
+        <div style="font-size:12px;font-weight:700;color:var(--blue-dark);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px;">Open the full Organic dashboard</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.5;">RightNow Communications hosts the live, interactive Organic + SEO dashboard for Pure Kauai. Click through for the full set of traffic, content, AI Visibility and geo views.</div>
+      </div>
+      <div style="font-size:13px;color:var(--blue);font-weight:700;white-space:nowrap;">View on RightNow &rarr;</div>
+    </a>
+
+    <div class="callout blue">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">Organic Search is the largest single source of visitors in July and it came back strong: 6,278 sessions (51.4% of all traffic, +35% YoY) and $61,704 in attributed revenue (+$31,670 YoY). SEO pageviews rose +54% YoY as the island-guide content tracked again after the Framer migration — the top guide alone drew 1,853 views. Phone calls from Google Organic held at 11 (+22% YoY). AI Visibility holds at 26/100 (Low) — the AEO tracker refreshes on a lag, so the latest available reading (695 citations across 138 cited pages) is unchanged from last month.</div>
+    </div>
+
+    <div class="snapshot-bar">
+      <span>GA4 source: <strong>Organic Search channel</strong> &middot; Jul 1 to 31, 2026</span>
+      <span>12,212 total sessions &middot; <strong>6,278 from Organic Search</strong></span>
+    </div>
+
+    <div class="section-label">Headline metrics for July 2026</div>
+    <div class="metric-grid">
+      <div class="metric-card highlight">
+        <div class="metric-label">Organic-attributed revenue</div>
+        <div class="metric-value">$61,704</div>
+        <div class="metric-sub up">+$31,670 YoY &middot; 75.98 key events</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Organic search sessions</div>
+        <div class="metric-value">6,278</div>
+        <div class="metric-sub up">+35.3% vs July 2025 &middot; 51% of traffic</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">SEO pageviews</div>
+        <div class="metric-value">12,496</div>
+        <div class="metric-sub up">+54% vs July 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Time on site (organic)</div>
+        <div class="metric-value">1:14</div>
+        <div class="metric-sub neutral">Clarity-measured engagement</div>
+      </div>
+    </div>
+
+    <div class="section-label">ROI comparison: Organic vs Paid Search</div>
+    <div class="two-col">
+      <div class="insight-card" style="border-left:3px solid var(--teal);">
+        <div class="insight-title">Organic Search</div>
+        <div class="insight-sub">Revenue earned with zero media spend in July</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">
+          <div style="font-size:32px;font-weight:700;color:var(--teal-dark);">$61,704</div>
+          <div style="font-size:13px;color:var(--text-muted);">attributed revenue</div>
+        </div>
+        <table style="width:100%;font-size:12px;">
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Ad spend</td><td style="padding:6px 0;text-align:right;font-weight:600;">$0</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Sessions</td><td style="padding:6px 0;text-align:right;font-weight:600;">6,278</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Key events</td><td style="padding:6px 0;text-align:right;font-weight:600;">75.98</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Media ROAS</td><td style="padding:6px 0;text-align:right;font-weight:700;color:var(--teal-dark);">No media cost</td></tr>
+        </table>
+      </div>
+      <div class="insight-card" style="border-left:3px solid var(--blue);">
+        <div class="insight-title">Google Ads (for comparison)</div>
+        <div class="insight-sub">Same month, paid channel</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">
+          <div style="font-size:32px;font-weight:700;color:var(--blue-dark);">$91,085</div>
+          <div style="font-size:13px;color:var(--text-muted);">confirmed conv value</div>
+        </div>
+        <table style="width:100%;font-size:12px;">
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Ad spend</td><td style="padding:6px 0;text-align:right;font-weight:600;">$6,006</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Confirmed conversions</td><td style="padding:6px 0;text-align:right;font-weight:600;">1</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Cost per conversion</td><td style="padding:6px 0;text-align:right;font-weight:600;">$6,006</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-muted);">Media ROAS</td><td style="padding:6px 0;text-align:right;font-weight:700;color:var(--blue-dark);">15.2x</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <div class="callout-label">Combined channel story</div>
+      <div class="callout-text">Organic search generated <strong>$61,704</strong> in attributed value in July on zero media spend, up +$31,670 YoY — and the confirmed Google Ads booking added $91,085 on $6,006 of spend. Organic is the most efficient per dollar and is again the larger, faster-growing channel after June's dip; the two grow together as content shipping accelerates and Smart Bidding gets cleaner signal.</div>
+    </div>
+
+    <div class="section-label">AI Visibility &mdash; baseline for the AEO program</div>
+    <div class="callout purple">
+      <div class="callout-label">AI Visibility: 26/100 (Low) — holding (tracker lags a cycle)</div>
+      <div class="callout-text">AI Visibility holds at 26/100 — the AEO tracker refreshes on a lag and the latest available reading is unchanged from last month: 695 citations across 138 cited pages, 64 mentions. AI Mode is the strongest surface (24 mentions, 37.5% share), followed by AI Overview (17, 26.6%). Gemini (14) and ChatGPT (9) are the upside. 98.4% of mentions are US-based — international AEO is wide open. The July movement that matters is downstream: organic revenue nearly doubled and the island-guide content is fully tracking again, feeding these surfaces more pages to cite.</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>AI Surface</th><th style="text-align:right;">Mentions</th><th style="text-align:right;">Share of mentions</th><th>Status (lagged)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Google AI Mode</strong></td><td style="text-align:right;font-weight:600;">24</td><td style="text-align:right;font-weight:600;">37.5%</td><td><span class="badge badge-gray">held</span></td></tr>
+          <tr><td><strong>Google AI Overview</strong></td><td style="text-align:right;font-weight:600;">17</td><td style="text-align:right;font-weight:600;">26.6%</td><td><span class="badge badge-gray">held</span></td></tr>
+          <tr><td><strong>Gemini</strong></td><td style="text-align:right;">14</td><td style="text-align:right;">21.9%</td><td><span class="badge badge-gray">held</span></td></tr>
+          <tr><td><strong>ChatGPT</strong></td><td style="text-align:right;">9</td><td style="text-align:right;">14.1%</td><td><span class="badge badge-gray">held</span></td></tr>
+          <tr class="current-row"><td><strong>Aggregate — 26 / 100</strong></td><td style="text-align:right;font-weight:700;">64</td><td style="text-align:right;font-weight:700;">100%</td><td><span class="badge badge-gray">latest available</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:var(--blue-light);border:1px solid var(--blue);border-radius:var(--radius);padding:22px 26px;margin-bottom:24px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--blue);margin-bottom:6px;">Top performing content for July 2026</div>
+      <div style="font-size:13px;color:var(--blue-dark);line-height:1.7;margin-bottom:18px;">
+        The island-guide blog is fully tracking again after June's Framer-migration artifact — the top guide drew 1,853 views and the guide library is back to carrying real top-of-funnel volume alongside the property pages.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="background:#fff;border-radius:var(--radius-sm);padding:18px 20px;border:1px solid rgba(24,95,165,0.2);">
+          <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">Top island-guide articles</div>
+          <table style="width:100%;font-size:13px;border-collapse:collapse;">
+            <tr><td style="padding:7px 0;color:var(--text-muted);width:24px;font-weight:600;font-family:Georgia,serif;border:none;">01</td><td style="padding:7px 0;border:none;">What is the best month to go to Kauai</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">1,853</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">02</td><td style="padding:7px 0;border:none;">Where to see turtles in Kauai</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">591</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">03</td><td style="padding:7px 0;border:none;">Things to do in Kauai when it rains</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">415</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">04</td><td style="padding:7px 0;border:none;">Where to surf in Kauai</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">354</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">05</td><td style="padding:7px 0;border:none;">The best beaches in Kauai for swimming</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">289</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">06</td><td style="padding:7px 0;border:none;">What to do in Princeville</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">184</td></tr>
+          </table>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">Pageviews in July</div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius-sm);padding:18px 20px;border:1px solid rgba(24,95,165,0.2);">
+          <div style="font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">Top property pages</div>
+          <table style="width:100%;font-size:13px;border-collapse:collapse;">
+            <tr><td style="padding:7px 0;color:var(--text-muted);width:24px;font-weight:600;font-family:Georgia,serif;border:none;">01</td><td style="padding:7px 0;border:none;">Anini Bikini</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">876</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">02</td><td style="padding:7px 0;border:none;">Ikena Lani</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">754</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">03</td><td style="padding:7px 0;border:none;">Secret Cove</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">688</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">04</td><td style="padding:7px 0;border:none;">Hale &#39;Ae Kai</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">504</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">05</td><td style="padding:7px 0;border:none;">Anini Vista Drive Estate</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">496</td></tr>
+            <tr><td style="padding:7px 0;color:var(--text-muted);font-weight:600;font-family:Georgia,serif;border:none;">06</td><td style="padding:7px 0;border:none;">Hanalei Plantation Villa</td><td style="padding:7px 0;text-align:right;font-weight:700;color:var(--blue-dark);border:none;">472</td></tr>
+          </table>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">Pageviews in July</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== CALLS ======== -->
+  <div id="view-calls" class="view">
+
+    <div class="callout green">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">July logged 34 inbound calls, up from June's 25 (+36%) and level with July 2025 — the volume dip flagged last month has recovered. That answers June's open question in favour of a shoulder-season lull rather than a broken forwarding chain. Direct led with 12 calls and Google Organic held strong at 11 (+22% YoY) — island-guide content converting straight to phone bookings. Every call reached the reservations team cleanly.</div>
+    </div>
+
+    <div class="snapshot-bar">
+      <span>CallRail source: <strong>RightNow Communications dashboard</strong> &middot; Jul 1&ndash;31, 2026</span>
+      <span>8 tracking numbers logged calls &middot; <strong>volume recovered vs June</strong></span>
+    </div>
+
+    <div class="section-label">Headline call metrics — July 2026</div>
+    <div class="metric-grid">
+      <div class="metric-card win">
+        <div class="metric-label">Total inbound calls</div>
+        <div class="metric-value" style="color:var(--teal-dark)">34</div>
+        <div class="metric-sub up">flat vs July 2025 &middot; +36% vs June</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Unique callers</div>
+        <div class="metric-value">29</div>
+        <div class="metric-sub neutral">1.2 avg calls per caller</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Calls from Google Organic</div>
+        <div class="metric-value" style="color:var(--teal-dark)">11</div>
+        <div class="metric-sub up">+22% vs July 2025 &middot; 32% of all calls</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Calls vs prev period</div>
+        <div class="metric-value" style="color:var(--teal-dark)">+36%</div>
+        <div class="metric-sub up">25 in June &rarr; 34 in Jul</div>
+      </div>
+    </div>
+
+    <div class="section-label">Call attribution by source</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Source</th><th style="text-align:right;">Calls</th><th style="text-align:right;">YoY change</th><th>Read</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Direct</strong></td><td style="text-align:right;font-weight:600;">12</td><td style="text-align:right;color:var(--teal-dark);font-weight:600;">+33%</td><td>Returning guests + people who already know the brand</td></tr>
+          <tr><td><strong>Google Organic</strong></td><td style="text-align:right;font-weight:600;">11</td><td style="text-align:right;color:var(--teal-dark);font-weight:600;">+22%</td><td>SEO doing work — island-guide content converting straight to calls</td></tr>
+          <tr><td>www.purekauai.com</td><td style="text-align:right;">3</td><td style="text-align:right;color:var(--teal-dark);">+200%</td><td>Direct visits to the site that then called</td></tr>
+          <tr><td>Newsletter</td><td style="text-align:right;">3</td><td style="text-align:right;color:var(--teal-dark);">+100%</td><td>Email list starting to drive inbound calls</td></tr>
+          <tr><td>Yahoo Organic</td><td style="text-align:right;">2</td><td style="text-align:right;color:var(--teal-dark);">+100%</td><td>Secondary search engine</td></tr>
+          <tr><td><strong>Google Ads</strong></td><td style="text-align:right;">1</td><td style="text-align:right;color:var(--coral-dark);">&minus;90%</td><td>Paid clicks to a phone call</td></tr>
+          <tr><td>Pinterest Organic</td><td style="text-align:right;">1</td><td style="text-align:right;color:var(--teal-dark);">+100%</td><td>Tail social / search source</td></tr>
+          <tr><td>Bing Organic</td><td style="text-align:right;">1</td><td style="text-align:right;color:var(--teal-dark);">+100%</td><td>Tail search source</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-label">Top tracking numbers</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tracking number</th><th style="text-align:right;">Calls</th><th style="text-align:right;">Unique callers</th><th style="text-align:right;">Avg duration</th><th>YoY</th></tr></thead>
+        <tbody>
+          <tr><td>Website pool &mdash; 808-582-8904</td><td style="text-align:right;font-weight:700;">17</td><td style="text-align:right;">14</td><td style="text-align:right;">0:52</td><td><span class="badge badge-green">+143%</span></td></tr>
+          <tr><td>Website pool &mdash; 808-755-1514</td><td style="text-align:right;">4</td><td style="text-align:right;">4</td><td style="text-align:right;">2:58</td><td><span class="badge badge-coral">&minus;33%</span></td></tr>
+          <tr><td>Newsletter &mdash; 808-427-2403</td><td style="text-align:right;">3</td><td style="text-align:right;">3</td><td style="text-align:right;">1:06</td><td><span class="badge badge-green">+100%</span></td></tr>
+          <tr><td>Website pool &mdash; 808-378-7783</td><td style="text-align:right;">3</td><td style="text-align:right;">3</td><td style="text-align:right;">3:53</td><td><span class="badge badge-green">+50%</span></td></tr>
+          <tr><td>Website pool &mdash; 808-470-5220</td><td style="text-align:right;">2</td><td style="text-align:right;">2</td><td style="text-align:right;">1:19</td><td><span class="badge badge-green">+100%</span></td></tr>
+          <tr><td>Website pool &mdash; 808-736-3371</td><td style="text-align:right;">2</td><td style="text-align:right;">2</td><td style="text-align:right;">4:55</td><td><span class="badge badge-coral">&minus;50%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="callout green">
+        <div class="callout-label">Volume recovered, organic still strong</div>
+        <div class="callout-text">34 calls in July is +36% over June and level with July 2025 — the dip flagged last month has closed. Direct led with 12 and Google Organic held at 11 (+22% YoY), the island-guide content still turning searches into phone bookings. The 808-582-8904 website pool carried the bulk (17 calls) and every call reached the reservations team cleanly.</div>
+      </div>
+      <div class="callout blue">
+        <div class="callout-label">What the recovery tells us</div>
+        <div class="callout-text">June's low count now reads as a shoulder-season lull rather than a broken forwarding chain — the answer to last month's open question. Newsletter also showed up as a fresh source (3 calls on a dedicated tracking number), a sign the email list is starting to drive inbound calls. Worth keeping the newsletter number tagged so that channel stays measurable.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== GOOGLE ADS ======== -->
+  <div id="view-ads" class="view">
+
+    <div class="callout blue">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">Brand carried the month. The Brand campaign returned $91,085 in confirmed conversion value on just $205 of spend — the account's single tracked conversion, one high-value flagship booking, at a 90.8% impression share and 53% CTR. Account-wide July ROAS landed at 15.2x ($91,085 on $6,006), up from June's 7.4x on the strength of that one booking. Confirmed-conversion volume stays thin: the Geo, California and Secret Beach campaigns spent $5,801 between them with zero tracked conversions this month.</div>
+    </div>
+
+    <div class="snapshot-bar">
+      <span>Google Ads account: <strong>316-669-4225</strong> &middot; Jul 1&ndash;31, 2026</span>
+      <span>Source: <strong>RightNow dashboard</strong> &middot; as of Aug 1, 2026</span>
+    </div>
+
+    <div class="section-label">Headline metrics — July 2026</div>
+    <div class="metric-grid">
+      <div class="metric-card win">
+        <div class="metric-label">ROAS</div>
+        <div class="metric-value" style="color:var(--teal-dark)">15.2x</div>
+        <div class="metric-sub up">$91,085 conv value / $6,006 spend</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Spend</div>
+        <div class="metric-value">$6,006</div>
+        <div class="metric-sub neutral">vs $6,915 in June (&minus;13%)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Clicks</div>
+        <div class="metric-value">2,545</div>
+        <div class="metric-sub neutral">114,584 impressions &middot; 2.22% CTR</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Avg CPC</div>
+        <div class="metric-value">$2.36</div>
+        <div class="metric-sub neutral">Confirmed conversions: 1 &middot; CPA $6,006</div>
+      </div>
+    </div>
+
+    <div class="section-label">Campaigns with spend in July</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Campaign</th>
+          <th>Channel</th>
+          <th style="text-align:right;">Spend</th>
+          <th style="text-align:right;">Clicks</th>
+          <th style="text-align:right;">Conv</th>
+          <th style="text-align:right;">Conv $</th>
+          <th style="text-align:right;">ROAS</th>
+          <th>Verdict</th>
+        </tr></thead>
+        <tbody>
+          <tr class="current-row"><td><strong>Brand</strong></td><td>Search</td><td style="text-align:right;">$205</td><td style="text-align:right;">324</td><td style="text-align:right;font-weight:700;">1.0</td><td style="text-align:right;font-weight:700;">$91,085</td><td style="text-align:right;font-weight:700;color:var(--teal-dark);">443x</td><td><span class="badge badge-green">scale</span></td></tr>
+          <tr><td><strong>Pure Kauai Main (Geo)</strong></td><td>Search</td><td style="text-align:right;">$2,377</td><td style="text-align:right;">1,013</td><td style="text-align:right;">0</td><td style="text-align:right;">$0</td><td style="text-align:right;">&mdash;</td><td><span class="badge badge-amber">watch</span></td></tr>
+          <tr class="alert-row"><td><strong>Pure Kauai California</strong></td><td>Search</td><td style="text-align:right;">$1,783</td><td style="text-align:right;">423</td><td style="text-align:right;">0</td><td style="text-align:right;">$0</td><td style="text-align:right;">&mdash;</td><td><span class="badge badge-coral">audit</span></td></tr>
+          <tr class="alert-row"><td><strong>PMax &mdash; California Target</strong></td><td>PMax</td><td style="text-align:right;">$1,064</td><td style="text-align:right;">695</td><td style="text-align:right;">0</td><td style="text-align:right;">$0</td><td style="text-align:right;">&mdash;</td><td><span class="badge badge-coral">audit</span></td></tr>
+          <tr><td><strong>Secret Beach</strong></td><td>Search</td><td style="text-align:right;">$577</td><td style="text-align:right;">90</td><td style="text-align:right;">0</td><td style="text-align:right;">$0</td><td style="text-align:right;">&mdash;</td><td><span class="badge badge-amber">watch</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="callout green">
+        <div class="callout-label">Brand is the efficiency king</div>
+        <div class="callout-text">Brand spent just $205 and returned $91,085 in confirmed conversion value — one high-value flagship booking, the account's only tracked conversion this month, at a 90.8% impression share and 53% CTR. Geo drew 1,013 clicks at a 9.7% CTR but carried no confirmed booking tag in July. Keep funding Brand and Geo; they are doing the measurable work.</div>
+      </div>
+      <div class="callout coral">
+        <div class="callout-label">California is still bleeding</div>
+        <div class="callout-text">Pure Kauai California ($1,783), PMax California Target ($1,064) and Secret Beach ($577) — combined $3,424 — produced zero confirmed conversions in July, the same pattern as prior months at 57% of total spend with no tracked return. PMax California's 0.71% CTR is the weakest signal in the account. Two angles: clicks landing but not converting, or conversions completing later via Direct/Organic. The GA4 + BookingBridge cross-check is the next step before reallocating.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Conversion actions firing in July</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Action</th><th>Category</th><th style="text-align:right;">Events</th><th style="text-align:right;">Conv $</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Purchase</strong> (BookingBridge)</td><td>Purchase</td><td style="text-align:right;font-weight:700;">1.00</td><td style="text-align:right;font-weight:700;">$91,085</td></tr>
+          <tr><td>GA4 purchase (web)</td><td>Purchase</td><td style="text-align:right;">18.00</td><td style="text-align:right;">$580,562</td></tr>
+          <tr><td>Form Capture</td><td>Default</td><td style="text-align:right;">93.00</td><td style="text-align:right;">&mdash;</td></tr>
+          <tr><td>Add to Cart</td><td>Add to cart</td><td style="text-align:right;">186.00</td><td style="text-align:right;">&mdash;</td></tr>
+          <tr><td>Phone call (GA4 event)</td><td>Phone call lead</td><td style="text-align:right;">34.00</td><td style="text-align:right;">&mdash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-label">Conversion volume is thin — protect the signal</div>
+      <div class="callout-text">July logged just 1 confirmed conversion account-wide, on Brand, because Google Ads counts only confirmed BookingBridge purchases. One booking worth $91,085 lifts the headline ROAS, but the thin signal makes the zero-conversion campaigns hard to read — Geo drew 1,013 clicks with no confirmed booking tag, and those clicks may convert later via Direct/Organic and go un-credited. The GA4 + BookingBridge cross-check now in progress will settle it. Until then, hold California to a test budget and keep funding Brand and Geo.</div>
+    </div>
+
+    <div class="section-label">Spend vs confirmed conversion value by campaign &mdash; July 2026</div>
+    <div class="chart-section">
+      <div class="chart-wrap">
+        <canvas id="adsDailyChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== GA4 & WEB ======== -->
+  <div id="view-ga4" class="view">
+
+    <div class="callout blue">
+      <div class="callout-label">The Story</div>
+      <div class="callout-text">July saw 12,212 sessions and 24,173 pageviews — up +3% versus June, still below July 2025 (&minus;38% / &minus;41%) but the YoY gap is narrowing as organic recovers. The bigger story is revenue: GA4 attributed $580,562, up +100% from June and +5% YoY — the first positive year-over-year revenue month of the tracking rebuild. Behavior held up too: add-to-cart 186 (+56% YoY), form submits 93 (+31% YoY). The $580,562 sits against Hostfully's $1.47M of July check-ins — the gap is offline / agent-assisted booking activity, the signature of a relationship-driven luxury rental.</div>
+    </div>
+
+    <div class="snapshot-bar">
+      <span>GA4 source: <strong>purekauai.com property</strong> &middot; Jul 1&ndash;31, 2026</span>
+      <span>BookingBridge widget live across the site &middot; <strong>data via RightNow dashboard</strong></span>
+    </div>
+
+    <div class="section-label">Headline web metrics — July 2026</div>
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-label">Sessions</div>
+        <div class="metric-value">12,212</div>
+        <div class="metric-sub up">+3% vs June &middot; <span class="down">&minus;38% YoY</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Pageviews</div>
+        <div class="metric-value">24,173</div>
+        <div class="metric-sub up">+3% vs June &middot; <span class="down">&minus;41% YoY</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">New users</div>
+        <div class="metric-value">8,582</div>
+        <div class="metric-sub neutral">&minus;4% vs June &middot; <span class="down">&minus;42% YoY</span></div>
+      </div>
+      <div class="metric-card highlight">
+        <div class="metric-label">GA4-attributed revenue</div>
+        <div class="metric-value">$580,562</div>
+        <div class="metric-sub up">+5% YoY &middot; 18 purchases tracked</div>
+      </div>
+    </div>
+
+    <div class="section-label">Traffic by channel</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Channel</th><th style="text-align:right;">Sessions</th><th style="text-align:right;">Share</th><th style="text-align:right;">YoY vs 2025</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Organic Search</strong></td><td style="text-align:right;font-weight:600;">6,278</td><td style="text-align:right;">51.4%</td><td style="text-align:right;color:var(--teal-dark);font-weight:600;">+35.27%</td></tr>
+          <tr><td><strong>Direct</strong></td><td style="text-align:right;font-weight:600;">3,974</td><td style="text-align:right;">32.5%</td><td style="text-align:right;color:var(--coral-dark);">&minus;6.63%</td></tr>
+          <tr><td><strong>Paid Search</strong></td><td style="text-align:right;font-weight:600;">784</td><td style="text-align:right;">6.4%</td><td style="text-align:right;color:var(--coral-dark);">&minus;45.67%</td></tr>
+          <tr><td>Referral</td><td style="text-align:right;">739</td><td style="text-align:right;">6.1%</td><td style="text-align:right;color:var(--teal-dark);">+78.93%</td></tr>
+          <tr><td>Unassigned</td><td style="text-align:right;">132</td><td style="text-align:right;">1.1%</td><td style="text-align:right;color:var(--teal-dark);">+26.92%</td></tr>
+          <tr><td>Organic Social</td><td style="text-align:right;">101</td><td style="text-align:right;">0.8%</td><td style="text-align:right;color:var(--coral-dark);">&minus;55.70%</td></tr>
+          <tr><td>AI Assistant</td><td style="text-align:right;">67</td><td style="text-align:right;">0.5%</td><td style="text-align:right;color:var(--teal-dark);">+100%</td></tr>
+          <tr><td>Cross-network</td><td style="text-align:right;">60</td><td style="text-align:right;">0.5%</td><td style="text-align:right;color:var(--coral-dark);">&minus;96.68%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-label">Key events fired in July (GA4)</div>
+    <div class="three-col">
+      <div class="metric-card win">
+        <div class="metric-label">Add to cart</div>
+        <div class="metric-value">186</div>
+        <div class="metric-sub up">+56.30% YoY</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Form submits</div>
+        <div class="metric-value">93</div>
+        <div class="metric-sub up">+30.99% YoY</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Phone calls (GA4 event)</div>
+        <div class="metric-value">34</div>
+        <div class="metric-sub up">+9.68% YoY</div>
+      </div>
+    </div>
+
+    <div class="section-label">Revenue attribution by channel (GA4)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Channel</th><th style="text-align:right;">Revenue</th><th style="text-align:right;">YoY change</th><th style="text-align:right;">Key events</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Direct</strong></td><td style="text-align:right;font-weight:600;">$249,887</td><td style="text-align:right;color:var(--teal-dark);font-weight:600;">+$169,287</td><td style="text-align:right;font-weight:600;">140.00</td></tr>
+          <tr><td>Unassigned</td><td style="text-align:right;">$205,125</td><td style="text-align:right;color:var(--teal-dark);">+$109,975</td><td style="text-align:right;">51.11</td></tr>
+          <tr><td><strong>Organic Search</strong></td><td style="text-align:right;font-weight:600;">$61,704</td><td style="text-align:right;color:var(--teal-dark);font-weight:600;">+$31,670</td><td style="text-align:right;font-weight:600;">75.98</td></tr>
+          <tr><td>Referral</td><td style="text-align:right;">$46,833</td><td style="text-align:right;color:var(--teal-dark);">+$46,832</td><td style="text-align:right;">49.85</td></tr>
+          <tr><td><strong>Paid Search</strong></td><td style="text-align:right;font-weight:600;">$17,013</td><td style="text-align:right;color:var(--coral-dark);">&minus;$68,102</td><td style="text-align:right;">14.23</td></tr>
+          <tr class="current-row"><td><strong>Total (GA4 attributed)</strong></td><td style="text-align:right;font-weight:700;">$580,562</td><td style="text-align:right;color:var(--teal-dark);font-weight:700;">+5% YoY</td><td style="text-align:right;font-weight:700;">331.17</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-label">Why GA4 revenue ($581K) and Hostfully revenue ($1.47M) disagree</div>
+      <div class="callout-text">GA4 attributes $581K of revenue to web sessions in July. Hostfully shows $1.47M of accommodations revenue for July check-ins. The gap is the offline / agent-assisted side of the business — guests who find Pure Kauai digitally, then call or email a reservation agent and complete the booking outside the website's tracked funnel. This is the signature of a relationship-driven luxury rental brand. Direct ($250K) and "Unassigned" ($205K) are the largest GA4 buckets precisely because the booking lifecycle frequently leaves the website mid-funnel.</div>
+    </div>
+
+    <div class="section-label">Where the visitors came from in July</div>
+    <div class="two-col">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Top US states</th><th style="text-align:right;">Sessions</th></tr></thead>
+          <tbody>
+            <tr><td>California</td><td style="text-align:right;font-weight:600;">3,276</td></tr>
+            <tr><td>Hawaii</td><td style="text-align:right;">1,560</td></tr>
+            <tr><td>Washington</td><td style="text-align:right;">542</td></tr>
+            <tr><td>Texas</td><td style="text-align:right;">508</td></tr>
+            <tr><td>Oregon</td><td style="text-align:right;">423</td></tr>
+            <tr><td>New York</td><td style="text-align:right;">386</td></tr>
+            <tr><td>Colorado</td><td style="text-align:right;">338</td></tr>
+            <tr><td>Arizona</td><td style="text-align:right;">273</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Top countries</th><th style="text-align:right;">Sessions</th></tr></thead>
+          <tbody>
+            <tr><td>United States</td><td style="text-align:right;font-weight:600;">10,991</td></tr>
+            <tr><td>Singapore</td><td style="text-align:right;">381</td></tr>
+            <tr><td>Canada</td><td style="text-align:right;">160</td></tr>
+            <tr><td>India</td><td style="text-align:right;">159</td></tr>
+            <tr><td>United Kingdom</td><td style="text-align:right;">77</td></tr>
+            <tr><td>China</td><td style="text-align:right;">56</td></tr>
+            <tr><td>France</td><td style="text-align:right;">49</td></tr>
+            <tr><td>Germany</td><td style="text-align:right;">48</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout green">
+        <div class="callout-label">Revenue turned positive year-over-year</div>
+        <div class="callout-text">GA4-attributed revenue hit $580,562 in July — up +100% from June and +5% YoY, the first positive year-over-year revenue month of the tracking rebuild. Add-to-cart (186, +56% YoY) and form submits (93, +31% YoY) both climbed. The site keeps doing more booking work per visitor — the entire point of the tracking rebuild and the AEO foundation.</div>
+      </div>
+      <div class="callout green">
+        <div class="callout-label">The traffic gap is closing as organic recovers</div>
+        <div class="callout-text">Sessions are still &minus;38% versus July 2025, but the gap narrowed from June's &minus;46% as organic came back: organic search sessions rose +35% YoY and SEO pageviews +54% YoY. June's island-guide tracking artifact resolved — the top guide alone drew 1,853 views and the Framer-migrated URLs are firing GA4 again. The remaining YoY gap is worth a Search Console drilldown on general "Kauai" queries, but the trend has turned.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== SOCIAL MEDIA ======== -->
+  <div id="view-social" class="view">
+    <div class="wip-banner">
+      <div class="wip-banner-icon">⏳</div>
+      <div>
+        <div class="wip-banner-title">90-day social refresh pending from Wendy</div>
+        <div class="wip-banner-text">The Instagram / Facebook (Meta) and YouTube 90-day reports are shared manually by Wendy each cycle. The July window (ending Jul 31) is pending from her side and populates this tab once received. The figures below are the last completed 90-day reflection (through Jun 30), shown as reference until the July numbers land.</div>
+      </div>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-label">The Story (last available &mdash; through Jun 30)</div>
+      <div class="callout-text">In the most recent completed 90-day window, Instagram was the engagement engine (11.7K views, +192%), Facebook mirrored the same creative for free incremental reach (2.9K views, +239%), and YouTube reached a different, older, male, TV-watching US audience that is growing fast. Each channel is broken out below.</div>
+    </div>
+
+    <div class="snapshot-bar">
+      <span>All channels: <strong>90-day reflection</strong> &middot; last available through Jun 30, 2026</span>
+      <span>Source: <strong>Meta + YouTube &middot; shared by Wendy</strong></span>
+    </div>
+
+    <div class="section-label">Channel comparison — last 90 days</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Channel</th><th style="text-align:right;">Posts</th><th style="text-align:right;">Views</th><th style="text-align:right;">Reach / Viewers</th><th style="text-align:right;">Interactions</th></tr></thead>
+        <tbody>
+          <tr class="current-row"><td><strong>Instagram</strong></td><td style="text-align:right;font-weight:600;">11</td><td style="text-align:right;font-weight:600;">11,693</td><td style="text-align:right;font-weight:600;">3,200</td><td style="text-align:right;font-weight:600;">670</td></tr>
+          <tr><td><strong>Facebook</strong></td><td style="text-align:right;">14</td><td style="text-align:right;">2,903</td><td style="text-align:right;">1,428</td><td style="text-align:right;">74</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:11px;margin:32px 0 14px;padding-bottom:12px;border-bottom:2px solid var(--border);"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="igg" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse"><stop stop-color="#FEDA75"/><stop offset=".45" stop-color="#FA7E1E"/><stop offset=".7" stop-color="#D62976"/><stop offset="1" stop-color="#962FBF"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="6" fill="url(#igg)"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.25" fill="#fff"/></svg><span style="font-size:16px;font-weight:700;color:var(--gray-800);letter-spacing:-0.01em;">Instagram</span><span style="font-size:12px;color:var(--text-muted);">Last 90 days &middot; 11 posts &middot; 3.2K reached &middot; 670 interactions</span></div>
+    <div class="dd-card" style="margin-bottom:18px;"><div class="dd-card-body" style="padding:14px;background:#fbfbf8;"><img src="assets/social-instagram.png" alt="Instagram overview (Meta Business Suite)" style="display:none;width:100%;height:auto;border-radius:6px;border:1px solid var(--border);cursor:zoom-in;" onload="this.style.display='block';this.nextElementSibling.style.display='none';" onclick="openLightbox('assets/social-instagram.png')"><div style="border:1px dashed var(--gray-200);border-radius:8px;padding:26px 20px;text-align:center;color:var(--gray-500);font-size:12.5px;background:var(--gray-50);line-height:1.6;">Instagram overview &mdash; <strong>pending in Wendy&#39;s July Meta export</strong></div></div></div>
+    <div class="section-label">Top Instagram posts (by views)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Post</th><th style="text-align:right;">Views</th><th style="text-align:right;">Reach</th><th style="text-align:right;">Engagements</th></tr></thead>
+        <tbody>
+          <tr><td>Hānalei Oasis launch (reel)</td><td style="text-align:right;font-weight:600;">1,182</td><td style="text-align:right;">638</td><td style="text-align:right;">32</td></tr>
+          <tr><td>Hānalei Oasis (carousel)</td><td style="text-align:right;">979</td><td style="text-align:right;">390</td><td style="text-align:right;">28</td></tr>
+          <tr><td>Kamalani Modern (carousel)</td><td style="text-align:right;">674</td><td style="text-align:right;">321</td><td style="text-align:right;">26</td></tr>
+          <tr><td>25 years of concierge (carousel)</td><td style="text-align:right;">662</td><td style="text-align:right;">328</td><td style="text-align:right;">23</td></tr>
+          <tr><td>Ikena Lani (reel)</td><td style="text-align:right;">652</td><td style="text-align:right;">479</td><td style="text-align:right;">51</td></tr>
+          <tr><td>Secret Beach House (reel)</td><td style="text-align:right;">627</td><td style="text-align:right;">457</td><td style="text-align:right;">30</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:11px;margin:32px 0 14px;padding-bottom:12px;border-bottom:2px solid var(--border);"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="6" fill="#1877F2"/><path d="M14.2 12.3h1.9l.3-2.4h-2.2V8.3c0-.7.2-1.15 1.2-1.15h1.1V5a15 15 0 0 0-1.9-.1c-1.9 0-3.2 1.15-3.2 3.3v1.7H9.5v2.4h1.9V19h2.8z" fill="#fff"/></svg><span style="font-size:16px;font-weight:700;color:var(--gray-800);letter-spacing:-0.01em;">Facebook</span><span style="font-size:12px;color:var(--text-muted);">Last 90 days &middot; 14 posts &middot; 1,428 viewers &middot; 74 interactions</span></div>
+    <div class="dd-card" style="margin-bottom:18px;"><div class="dd-card-body" style="padding:14px;background:#fbfbf8;"><img src="assets/social-facebook.png" alt="Facebook overview (Meta Business Suite)" style="display:none;width:100%;height:auto;border-radius:6px;border:1px solid var(--border);cursor:zoom-in;" onload="this.style.display='block';this.nextElementSibling.style.display='none';" onclick="openLightbox('assets/social-facebook.png')"><div style="border:1px dashed var(--gray-200);border-radius:8px;padding:26px 20px;text-align:center;color:var(--gray-500);font-size:12.5px;background:var(--gray-50);line-height:1.6;">Facebook overview &mdash; <strong>pending in Wendy&#39;s July Meta export</strong></div></div></div>
+    <div class="section-label">Top Facebook posts (by reach)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Post</th><th style="text-align:right;">Reach</th><th style="text-align:right;">Views</th><th style="text-align:right;">Engagements</th></tr></thead>
+        <tbody>
+          <tr><td>Hanalei Plantation Villa (photo)</td><td style="text-align:right;font-weight:600;">340</td><td style="text-align:right;">463</td><td style="text-align:right;">3</td></tr>
+          <tr><td>Ikena Lani (video)</td><td style="text-align:right;">280</td><td style="text-align:right;">320</td><td style="text-align:right;">5</td></tr>
+          <tr><td>Anini Oasis (video)</td><td style="text-align:right;">279</td><td style="text-align:right;">326</td><td style="text-align:right;">4</td></tr>
+          <tr><td>The Red House (video)</td><td style="text-align:right;">222</td><td style="text-align:right;">250</td><td style="text-align:right;">2</td></tr>
+          <tr><td>Secret Beach House (video)</td><td style="text-align:right;">177</td><td style="text-align:right;">231</td><td style="text-align:right;">7</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:11px;margin:32px 0 14px;padding-bottom:12px;border-bottom:2px solid var(--border);"><svg width="26" height="22" viewBox="0 0 28 22" aria-hidden="true"><rect x="1" y="2" width="26" height="18" rx="5" fill="#FF0000"/><path d="M11.5 6.5l6.5 4.5-6.5 4.5z" fill="#fff"/></svg><span style="font-size:16px;font-weight:700;color:var(--gray-800);letter-spacing:-0.01em;">YouTube</span><span style="font-size:12px;color:var(--text-muted);">Last 90 days &middot; Apr 2 – Jun 30, 2026</span></div>
+    <div class="metric-grid-3">
+      <div class="metric-card win">
+        <div class="metric-label">Views</div>
+        <div class="metric-value" style="color:var(--teal-dark)">5,148</div>
+        <div class="metric-sub up">+226% vs prior 90 days</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Watch time</div>
+        <div class="metric-value">66.0 hrs</div>
+        <div class="metric-sub up">+116% vs prior 90 days</div>
+      </div>
+      <div class="metric-card win">
+        <div class="metric-label">Subscribers</div>
+        <div class="metric-value" style="color:var(--teal-dark)">+16</div>
+        <div class="metric-sub up">98 total &middot; +433% vs prior 90 days</div>
+      </div>
+    </div>
+    <div class="dd-card" style="margin-bottom:18px;"><div class="dd-card-body" style="padding:14px;background:#fbfbf8;"><img src="assets/social-youtube.png" alt="YouTube Studio overview" style="display:none;width:100%;height:auto;border-radius:6px;border:1px solid var(--border);cursor:zoom-in;" onload="this.style.display='block';this.nextElementSibling.style.display='none';" onclick="openLightbox('assets/social-youtube.png')"><div style="border:1px dashed var(--gray-200);border-radius:8px;padding:26px 20px;text-align:center;color:var(--gray-500);font-size:12.5px;background:var(--gray-50);line-height:1.6;">YouTube Studio overview &mdash; <strong>pending in Wendy&#39;s July export</strong></div></div></div>
+    <div class="dd-card" style="margin-bottom:18px;"><div class="dd-card-body" style="padding:14px;background:#fbfbf8;"><img src="assets/social-youtube-top.png" alt="YouTube top content (top videos)" style="display:none;width:100%;height:auto;border-radius:6px;border:1px solid var(--border);cursor:zoom-in;" onload="this.style.display='block';this.nextElementSibling.style.display='none';" onclick="openLightbox('assets/social-youtube-top.png')"><div style="border:1px dashed var(--gray-200);border-radius:8px;padding:26px 20px;text-align:center;color:var(--gray-500);font-size:12.5px;background:var(--gray-50);line-height:1.6;">YouTube top content &mdash; <strong>pending in Wendy&#39;s July export</strong></div></div></div>
+    <div class="callout amber">
+      <div class="callout-label">Secret Beach House is running on ads</div>
+      <div class="callout-text">The top video, <strong>Secret Beach House Kauai</strong> (1,415 views, well ahead of everything else), has paid promotion running against it, so its views are partly ad-boosted rather than purely organic. The channel's strong quarter (+226% views) is partly on the back of that spend — worth keeping in mind when reading the growth.</div>
+    </div>
+    <div class="callout blue">
+      <div class="callout-label">Who YouTube reaches</div>
+      <div class="callout-text">A very different audience than Instagram: <strong>95.7% male</strong>, almost all <strong>45+</strong>, watching mostly on a <strong>TV</strong> (55% of watch time), half in the United States. Older, big-screen, and in pure discovery mode (80% new viewers).</div>
+    </div>
+  </div>
+
+  <!-- ======== ISSUES & ACTIONS ======== -->
+  <div id="view-actions" class="view">
+    <div class="callout coral">
+      <div class="callout-label">Needs attention now</div>
+      <div class="callout-text"><ul style="margin:6px 0 0 18px;padding:0;line-height:1.85;">
+        <li><strong>California ad spend is still leaking.</strong> Pure Kauai California, PMax California Target and Secret Beach spent $3,424 (57% of July Google Ads spend) for zero confirmed conversions again. Run the California audit before next month's budget; PMax California's 0.71% CTR is the first thing to pull apart.</li>
+        <li><strong>Confirmed-conversion signal is thin.</strong> Just 1 tracked Google Ads conversion account-wide in July (a $91,085 Brand booking). The GA4 + BookingBridge cross-check is what settles whether Geo and California clicks convert later via Direct/Organic &mdash; the highest-leverage measurement task open.</li>
+        <li><strong>Get the July social export from Wendy.</strong> The Instagram / Facebook (Meta) and YouTube 90-day reports are shared manually by Wendy; the July window is still pending, which is the only data gap in this month's report.</li>
+      </ul></div>
+    </div>
+    <div class="callout amber" style="margin-top:18px;">
+      <div class="callout-label">Watch this month</div>
+      <div class="callout-text"><ul style="margin:6px 0 0 18px;padding:0;line-height:1.85;">
+        <li><strong>Add Contact / chat to the booking page.</strong> Clarity logged 5,393 sessions on property and booking pages in July with 3,755 dead clicks and 210 rage clicks; the founder counted four clicks to reach Contact Us from the booking flow. A one-click contact or chatbot on the booking page is the highest-leverage UX fix.</li>
+        <li><strong>Keep the newsletter tracking number tagged.</strong> A dedicated Newsletter line logged 3 calls in July &mdash; the email list is starting to drive inbound calls, worth keeping measurable as its own source.</li>
+        <li><strong>Watch that the organic recovery holds.</strong> Organic sessions (+35% YoY) and SEO pageviews (+54% YoY) both jumped after the Framer tracking fix; confirm the migrated island-guide URLs keep firing GA4 through August so the gain compounds.</li>
+      </ul></div>
+    </div>
+    <div class="callout green" style="margin-top:18px;">
+      <div class="callout-label">Going well</div>
+      <div class="callout-text"><ul style="margin:6px 0 0 18px;padding:0;line-height:1.85;">
+        <li><strong>Most identified revenue on record</strong> &mdash; $8.10M identified, 85.3% of the $9.5M target, level with 2025's record pace and +$419K ahead in dollars.</li>
+        <li><strong>July was the biggest month of the year</strong> &mdash; $1.47M of accommodations revenue, +17.8% vs July 2025.</li>
+        <li><strong>Organic roared back</strong> &mdash; sessions +35% YoY, SEO pageviews +54% YoY, island-guide tracking restored, organic revenue $61,704 (+$31,670 YoY).</li>
+        <li><strong>Calls recovered to 34</strong> (flat YoY, +36% MoM) and GA4 revenue nearly doubled to $580,562 (+5% YoY, first positive YoY month).</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <p>Sources: Hostfully PMS (Deep Dash sync, as of Jul 31 2026) &nbsp;&middot;&nbsp; Google Ads (account 316-669-4225) &nbsp;&middot;&nbsp; CallRail / RightNow (Jul 1&ndash;31) &nbsp;&middot;&nbsp; GA4 (G-E8C5BS9ME8) &nbsp;&middot;&nbsp; Microsoft Clarity &nbsp;&middot;&nbsp; Meta + YouTube 90-day (shared by Wendy)</p>
+  </div>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightbox(event)" title="Close">×</div>
+  <div class="lightbox-img-wrap" id="lightbox-wrap" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="zoomed view">
+  </div>
+  <div class="lightbox-zoom-controls" onclick="event.stopPropagation()">
+    <button onclick="setZoom(zoomLevel - 0.25)">&minus;</button>
+    <button onclick="setZoom(1)">Fit</button>
+    <button onclick="setZoom(zoomLevel + 0.25)">+</button>
+    <button onclick="setZoom(2)">2×</button>
+    <button onclick="setZoom(3)">3×</button>
+  </div>
+</div>
+
+<script>
+/* ── Lightbox ── */
+let zoomLevel = 1;
+let baseWidth = 0;
+function openLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  img.onload = () => {
+    baseWidth = Math.min(img.naturalWidth, window.innerWidth - 80);
+    setZoom(1);
+  };
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e && e.target && e.target.id && e.target.id !== 'lightbox' && !e.target.classList.contains('lightbox-close')) return;
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function setZoom(level) {
+  zoomLevel = Math.max(0.25, Math.min(level, 5));
+  const img = document.getElementById('lightbox-img');
+  if (img && baseWidth) img.style.width = (baseWidth * zoomLevel) + 'px';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox({target:{id:'lightbox'}});
+  if (e.key === '+' || e.key === '=') setZoom(zoomLevel + 0.25);
+  if (e.key === '-') setZoom(zoomLevel - 0.25);
+  if (e.key === '0') setZoom(1);
+});
+
+/* ── Tab helper (used by inline CTAs) ── */
+function switchTabById(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  const tabs = document.querySelectorAll('.tab');
+  const tabIds = ['overview','pacing','deepdash','calls','ads','ga4','social','actions','organic'];
+  const idx = tabIds.indexOf(name);
+  if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+/* ── Chart: Revenue Pacing 2026 (Cody Flash Report cut) ── */
+new Chart(document.getElementById('pacingChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [
+      { label: 'Completed', data: [309807,388913,1119490,450523,785703,1082261,1473025,0,0,0,0,0], backgroundColor: '#1D9E75', borderRadius: 4, stack: 'a' },
+      { label: 'Forward booked', data: [0,0,0,0,0,0,0,546111,115026,75864,735864,1018365], backgroundColor: '#9FE1CB', borderRadius: 4, stack: 'a' },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.dataset.label + ': $' + Math.round(ctx.parsed.y).toLocaleString() } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#888780', font: { size: 11 } }, stacked: true },
+      y: { grid: { color: 'rgba(0,0,0,0.05)' }, stacked: true, ticks: { color: '#888780', font: { size: 11 }, callback: v => '$' + (v >= 1000000 ? (v/1000000).toFixed(1)+'M' : v >= 1000 ? Math.round(v/1000)+'K' : v) } }
+    }
+  }
+});
+
+/* ── Chart: Overview — 2026 bookings by source (Deep Dash, rent + fees) ── */
+new Chart(document.getElementById('channelRevenueChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Hostfully ($6.77M)', 'Vrbo ($598K)', 'Airbnb ($287K)', 'HVMB ($73K)', 'Whimstay ($10K)', 'TravelStaytion ($4K)'],
+    datasets: [{
+      data: [6770303, 598361, 287150, 73010, 10019, 4084],
+      backgroundColor: ['#1D9E75', '#185FA5', '#EF9F27', '#5DCAA5', '#7C4DBA', '#9FE1CB'],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ' $' + ctx.parsed.toLocaleString() } }
+    }
+  }
+});
+
+/* ── Chart: Google Ads spend vs conv value by campaign (July 2026) ── */
+const adsCampLabels = ['Geo','Brand','PK California','PMax CA','Secret Beach'];
+const adsCampSpend  = [2377, 205, 1783, 1064, 577];
+const adsCampValue  = [0, 91085, 0, 0, 0];
+new Chart(document.getElementById('adsDailyChart'), {
+  type: 'bar',
+  data: {
+    labels: adsCampLabels,
+    datasets: [
+      { label: 'Spend ($)', data: adsCampSpend, backgroundColor: 'rgba(216,90,48,0.55)', borderColor: '#D85A30', borderWidth: 1, borderRadius: 3 },
+      { label: 'Confirmed conv value ($)', data: adsCampValue, backgroundColor: 'rgba(29,158,117,0.65)', borderColor: '#1D9E75', borderWidth: 1, borderRadius: 3 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: true, labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12 } },
+      tooltip: { callbacks: { label: ctx => '  ' + ctx.dataset.label + ': $' + Math.round(ctx.parsed.y).toLocaleString() } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#888780', font: { size: 11 } } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#888780', font: { size: 10 }, callback: v => '$' + (v >= 1000 ? Math.round(v/1000) + 'K' : v) } }
+    }
+  }
+});
+
+/* ── Chart: Revenue Pacing — 2026 cumulative vs goal ── */
+new Chart(document.getElementById('pacingCumChart'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [
+      { label: 'Cumulative identified', data: [309807,698720,1818210,2268733,3054436,4136697,5609722,6155833,6270859,6346723,7082587,8100952],
+        borderColor: '#1D9E75', backgroundColor: 'rgba(29,158,117,0.10)', fill: true, tension: 0.25, pointRadius: 3, pointBackgroundColor: '#1D9E75' },
+      { label: '$9.5M goal', data: [9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000,9500000],
+        borderColor: '#EF9F27', borderDash: [6,4], pointRadius: 0, fill: false, tension: 0 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: true, labels: { font: { size: 11 }, color: '#6b6b68', boxWidth: 12 } },
+      tooltip: { callbacks: { label: ctx => '  ' + ctx.dataset.label + ': $' + Math.round(ctx.parsed.y).toLocaleString() } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#888780', font: { size: 11 } } },
+      y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#888780', font: { size: 10 }, callback: v => '$' + (v >= 1000000 ? (v/1000000).toFixed(0) + 'M' : Math.round(v/1000) + 'K') } }
+    }
+  }
+});
+
+/* ── Tab switching ── */
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
